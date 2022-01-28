@@ -21,7 +21,7 @@ function Header() {
   return (
       <div className='main-header'>
           <div className='flex-row jc-sb ai-c'>
-            <div className='webapp'>QuizWit.com</div>
+            <div className='webapp'>QuizWit</div>
             <div className='flex-row ai-c'>
                 <div id="username">Ishwar Baisla</div>
                 <div className='ml-10 mr-10'>|</div>

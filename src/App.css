@@ -30,6 +30,9 @@ select:focus {
 }
   
 /* Flex Parent  */
+.flex-wrap {
+  flex-wrap: wrap;
+}
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -255,6 +258,10 @@ select:focus {
   background: rgb(224, 224, 224);
   color: rgb(133, 133, 133);
 }
+.btn-dark {
+  background: rgba(0, 0, 0, 0.9);
+  color: rgb(233, 233, 233);
+}
 .btn:hover {
     box-shadow: 0px 0px 2px 0px rgba(161, 115, 115, 0.7);
     cursor: pointer;
@@ -374,6 +381,80 @@ form .footer {
 }
 
 
+/* custom toggle checkbox */
+.customized-checkbox-toggle > label {
+  margin-bottom: 10px;
+  display: block;
+}
+.customized-checkbox-toggle > div {
+  display: flex;
+  flex-direction: column;
+}
+.customized-checkbox-toggle > div > .light {
+  background: white;
+}
+.customized-checkbox-toggle > div > .dark {
+  background: #3e3e3e;
+}
+.customized-checkbox-toggle > div > label  {
+  height: 26px;
+  width: 50px;
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid rgba(90, 90, 90, 0.3);
+}
+
+.customized-checkbox-toggle > div > label  input {
+  display: none;
+}
+
+.customized-checkbox-toggle > div > label  > span {
+  transition: 300ms;
+  background: #b1b1b1;
+  height: 21px;
+  width: 21px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translate(0, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.customized-checkbox-toggle > div > label  > span > i {
+  font-size: 8px;
+  color: #b1b1b1;
+}
+
+.customized-checkbox-toggle > div > label > input:checked ~ span {
+  transition: 300ms;
+  -webkit-transition: .4s;
+  background: rgb(8, 156, 255);
+  position: absolute;
+  top: 50%;
+  transform: translate(25px, -50%) rotate(360deg);
+  height: 21px;
+  width: 21px;
+  transition: 300ms;
+  color: rgb(255, 255, 255);
+}
+.customized-checkbox-toggle > div > label > input:checked ~ span > i {
+  color: white;
+}
+
+.customized-checkbox-toggle > div > label > input:checked ~ span:hover {
+  transition: 300ms;
+  box-shadow: 0px 0px 0px 8px rgb(8, 156, 255, 0.3);
+}
+
+.customized-checkbox-toggle > div > label:hover span {
+  transition: 300ms;
+  box-shadow: 0px 0px 0px 8px rgb(8, 156, 255, 0.3);
+}
+
 /* Background Color */
 .bg-secondary {
   background: rgb(8, 156, 255);
@@ -412,21 +493,20 @@ form .footer {
   position: relative;
 }
 .loader-heading { 
-  height: 40px;
-  padding-left: 10px;
+  height: 50px;
   border-top-left-radius: 10px;
   color: rgb(8, 156, 255);
   background: white;
+  font-weight: bold;
   display: flex;
   align-items: center;
-  position: fixed;
   width: 100%;
   font-size: 13px;
   z-index: 10;
   border-bottom: 1px solid;
 }
-.loader-heading-fix-height {
-  height: 40px;
+.component-heading {
+  font-size: 16px;
 }
 .content-loaded {
   flex: 1;

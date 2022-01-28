@@ -5,7 +5,7 @@ import '../css/Footer.css'
 function Footer() {
   const [toggle, setToggle] = useState(0);
 
-  async function toggleDivHorizontal(id, t, openWidth, closeWidth)  {
+  const toggleDivHorizontal = (id, t, openWidth, closeWidth) => {
     let el = document.getElementById(id);
     let width = t ? openWidth : closeWidth;
     el.style.transition = "all 800ms";
@@ -18,15 +18,35 @@ function Footer() {
       style.innerText = '.link-section{color: white;}';
     }
     else {
-      style.innerText = '.link-section{color: rgb(0, 0, 0, 0.4);}';
+      style.innerText = '.link-section{color: rgb(0, 0, 0, 0.3);}';
     }
     document.head.appendChild(style);
   }
 
+  const fetchNavbarStatus = () => {
+    let status = localStorage.getItem('adminNavbarStatus');
+    if(status != 'true' && status != 'false') {
+      status = 'false';
+      localStorage.setItem('adminNavbarStatus', status);
+    }
+    status = status == 'true' ? 1 : 0;
+    setToggle(status);
+    console.log('Fetched status: ', toggle);
+  }
+
+  const updateNavbarStatus = () => {
+    let status = toggle ? 'true' : 'false';
+    localStorage.setItem('adminNavbarStatus', status);
+    console.log('Update Status: ', status);
+  }
+
+
   const toggleNavbar = () => {
+    // fetchNavbarStatus();
     setToggle(!toggle);
+    // updateNavbarStatus();
     toggleDivHorizontal('navbar', toggle, 250, 50)
-    .then((v) => {linkSectionToggle()});
+    linkSectionToggle();
   }
 
   return (

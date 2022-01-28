@@ -29,8 +29,7 @@
 }
 .menubar > .links > div:hover,
 .menubar > .links > a:hover {
-    background: rgb(8, 156, 255);
-    color: white;
+    background: rgb(8, 156, 255, 0.1);
     transition: 200ms;
 }
 .menubar > .links > div > div:nth-child(1),

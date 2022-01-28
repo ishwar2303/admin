@@ -16,13 +16,19 @@ function Navbar() {
                             description='Dashboard'
                             route='/'
                             icon='fas fa-tachometer-alt'
-                            class='navbar-active-link'
+                            class='navbar-inactive-link'
                         />
                         <div className='link-section'>Exam</div>
                         <NavLink 
-                            description='Create Exam'
+                            description='Create'
                             route='/create-exam'
                             icon='fas fa-plus-square'
+                            class='navbar-active-link'
+                        />
+                        <NavLink 
+                            description='View'
+                            route='/view-exams'
+                            icon='fas fa-box'
                             class='navbar-inactive-link'
                         />
                         <div className='link-section'>General</div>

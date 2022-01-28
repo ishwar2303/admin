@@ -21,6 +21,12 @@ function MenuBar() {
               />
               <div>
                   <div>
+                      <i className='fas fa-lock'></i>
+                  </div>
+                  <div>Change Password</div>
+              </div>
+              <div>
+                  <div>
                       <i className='fas fa-sign-out-alt'></i>
                   </div>
                   <div>Logout</div>
