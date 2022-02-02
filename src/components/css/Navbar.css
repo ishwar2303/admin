@@ -22,7 +22,7 @@
     font-weight: bold;
 }
 .navbar-inactive-link:hover {
-    background: rgb(8, 156, 255, 0.1);
+    background: rgb(238, 104, 51, 0.1);
 }
 .navbar > .links > a > div:nth-child(1) {
     display: flex;
@@ -38,11 +38,18 @@
     width: 200px;
 }
 
-.navbar-active-link {
-    background: rgb(8, 156, 255);
+.inactive {
+    background: white;
+    color: rgb(238, 104, 51);
+}
+.inactive:hover {
+    background: rgb(238, 104, 51, 0.1);
+}
+.active {
+    background: rgb(238, 104, 51);
     color: rgb(233, 233, 233);
 }
-.navbar-inactive-link {
-    background: white;
-    color: rgb(8, 156, 255);
+.active:hover {
+    background: rgb(238, 104, 51);
+    color: rgb(233, 233, 233);
 }

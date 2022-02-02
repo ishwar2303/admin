@@ -3,7 +3,7 @@ import { useState } from 'react';
 import '../css/Header.css'
 import MenuBar from './MenuBar';
 
-function Header() {
+function Header(props) {
 
   const [toggle, setToggle] = useState(1);
 
@@ -21,13 +21,19 @@ function Header() {
   return (
       <div className='main-header'>
           <div className='flex-row jc-sb ai-c'>
-            <div className='webapp'>QuizWit</div>
+            <div className='webapp'>
+                <a href='http://localhost:3000'>
+                    <img src='images/logo/logo.png' className='logo' />
+                </a>
+            </div>
             <div className='flex-row ai-c'>
-                <div id="username">Ishwar Baisla</div>
+                <div id="username">{props.admin.firstName}</div>
                 <div className='ml-10 mr-10'>|</div>
                 <div className='userphoto-container' onClick={toggleMenubar}>
                     <i className='fas fa-user-circle'></i>
-                    <MenuBar />
+                    <MenuBar 
+                      setLogin={props.setLogin}
+                    />
                 </div>
             </div>
           </div>

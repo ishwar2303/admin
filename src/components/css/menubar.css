@@ -7,7 +7,7 @@
     border-radius: 10px;
     width: 250px;
     font-size: 16px;
-    color: rgb(8, 156, 255);
+    color: rgb(238, 104, 51);
     overflow: hidden;
     height: 0;
 }
@@ -20,8 +20,8 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    color: rgb(8, 156, 255);
-    border-bottom: 0.5px solid rgb(8, 156, 255, 0.5);
+    color: rgb(238, 104, 51);
+    border-bottom: 0.5px solid rgb(238, 104, 51, 0.5);
 }
 .menubar > .links > div:last-child,
 .menubar > .links > a:last-child {
@@ -29,7 +29,7 @@
 }
 .menubar > .links > div:hover,
 .menubar > .links > a:hover {
-    background: rgb(8, 156, 255, 0.1);
+    background: rgb(238, 104, 51, 0.1);
     transition: 200ms;
 }
 .menubar > .links > div > div:nth-child(1),

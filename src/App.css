@@ -239,7 +239,7 @@ select:focus {
   color: rgb(233, 233, 233);
 }
 .btn-secondary {
-  background: rgb(255, 140, 8);
+  background: rgb(238, 104, 51);
   color: rgb(233, 233, 233);
 }
 .btn-tertiary {
@@ -269,7 +269,6 @@ select:focus {
 
 /* Form */
 form {
-  background: white;
 }
 form label {
   font-size: 13px;
@@ -277,8 +276,20 @@ form label {
 }
 form .header {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 22px;
   text-align: center;
+  margin-bottom: 30px;
+  color: rgb(238, 104, 51);
+}
+form .response {
+  color: rgb(253, 66, 66);
+  font-size: 12px;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+}
+form .response i {
+  font-size: 10px;
 }
 form .footer {
   font-size: 18px;
@@ -292,6 +303,9 @@ form .footer {
   display: flex;
   margin-top: 10px;
   margin-bottom: 30px;
+}
+.input-block p {
+  font-size: 14px;
 }
 .input-block > div {
   flex: 1;
@@ -337,18 +351,33 @@ form .footer {
   transform: 300ms;
 }
 
-/* Customized Radio */
+/* cover form  */
+
+.cover form {
+  background: rgba(0, 0, 0, 0.8);
+  color: rgb(233, 233, 233);
+  border-radius: 20px;
+  padding: 20px 30px;
+}
+.cover form input {
+  background: transparent;
+  border-bottom: 0.5px solid rgb(238, 104, 51);
+  color: rgb(233, 233, 233);
+}/* Customized Radio */
 .customized-radio-sticky {
   margin-top: -10px;
+  position: relative;
 }
-.customized-radio-sticky > div {
-  margin-top: 10px;
+.customized-radio-sticky > label {
+  position: absolute;
+}
+.customized-radio-sticky > div:nth-child(2) {
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
 }
 .customized-radio-sticky > div > label {
-  /* flex: 1; */
-  height: 40px;
+  height: 30px;
   border: 0.5px solid rgba(0, 0, 0, 0.4);
   border-left: none;
 }
@@ -374,9 +403,9 @@ form .footer {
 }
 
 .customized-radio-sticky > div > label > input:checked ~ span {
-  border-color: rgb(8, 156, 255);
-  background: rgb(8, 156, 255, 0.2);
-  color: rgb(8, 156, 255);
+  border-color: rgb(238, 104, 51);
+  background: rgb(238, 104, 51, 0.2);
+  color: rgb(238, 104, 51);
   transform: 300ms;
 }
 
@@ -455,7 +484,77 @@ form .footer {
   box-shadow: 0px 0px 0px 8px rgb(8, 156, 255, 0.3);
 }
 
+/* custom toggle button start */
+
+.custom-toggle-btn {
+  height: 26px;
+  width: 50px;
+  border-radius: 50px;
+  background: #3e3e3e;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid rgba(90, 90, 90, 0.3);
+}
+
+.custom-toggle-btn input {
+  display: none;
+}
+
+.custom-toggle-btn>span {
+  transition: 300ms;
+  background: white;
+  height: 21px;
+  width: 21px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translate(0, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-toggle-btn>span>i {
+  font-size: 8px;
+  color: white;
+}
+
+.custom-toggle-btn input:checked~span {
+  transition: 300ms;
+  -webkit-transition: .4s;
+  background: #30af10;
+  position: absolute;
+  top: 50%;
+  transform: translate(25px, -50%) rotate(360deg);
+  height: 21px;
+  width: 21px;
+  transition: 300ms;
+}
+
+.custom-toggle-btn input:checked~span:hover {
+  transition: 300ms;
+  box-shadow: 0px 0px 0px 8px rgba(95, 95, 95, 0.5);
+}
+
+.custom-toggle-btn:hover span {
+  transition: 300ms;
+  box-shadow: 0px 0px 0px 8px rgba(99, 99, 99, 0.5);
+}
+
+
+/* custom toggle button end */
+
+
 /* Background Color */
+.bg-success {
+  background: rgb(46 143 33);
+  color: rgb(233, 233, 233);
+}
+.bg-danger {
+  background: rgb(253, 66, 66);
+  color: rgb(233, 233, 233);
+}
 .bg-secondary {
   background: rgb(8, 156, 255);
   color: rgb(233, 233, 233);
@@ -463,6 +562,23 @@ form .footer {
 .bg-dark {
   background: rgba(0, 0, 0, 0.9);
   color: rgb(233, 233, 233);
+}
+.bg-primary {
+  background: rgb(8, 156, 255);
+  color: rgb(233, 233, 233);}
+
+/* Colors */
+.primary {
+  color: rgb(8, 156, 255);
+}
+.secondary {
+  color:rgb(238, 104, 51);
+}
+.danger {
+  color: rgb(253, 66, 66);
+}
+.success {
+  color: rgb(46 143 33);
 }
 /* General */
 .fix-wrapper {
@@ -495,7 +611,7 @@ form .footer {
 .loader-heading { 
   height: 50px;
   border-top-left-radius: 10px;
-  color: rgb(8, 156, 255);
+  color: rgb(238, 104, 51);
   background: white;
   font-weight: bold;
   display: flex;
@@ -532,6 +648,36 @@ form .footer {
   text-align: center;
 }
 
+.flash-message {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  position: fixed;
+  z-index: 10000;
+  border-radius: 5px;
+  width: 0px;
+  font-size: 14px;
+  color: rgb(233, 233, 233);
+  overflow: hidden;
+  transition: all 800ms;
+  box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 70%);
+}
+.flash-message > div {
+  padding: 10px 18px;
+}
+.close-flash-message {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.close-flash-message:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.07);
+}
 
 /* Input type number spin hidden */
 

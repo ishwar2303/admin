@@ -1,6 +1,6 @@
 .main-header {
     height: 50px;
-    background: rgb(8, 156, 255);
+    background: rgba(0, 0, 0, 0.9);
     /* background: rgba(0, 0, 0, 0.9); */
     /* background: white; */
     color: rgb(233, 233, 233);
@@ -21,4 +21,7 @@
 }
 #username {
     font-size: 14px;
+}
+.main-header .logo {
+    height: 40px;
 }

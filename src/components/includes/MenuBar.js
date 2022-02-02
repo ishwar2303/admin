@@ -1,39 +1,59 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Request from '../services/Request';
+
 import '../css/menubar.css'
 import MenuLink from '../util/MenuLink';
+import Flash from '../services/Flash';
 
-function MenuBar() {
-  return (
-      <div id="menubar" className='menubar'>
-          <div className='links'>
-              <MenuLink 
+function MenuBar(props) {
+
+    const logout = () => {
+        let url = "http://localhost:8080/QuizWit/Logout?user=1";
+        Request.get(url)
+        .then((res) => {
+            if(res.success) {
+                props.setLogin(false);
+                Flash.message(res.success, 'bg-success');
+                localStorage.setItem('quizwitAdminEmail', '');
+                localStorage.setItem('quizwitAdminPassword', '');
+            }
+            else {
+                Flash.message(res.error, 'bg-danger');
+            }
+        })
+    }
+
+    return (
+        <div id="menubar" className='menubar'>
+            <div className='links'>
+                <MenuLink 
                 route='/profile'
                 description='Profile'
                 icon='fas fa-user-circle'
                 class=''
-              />
-              <MenuLink 
+                />
+                <MenuLink 
                 route='/backup'
                 description='Backup'
                 icon='fas fa-sync-alt'
                 class=''
-              />
-              <div>
-                  <div>
-                      <i className='fas fa-lock'></i>
-                  </div>
-                  <div>Change Password</div>
-              </div>
-              <div>
-                  <div>
-                      <i className='fas fa-sign-out-alt'></i>
-                  </div>
-                  <div>Logout</div>
-              </div>
-          </div>
-      </div>
-  );
+                />
+                <div>
+                    <div>
+                        <i className='fas fa-lock'></i>
+                    </div>
+                    <div>Change Password</div>
+                </div>
+                <div onClick={logout}>
+                    <div>
+                        <i className='fas fa-sign-out-alt'></i>
+                    </div>
+                    <div >Logout</div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default MenuBar;
