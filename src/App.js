@@ -12,6 +12,7 @@ import CreateExam from './components/CreateExam';
 import ViewExams from './components/ViewExams';
 import Settings from './components/Settings';
 import Signin from './components/Signin';
+import Profile from './components/Profile';
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
               <div className='loader'>
                 <Routes>
                   <Route path='/' element={<Dashboard />}/>
+                  <Route path='/profile' element={<Profile admin={admin} />}/>
                   <Route path='/create-exam' element={<CreateExam />}/>
                   <Route path='/view-exams' element={<ViewExams />}/>
                   <Route path='/settings' element={<Settings />}/>
