@@ -647,7 +647,9 @@ form .footer {
 .text-center {
   text-align: center;
 }
-
+.cursor-p {
+  cursor: pointer;
+}
 .flash-message {
   position: absolute;
   left: 20px;

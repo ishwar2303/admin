@@ -76,6 +76,11 @@ function Signin(props) {
             </div>
             <div className='footer'>
                 Create an account ? <a className='primary' href='http://localhost:3000/signup'>Sign Up</a>
+                <br />
+                <br />
+                <div className='primary cursor-p'>
+                    <i className='fas fa-key mr-5'></i> Forgot password
+                </div>
             </div>
         </form>
         </div>
