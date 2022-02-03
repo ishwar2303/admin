@@ -61,14 +61,14 @@ function Signin(props) {
                     <div className='response'></div>
                 </div>
             </div>
-            <div className='input-block'>
+            <div className='input-block flex-row ai-e'>
                 <label className="custom-toggle-btn">
                     <input type="checkbox" id='remember-me' />
                     <span>
                         <i className="fas fa-check"></i>
                     </span>
                 </label>
-                <p className='ml-10'>Remember me</p>
+                <p className='ml-10 gray'>Remember me</p>
             </div>
             <div className='flex-row jc-sb'>
                 <div className='btn btn-fade btn-small' onClick={resetForm}>Reset</div>

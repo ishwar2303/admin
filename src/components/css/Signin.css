@@ -1,5 +1,5 @@
 .signin-cover {
-    background-image: url('../../../public/images/signup.jpg');
+    background-image: url('../../../public/images/main-cover.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
@@ -11,7 +11,7 @@
 }
 
 .signin-cover form {
-    width: 400px;
+    width: 450px;
 }
 
 #signin-form .logo {

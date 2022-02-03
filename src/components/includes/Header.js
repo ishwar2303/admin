@@ -30,7 +30,14 @@ function Header(props) {
                 <div id="username">{props.admin.firstName}</div>
                 <div className='ml-10 mr-10'>|</div>
                 <div className='userphoto-container' onClick={toggleMenubar}>
-                    <i className='fas fa-user-circle'></i>
+                    {
+                      props.admin.path && 
+                      <img src='' alt='Profile photo' />
+                    }
+                    {
+                      !props.admin.path &&
+                      <i className='fas fa-user-circle'></i>
+                    }
                     <MenuBar 
                       setLogin={props.setLogin}
                     />

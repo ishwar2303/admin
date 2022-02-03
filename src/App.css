@@ -580,6 +580,9 @@ form .footer {
 .success {
   color: rgb(46 143 33);
 }
+.gray {
+  color: gray;
+}
 /* General */
 .fix-wrapper {
   height: 100vh;
