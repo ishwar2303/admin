@@ -29,7 +29,7 @@ function Profile(props) {
                             <label>Last Name</label>
                         </div>
                         <div className='customized-radio-sticky'>
-                            <label>Difficulty Level</label>
+                            <label>Gender</label>
                             <div>
                                 <label className='flex-full'>
                                     <input type='radio' name='difficultyLevel' defaultValue='1' defaultChecked={props.admin.genderId == 1 ? true : false} />
@@ -63,10 +63,10 @@ function Profile(props) {
                         </div>
                         <div className="input-container-bb">
                             <input type="date" defaultValue={props.admin.dateOfBirth} />
-                            <label>dateOfBirth</label>
+                            <label>Date of Birth</label>
                         </div>
                     </div>
-                    <div className='flex-row jc-sb'>
+                    <div className='flex-row jc-sb mt-10'>
                         <div className='btn btn-fade btn-small' onClick={resetForm}>Reset</div>
                         <button className='btn btn-secondary btn-small'>Update</button>
                     </div>

@@ -1,9 +1,9 @@
 .main-header {
     height: 50px;
-    background: rgba(0, 0, 0, 0.9);
+    background: white;
     /* background: rgba(0, 0, 0, 0.9); */
     /* background: white; */
-    color: rgb(233, 233, 233);
+    color: #3a3a3a;
     /* color: rgb(8, 156, 255); */
     z-index: 100;
 }

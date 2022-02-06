@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../css/Footer.css'
 
 function Footer() {
@@ -23,32 +23,26 @@ function Footer() {
     document.head.appendChild(style);
   }
 
-  const fetchNavbarStatus = () => {
-    let status = localStorage.getItem('adminNavbarStatus');
-    if(status != 'true' && status != 'false') {
-      status = 'false';
-      localStorage.setItem('adminNavbarStatus', status);
-    }
-    status = status == 'true' ? 1 : 0;
-    setToggle(status);
-    console.log('Fetched status: ', toggle);
-  }
-
   const updateNavbarStatus = () => {
     let status = toggle ? 'true' : 'false';
     localStorage.setItem('adminNavbarStatus', status);
-    console.log('Update Status: ', status);
   }
-
 
   const toggleNavbar = () => {
-    // fetchNavbarStatus();
     setToggle(!toggle);
-    // updateNavbarStatus();
+  }
+  useEffect(() => {
+    let status = localStorage.getItem('adminNavbarStatus');
+    if(status != null) {
+      status = status === 'true' ? 1 : 0;
+      setToggle(status);
+    }
+  }, []);
+  useEffect(() => {
+    updateNavbarStatus();
     toggleDivHorizontal('navbar', toggle, 250, 50)
     linkSectionToggle();
-  }
-
+  }, [toggle]);
   return (
     <>
       <div className='main-footer-container'>

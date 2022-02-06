@@ -1,0 +1,272 @@
+
+/* Input */
+.input-block {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.input-block p {
+  font-size: 14px;
+}
+.input-block > div {
+  flex: 1;
+  margin-left: 20px;
+}
+.input-block > div:first-child {
+  margin-left: 0;
+}
+
+.input-container-bb {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.input-container-bb > label {
+  position: absolute;
+  top: -10px;
+}
+.input-container-bb > input {
+  height: 40px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  font-size: 16px;
+}
+.input-container-bb > textarea {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  font-size: 16px;
+  padding-top: 10px;
+  resize: vertical;
+}
+.input-container-bb > select {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 10px 0px;
+}
+
+.input-container-bb > input:focus ~ label,
+.input-container-bb > textarea:focus ~ label,
+.input-container-bb > select:focus ~ label { 
+  color: rgb(8, 156, 255);
+  transform: 300ms;
+}
+/* Customized Radio */
+.customized-radio-sticky {
+  margin-top: -10px;
+  position: relative;
+}
+.customized-radio-sticky > label {
+  position: absolute;
+}
+.customized-radio-sticky > div:nth-child(2) {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.customized-radio-sticky > div > label {
+  height: 30px;
+  border: 0.5px solid rgba(0, 0, 0, 0.4);
+  border-left: none;
+}
+.customized-radio-sticky > div > label > input {
+  display: none;
+}
+.customized-radio-sticky > div > label > span {
+  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0px 25px;
+}
+.customized-radio-sticky > div > label:first-child {
+  border-left: 0.5px solid rgba(0, 0, 0, 0.4);
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.customized-radio-sticky > div > label:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.customized-radio-sticky > div > label > input:checked ~ span {
+  border-color: rgb(8, 156, 255);
+  background: rgb(8, 156, 255, 0.2);
+  color: rgb(8, 156, 255);
+  transform: 300ms;
+}
+
+
+/* custom toggle checkbox */
+.customized-checkbox-toggle > label {
+  margin-bottom: 10px;
+  display: block;
+}
+.customized-checkbox-toggle > div {
+  display: flex;
+  flex-direction: column;
+}
+.customized-checkbox-toggle > div > .light {
+  background: white;
+}
+.customized-checkbox-toggle > div > .dark {
+  background: #3e3e3e;
+}
+.customized-checkbox-toggle > div > label  {
+  height: 26px;
+  width: 50px;
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid rgba(90, 90, 90, 0.3);
+}
+
+.customized-checkbox-toggle > div > label  input {
+  display: none;
+}
+
+.customized-checkbox-toggle > div > label  > span {
+  transition: 300ms;
+  background: #b1b1b1;
+  height: 21px;
+  width: 21px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translate(0, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.customized-checkbox-toggle > div > label  > span > i {
+  font-size: 8px;
+  color: #b1b1b1;
+}
+
+.customized-checkbox-toggle > div > label > input:checked ~ span {
+  transition: 300ms;
+  -webkit-transition: .4s;
+  background: rgb(8, 156, 255);
+  position: absolute;
+  top: 50%;
+  transform: translate(25px, -50%) rotate(360deg);
+  height: 21px;
+  width: 21px;
+  transition: 300ms;
+  color: rgb(255, 255, 255);
+}
+.customized-checkbox-toggle > div > label > input:checked ~ span > i {
+  color: white;
+}
+
+.customized-checkbox-toggle > div > label > input:checked ~ span:hover {
+  transition: 300ms;
+  box-shadow: 0px 0px 0px 8px rgb(8, 156, 255, 0.3);
+}
+
+.customized-checkbox-toggle > div > label:hover span {
+  transition: 300ms;
+  box-shadow: 0px 0px 0px 8px rgb(8, 156, 255, 0.3);
+}
+
+/* custom toggle button start */
+
+.custom-toggle-btn {
+  height: 26px;
+  width: 50px;
+  border-radius: 50px;
+  background: #3e3e3e;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid rgba(90, 90, 90, 0.3);
+}
+
+.custom-toggle-btn input {
+  display: none;
+}
+
+.custom-toggle-btn>span {
+  transition: 300ms;
+  background: white;
+  height: 21px;
+  width: 21px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translate(0, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-toggle-btn>span>i {
+  font-size: 8px;
+  color: white;
+}
+
+.custom-toggle-btn input:checked~span {
+  transition: 300ms;
+  -webkit-transition: .4s;
+  background: #30af10;
+  position: absolute;
+  top: 50%;
+  transform: translate(25px, -50%) rotate(360deg);
+  height: 21px;
+  width: 21px;
+  transition: 300ms;
+}
+
+.custom-toggle-btn input:checked~span:hover {
+  transition: 300ms;
+  box-shadow: 0px 0px 0px 8px rgba(95, 95, 95, 0.5);
+}
+
+.custom-toggle-btn:hover span {
+  transition: 300ms;
+  box-shadow: 0px 0px 0px 8px rgba(99, 99, 99, 0.5);
+}
+/* custom toggle button end */
+
+/* input-container-floating-bb */
+.input-container-floating-bb {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+.input-container-floating-bb > input {
+  border: none;
+  background: transparent;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
+  font-size: 17px;
+  padding: 10px 0px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.input-container-floating-bb > label {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: -1;
+  font-size: 16px;
+  color: gray;
+}
+.input-container-floating-bb > input:focus {
+  outline: none;
+  border-color: rgb(8, 156, 255);
+  transition: 300ms;
+}
+.input-container-floating-bb > input:valid ~ label,
+.input-container-floating-bb > input:focus ~ label {
+  font-size: 14px;
+  top: -15px;
+  left: 0;
+  z-index: 1;
+  transform: translate(0, 0);
+  transition: 300ms;
+  color: rgb(8, 156, 255);
+}

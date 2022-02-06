@@ -166,8 +166,8 @@ function ExamForm() {
                 </div>
             </div>
             <div className='flex-row jc-sb mt-10'>
-                <div className='btn btn-fade btn-medium' onClick={resetForm}>Reset</div>
-                <button className='btn btn-primary btn-medium'>Create</button>
+                <div className='btn btn-fade btn-small' onClick={resetForm}>Reset</div>
+                <button className='btn btn-primary btn-small'>Create</button>
             </div>
             <div className='footer p-10'>Make sure to keep your exam visibility private if you want only user group to appear in the exam.</div>
         </form>
