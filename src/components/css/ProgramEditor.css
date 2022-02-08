@@ -1,0 +1,21 @@
+.pgm-editor-container {
+    display: flex;
+}
+#editor {
+    flex: 1;
+    height: 300px;
+}
+
+#stdin {
+    border: 0.5px solid rgba(0, 0, 0, 0.7);
+    height: 200px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+#pgm-response {
+    background: black;
+    padding: 10px;
+    color: rgb(233, 233, 233);
+    font-size: 14px;
+}

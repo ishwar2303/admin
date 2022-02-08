@@ -8,7 +8,7 @@ import Header from './components/includes/Header';
 import Navbar from './components/includes/Navbar';
 import Dashboard from './components/Dashboard';
 import Footer from './components/includes/Footer';
-import Contact from './components/Contact';
+import ProgramEditor from './components/AceEditor';
 import ViewExams from './components/ViewExams';
 import Settings from './components/Settings';
 import Signin from './components/Signin';
@@ -17,7 +17,7 @@ import CreateExam from './components/CreateExam';
 
 function App() {
 
-  const[login, setLogin] = useState(false);
+  const[login, setLogin] = useState(true);
   const[admin, setAdmin] = useState({});
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function App() {
                       <Route path='/create-exam' element={<CreateExam />}/>
                       <Route path='/view-exams' element={<ViewExams />}/>
                       <Route path='/settings' element={<Settings />}/>
-                      <Route path='/contact-us' element={<Contact />}/>
+                      <Route path='/ace-editor' element={<ProgramEditor />}/>
                     </Routes>
                   </div>
                 </div>

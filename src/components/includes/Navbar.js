@@ -35,9 +35,9 @@ function Navbar() {
                             icon='fas fa-cog'
                         />
                         <NavLinkCustom 
-                            description='Contact Us'
-                            route='/contact-us'
-                            icon='fas fa-phone'
+                            description='Program Editor'
+                            route='/ace-editor'
+                            icon='fas fa-code'
                         />
                     </div>
                 </div>
