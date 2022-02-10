@@ -19,3 +19,52 @@
     color: rgb(233, 233, 233);
     font-size: 14px;
 }
+.editor-header {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5px;
+}
+.editor-header > div {
+    display: flex;
+}
+.editor-header .select-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-left: 5px;
+    z-index: 1;
+    background: transparent;
+}
+.editor-header .select-container label {
+    color: gray;
+    font-size: 12px;
+    position: absolute;
+    left: 4px;
+    top: 2px;
+    background: white;
+    padding: 0px 5px;
+    z-index: -1;
+}
+.editor-header .select-container select {
+    padding-top: 17px;
+    padding-bottom: 3px;
+    background: transparent;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+    padding-left: 5px;
+    border-radius: 3px;
+}
+.editor-header .select-container section:focus {
+    border: 0.5px solid rgb(8, 156, 255);
+}
+.editor-header .select-container select:focus ~ label {
+    color: rgb(8, 156, 255);
+    z-index: 1;
+}
+
+.editor-header button {
+    height: 100%;
+    padding: 0px 12px;
+    border-radius: 3px;
+    color: rgb(233, 233, 233);
+    font-size: 14px;
+}

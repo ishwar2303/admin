@@ -8,7 +8,7 @@ class Button {
 
     reset(id, text) {
         let btn = document.getElementById(id);
-        btn.innerText = text;
+        btn.innerHTML = text;
         btn.disabled = false;
     }
 }
