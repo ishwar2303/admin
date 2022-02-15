@@ -14,6 +14,8 @@ import Settings from './components/Settings';
 import Signin from './components/Signin';
 import Profile from './components/Profile';
 import CreateExam from './components/CreateExam';
+import ReactEditor from './components/ReactEditor';
+import WorkingOfTimer from './components/WorkingOfTimer';
 
 function App() {
 
@@ -63,6 +65,8 @@ function App() {
                       <Route path='/view-exams' element={<ViewExams />}/>
                       <Route path='/settings' element={<Settings />}/>
                       <Route path='/ace-editor' element={<ProgramEditor />}/>
+                      <Route path='/react-editor' element={<ReactEditor />}/>
+                      <Route path='/timer' element={<WorkingOfTimer />}/>
                     </Routes>
                   </div>
                 </div>

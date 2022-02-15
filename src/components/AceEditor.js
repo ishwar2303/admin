@@ -36,7 +36,7 @@ function ProgramEditor() {
             mode = 'c_cpp';
             console.log(mode);
         }
-        if(mode.match(/[python2|python3]/))
+        else if(mode.match(/[python2|python3]/))
             mode = 'python';
         setMode(mode);
         console.log('Mode: ', mode);

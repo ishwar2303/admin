@@ -237,7 +237,9 @@
   position: relative;
   z-index: 1;
 }
-.input-container-floating-bb > input {
+.input-container-floating-bb > input,
+.input-container-floating-bb > textarea,
+.input-container-floating-bb > select {
   border: none;
   background: transparent;
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
@@ -245,12 +247,12 @@
   padding: 10px 0px;
   width: 100%;
   box-sizing: border-box;
+  resize: none;
 }
 .input-container-floating-bb > label {
   position: absolute;
   left: 0px;
-  top: 50%;
-  transform: translate(0, -50%);
+  top: 10px;
   z-index: -1;
   font-size: 16px;
   color: gray;
@@ -261,7 +263,9 @@
   transition: 300ms;
 }
 .input-container-floating-bb > input:valid ~ label,
-.input-container-floating-bb > input:focus ~ label {
+.input-container-floating-bb > input:focus ~ label,
+.input-container-floating-bb > textarea:valid ~ label,
+.input-container-floating-bb > textarea:focus ~ label {
   font-size: 14px;
   top: -15px;
   left: 0;
@@ -270,3 +274,16 @@
   transition: 300ms;
   color: rgb(8, 156, 255);
 }
+
+.input-container-floating-bb > select ~ label {
+font-size: 14px;
+top: -15px;
+left: 0;
+z-index: 1;
+transform: translate(0, 0);
+transition: 300ms;
+}
+.input-container-floating-bb > select:focus ~ label {
+color: rgb(8, 156, 255);
+} 
+

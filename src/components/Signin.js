@@ -74,11 +74,17 @@ function Signin(props) {
                         <div>
                             <label className='flex-full'>
                                 <input type='radio' name='user' value='1' />
-                                <span>Administrator</span>
+                                <span>
+                                    <i className='fas fa-user-cog mr-10'></i>
+                                    Administrator
+                                </span>
                             </label>
                             <label className='flex-full'>
                                 <input type='radio' name='user' value='2' />
-                                <span>Management User</span>
+                                <span>
+                                    <i className='fas fa-users mr-10'></i>
+                                    Management User
+                                </span>
                             </label>
                         </div>
                         <div className='response'></div>

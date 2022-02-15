@@ -4,6 +4,8 @@ import NavLinkCustom from '../util/NavLinkCustom';
 
 import '../css/Navbar.css'
 
+
+
 function Navbar() {
 
 
@@ -38,6 +40,11 @@ function Navbar() {
                             description='Program Editor'
                             route='/ace-editor'
                             icon='fas fa-code'
+                        />
+                        <NavLinkCustom 
+                            description='Question Editor'
+                            route='/react-editor'
+                            icon='fas fa-question'
                         />
                     </div>
                 </div>
