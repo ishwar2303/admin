@@ -1,10 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import NavLinkCustom from '../util/NavLinkCustom';
-
 import '../css/Navbar.css'
-
-
 
 function Navbar() {
 
@@ -19,14 +16,19 @@ function Navbar() {
                             route='/'
                             icon='fas fa-tachometer-alt'
                         />
+                        <NavLinkCustom 
+                            description='Management Users'
+                            route='/management-users'
+                            icon='fas fa-users-cog'
+                        />
                         <div className='link-section'>Exam</div>
                         <NavLinkCustom 
-                            description='Create'
+                            description='Create Exam'
                             route='/create-exam'
                             icon='fas fa-plus-square'
                         />
                         <NavLinkCustom 
-                            description='View'
+                            description='View Exams'
                             route='/view-exams'
                             icon='fas fa-box'
                         />

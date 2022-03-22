@@ -1,16 +1,17 @@
 import React from 'react';
-import LoaderHeading from './util/LoaderHeading';
-
+import WrapperHeader from './util/WrapperHeader';
+import WrapperFooter from './util/WrapperFooter';
 function Dashboard() {
     return (
         <>
-            <LoaderHeading 
-                description='Dashboard'
+            <WrapperHeader 
+                heading='Dashboard'
             />
             <div className='content-loaded'>
                 <div>
                 </div>
             </div>
+            <WrapperFooter />
         </>
     );
 }

@@ -1,5 +1,5 @@
 class Timer {
-    Timer() {
+    constructor() {
         this.time = 0;
         this.element = null;
         this.control = true;

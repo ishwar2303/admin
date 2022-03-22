@@ -16,41 +16,6 @@
   margin-left: 0;
 }
 
-.input-container-bb {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-.input-container-bb > label {
-  position: absolute;
-  top: -10px;
-}
-.input-container-bb > input {
-  height: 40px;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
-  border-radius: 3px;
-  font-size: 16px;
-}
-.input-container-bb > textarea {
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
-  border-radius: 3px;
-  font-size: 16px;
-  padding-top: 10px;
-  resize: vertical;
-}
-.input-container-bb > select {
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
-  border-radius: 3px;
-  font-size: 16px;
-  padding: 10px 0px;
-}
-
-.input-container-bb > input:focus ~ label,
-.input-container-bb > textarea:focus ~ label,
-.input-container-bb > select:focus ~ label { 
-  color: rgb(8, 156, 255);
-  transform: 300ms;
-}
 /* Customized Radio */
 .customized-radio-sticky {
   margin-top: -10px;
@@ -182,6 +147,7 @@
   position: relative;
   cursor: pointer;
   border: 2px solid rgba(90, 90, 90, 0.3);
+  display: block;
 }
 
 .custom-toggle-btn input {
@@ -231,51 +197,59 @@
 }
 /* custom toggle button end */
 
-/* input-container-floating-bb */
-.input-container-floating-bb {
+/* input-floating */
+.input-floating {
   background: transparent;
   position: relative;
   z-index: 1;
 }
-.input-container-floating-bb > input,
-.input-container-floating-bb > textarea,
-.input-container-floating-bb > select {
+.input-floating > input,
+.input-floating > textarea,
+.input-floating > select {
+  font-family: "MiSans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   border: none;
   background: transparent;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
-  font-size: 17px;
-  padding: 10px 0px;
+  border: 0.5px solid rgba(0, 0, 0, 0.4);
+  font-size: 14px;
+  padding: 10px 10px;
   width: 100%;
   box-sizing: border-box;
   resize: none;
+  border-radius: 5px;
+  padding-top: 20px;
+  /* background: rgb(8, 156, 255, 0.075); */
 }
-.input-container-floating-bb > label {
+.input-floating > label {
   position: absolute;
-  left: 0px;
+  left: 4px;
   top: 10px;
   z-index: -1;
   font-size: 16px;
   color: gray;
+  padding: 0px 5px;
 }
-.input-container-floating-bb > input:focus {
+.input-floating > input:focus,
+.input-floating > textarea:focus {
   outline: none;
   border-color: rgb(8, 156, 255);
   transition: 300ms;
+  box-shadow: 0px 0px 0px 3px rgb(8, 156, 255, 0.2);
 }
-.input-container-floating-bb > input:valid ~ label,
-.input-container-floating-bb > input:focus ~ label,
-.input-container-floating-bb > textarea:valid ~ label,
-.input-container-floating-bb > textarea:focus ~ label {
-  font-size: 14px;
-  top: -15px;
-  left: 0;
+.input-floating > input:valid ~ label,
+.input-floating > input:focus ~ label,
+.input-floating > textarea:valid ~ label,
+.input-floating > textarea:focus ~ label {
+  font-size: 13px;
+  top: 5px;
+  left: 6px;
   z-index: 1;
   transform: translate(0, 0);
   transition: 300ms;
   color: rgb(8, 156, 255);
+  padding: 0px 3px;
 }
 
-.input-container-floating-bb > select ~ label {
+.input-floating > select ~ label {
 font-size: 14px;
 top: -15px;
 left: 0;
@@ -283,7 +257,7 @@ z-index: 1;
 transform: translate(0, 0);
 transition: 300ms;
 }
-.input-container-floating-bb > select:focus ~ label {
+.input-floating > select:focus ~ label {
 color: rgb(8, 156, 255);
 } 
 

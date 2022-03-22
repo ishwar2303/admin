@@ -16,14 +16,15 @@ import Profile from './components/Profile';
 import CreateExam from './components/CreateExam';
 import ReactEditor from './components/ReactEditor';
 import WorkingOfTimer from './components/WorkingOfTimer';
+import ManagementUser from './components/ManagementUser';
 
 function App() {
 
-  const[login, setLogin] = useState(true);
+  const[login, setLogin] = useState(false);
   const[admin, setAdmin] = useState({});
 
   useEffect(() => {
-    let url = 'http://localhost:8080/QuizWit/Login';
+    let url = 'http://localhost:8080/QuizWit/LoginAdmin';
     let adminEmail = localStorage.getItem('quizwitAdminEmail');
     let adminPassword = localStorage.getItem('quizwitAdminPassword');
     let data = {user: 1};
@@ -57,7 +58,7 @@ function App() {
               <div className='body-wrapper'>
                 <Navbar />
                 <div className='main-wrapper'>
-                  <div className='loader'>
+                  <div className='route-loader'>
                     <Routes>
                       <Route path='/' element={<Dashboard />}/>
                       <Route path='/profile' element={<Profile admin={admin} />}/>
@@ -67,7 +68,9 @@ function App() {
                       <Route path='/ace-editor' element={<ProgramEditor />}/>
                       <Route path='/react-editor' element={<ReactEditor />}/>
                       <Route path='/timer' element={<WorkingOfTimer />}/>
+                      <Route path='/management-users' element={<ManagementUser />} />
                     </Routes>
+                    <div id='route-overlay'></div>
                   </div>
                 </div>
               </div>

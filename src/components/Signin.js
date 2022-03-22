@@ -14,7 +14,7 @@ function Signin(props) {
 
     const login = (e) => {
         e.preventDefault();
-        let url = 'http://localhost:8080/QuizWit/Login';
+        let url = 'http://localhost:8080/QuizWit/LoginAdmin';
         let data = $('#signin-form').serialize();
 
         let rememberMe = document.getElementById('remember-me');
@@ -22,6 +22,7 @@ function Signin(props) {
         Request.post(url, data)
         .then((res) => {
             console.log(res)
+            populateResponse(res);
             if(res.success) {
                 if(rememberMe.checked) {
                     localStorage.setItem('quizwitAdminEmail', document.getElementById('admin-email').value);
@@ -35,6 +36,23 @@ function Signin(props) {
                 Flash.message(res.error, 'bg-danger');
             }
         })
+    }
+
+    const populateResponse = (res) => {
+        let responseBlock = document.getElementById('signin-form').getElementsByClassName('response');
+        if(res.error) {
+            Flash.message(res.error, 'bg-danger');
+        }
+        if(res.success) {
+            resetForm();
+        }
+        else {
+            let log = res.errorLog;
+            let icon = '<i class="fas fa-exclamation-circle mr-5"></i>';
+            responseBlock[0].innerHTML = (log.user ? icon + log.user: '');
+            responseBlock[1].innerHTML = (log.email ? icon + log.email: '');
+        }
+
     }
 
     return (
@@ -67,13 +85,12 @@ function Signin(props) {
                     </a>
                 </div>
                 <div className='header primary'>Sign In | Admin</div>
-                <input type="hidden" name="user" value="1" />
                 <div className='input-block'>
                     <div className='customized-radio-sticky'>
                         <label>Role</label>
                         <div>
                             <label className='flex-full'>
-                                <input type='radio' name='user' value='1' />
+                                <input type='radio' name='user' value='1' defaultChecked={true}/>
                                 <span>
                                     <i className='fas fa-user-cog mr-10'></i>
                                     Administrator
@@ -91,14 +108,14 @@ function Signin(props) {
                     </div>
                 </div>
                 <div className='input-block ai-c'>
-                    <div className='input-container-floating-bb'>
+                    <div className='input-floating'>
                         <input id='admin-email' type='text' name='email' required/>
                         <label className='flex-row'>Email/Username</label>
                         <div className='response'></div>
                     </div>
                 </div>
                 <div className='input-block'>
-                    <div className='input-container-floating-bb'>
+                    <div className='input-floating'>
                         <input id='admin-password' type='password' name='password' required/>
                         <label>Password</label>
                         <div className='response'></div>

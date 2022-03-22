@@ -46,8 +46,8 @@ function Settings() {
                     <div>
                         <h3 className='heading'>Render</h3>
                         <div className='input-block'>
-                            <div className='input-container-bb'>
-                                <input id='per-page-exams' type='number' max={10} min={4} />
+                            <div className='input-floating'>
+                                <input id='per-page-exams' type='number' max={10} min={4} defaultValue={4} required/>
                                 <label className='gray'>Number of exams per page</label>
                             </div>
                         </div>

@@ -27,7 +27,7 @@ function Header(props) {
                 </a>
             </div>
             <div className='flex-row ai-c'>
-                <div id="username">{props.admin.firstName}</div>
+                <div id="username">{props.admin.fullName}</div>
                 <div className='ml-10 mr-10'>|</div>
                 <div className='userphoto-container' onClick={toggleMenubar}>
                     {
@@ -40,6 +40,7 @@ function Header(props) {
                     }
                     <MenuBar 
                       setLogin={props.setLogin}
+                      userType={props.admin.userType}
                     />
                 </div>
             </div>

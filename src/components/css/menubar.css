@@ -11,6 +11,11 @@
     overflow: hidden;
     height: 0;
 }
+.menubar p {
+    text-align: center;
+    font-size: 14px;
+    padding-top: 10px;
+}
 .menubar > .links {
     padding: 10px 0px;
 }

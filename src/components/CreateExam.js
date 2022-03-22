@@ -1,17 +1,29 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import WrapperHeader from './util/WrapperHeader';
+import WrapperFooter from './util/WrapperFooter';
 import ExamForm from './exam/ExamForm';
-import LoaderHeading from './util/LoaderHeading';
+import Loader from './util/Loader';
 function CreateExam() {
-  return (
+    const [load, setLoad] = useState(false);
+    useEffect(() => {
+        setTimeout(() => {
+            setLoad(true);
+        }, 1000);
+    }, []);
+
+    return (
         <>
-            <LoaderHeading 
-                description='Create Exam'
+            <WrapperHeader 
+                heading='Create Exam'
             />
             <div className='content-loaded'>
                 <div>
-                    <ExamForm />
+                    { !load && <Loader /> }
+                    { load && <ExamForm /> }
                 </div>
             </div>
+            <WrapperFooter />
         </>
     );
 }
