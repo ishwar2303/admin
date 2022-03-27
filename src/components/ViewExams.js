@@ -27,7 +27,6 @@ function ViewExams() {
                                 <th>Start Time</th>
                                 <th>End Time</th>
                                 <th>Status</th>
-                                <th style={{"text-align": "center"}}>Action</th>
                             </tr>
                         </thead>
                         <tbody>

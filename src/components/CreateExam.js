@@ -7,9 +7,7 @@ import Loader from './util/Loader';
 function CreateExam() {
     const [load, setLoad] = useState(false);
     useEffect(() => {
-        setTimeout(() => {
-            setLoad(true);
-        }, 1000);
+        setLoad(true);
     }, []);
 
     return (

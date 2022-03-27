@@ -1,5 +1,5 @@
 import React from 'react'
-import ExamActionButtons from '../buttons/ExamActionButtons'
+
 
 function ExamTableRow(props) {
   return (
@@ -10,9 +10,6 @@ function ExamTableRow(props) {
           <td>{props.startTime}</td>
           <td>{props.endTime}</td>
           <td>{props.status}</td>
-          <td>
-              <ExamActionButtons />
-          </td>
       </tr>
   )
 }

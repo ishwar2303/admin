@@ -16,7 +16,6 @@ function WorkingOfTimer() {
                 <TimerComponent time={questionTimer} callback={callback} type={'COUNT_DOWN'} />
                 <TimerComponent time={questionTimer} callback={callback} type={'COUNT_UP'} />
             </div>
-
         </>
     );
 }
