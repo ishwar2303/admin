@@ -32,7 +32,7 @@ function Navbar() {
                             route='/view-exams'
                             icon='fas fa-box'
                         />
-                        <div className='link-section'>General</div>
+                        {/* <div className='link-section'>General</div>
                         <NavLinkCustom 
                             description='Settings'
                             route='/settings'
@@ -47,7 +47,7 @@ function Navbar() {
                             description='Question Editor'
                             route='/react-editor'
                             icon='fas fa-question'
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>

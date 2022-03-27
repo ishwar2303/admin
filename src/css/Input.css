@@ -222,7 +222,7 @@
 .input-floating > label {
   position: absolute;
   left: 4px;
-  top: 10px;
+  top: 4px;
   z-index: -1;
   font-size: 16px;
   color: gray;
@@ -261,3 +261,67 @@ transition: 300ms;
 color: rgb(8, 156, 255);
 } 
 
+
+/* input-custom */
+.input-custom {
+    background: transparent;
+    position: relative;
+    z-index: 1;
+  }
+  .input-custom > input,
+  .input-custom > textarea,
+  .input-custom > select {
+    font-family: "MiSans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    border: none;
+    background: transparent;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+    padding: 10px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+    border-radius: 5px;
+    padding-top: 20px;
+    /* background: rgb(8, 156, 255, 0.075); */
+  }
+  .input-custom > label {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    z-index: -1;
+    font-size: 14px;
+    color: gray;
+    padding: 0px 5px;
+  }
+  .input-custom > input:focus,
+  .input-custom > textarea:focus {
+    outline: none;
+    border-color: rgb(8, 156, 255);
+    transition: 300ms;
+    box-shadow: 0px 0px 0px 3px rgb(8, 156, 255, 0.2);
+  }
+  .input-custom > input:focus ~ label,
+  .input-custom > textarea:focus ~ label {
+    font-size: 14px;
+    top: 4px;
+    left: 4px;
+    z-index: 1;
+    transform: translate(0, 0);
+    transition: 300ms;
+    color: rgb(8, 156, 255);
+    padding: 0px 5px;
+  }
+  
+  .input-custom > select ~ label {
+  font-size: 14px;
+  top: -15px;
+  left: 0;
+  z-index: 1;
+  transform: translate(0, 0);
+  transition: 300ms;
+  }
+  .input-custom > select:focus ~ label {
+  color: rgb(8, 156, 255);
+  } 
+  
+  

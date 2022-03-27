@@ -1,10 +1,11 @@
 import React from 'react'
+import { useEffect } from 'react';
 
-function Loader() {
+function Loader(props) {
   return (
     <div className='loader-container'>
         <div className='loader'></div>
-        <p className='mt-10 primary'>Loading</p>
+        <p className='mt-10 primary'>{props.value}</p>
     </div>
   )
 }
