@@ -31,14 +31,15 @@ function Navbar() {
                             description='View Exams'
                             route='/view-exams'
                             icon='fas fa-box'
+                            id='view-exam-nav-link'
                         />
-                        {/* <div className='link-section'>General</div>
+                        <div className='link-section'>General</div>
                         <NavLinkCustom 
                             description='Settings'
                             route='/settings'
                             icon='fas fa-cog'
                         />
-                        <NavLinkCustom 
+                        {/* <NavLinkCustom 
                             description='Program Editor'
                             route='/ace-editor'
                             icon='fas fa-code'

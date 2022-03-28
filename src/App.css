@@ -514,6 +514,36 @@ input::-webkit-inner-spin-button {
 #time-duration-block {
   display: none;
 }
+.select-exam-radio-container {
+  display: flex;
+  justify-content: center
+}
+.select-exam-radio {
+  width: ;
+}
+.select-exam-radio input {
+  display: none;
+}
+.select-exam-radio i {
+  display: none;
+}
+.select-exam-radio span {
+  color: white;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  width: 25px;
+  height: 25px;
+}
+.select-exam-radio input:checked ~ span {
+  background: green;
+}
+.select-exam-radio input:checked ~ span > i {
+  display: block;
+}
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

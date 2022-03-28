@@ -13,6 +13,7 @@ function DashboardCard(props) {
                 <i className={props.icon}></i>
             </div>
         </div>
+        <div className='left-line'></div>
         <div className='circle-1'></div>
         <div className='circle-2'></div>
     </div>

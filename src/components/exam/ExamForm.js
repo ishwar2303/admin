@@ -40,6 +40,7 @@ function ExamForm() {
         if(res.success) {
             resetForm();
             Flash.message(res.success, 'bg-success');
+            document.getElementById('view-exam-nav-link').click();
         }
         else {
             let log = res.errorLog;
