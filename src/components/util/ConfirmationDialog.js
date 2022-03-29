@@ -3,6 +3,7 @@ import '../css/ConfirmationDialog.css';
 function ConfirmationDialog(props) {
     const hideDialog = () => {
         document.getElementById('confirmation-dialog').style.display = 'none';
+        document.getElementById('route-overlay').style.display = 'none';
     }
     return (
         <div id='confirmation-dialog' className='confirmation-dialog'>

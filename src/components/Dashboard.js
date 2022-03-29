@@ -1,9 +1,13 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import DashboardCard from './util/DashboardCard';
 import WrapperHeader from './util/WrapperHeader';
 import WrapperFooter from './util/WrapperFooter';
 
 function Dashboard() {
+    useEffect(() => {
+        document.getElementById('route-overlay').style.display = 'none';
+    }, []);
     return (
         <>
             <WrapperHeader 

@@ -4,8 +4,7 @@ import Flash from '../../services/Flash';
 import Request from '../../services/Request';
 
 function ManagementUserCard(props) {
-    const updateStatus = (details) => {
-        console.log(details)
+    const updateStatus = () => {
         let url = "http://localhost:8080/QuizWit/ManagementUser";
         let data = {
             userId: props.details.userId,
@@ -31,7 +30,7 @@ function ManagementUserCard(props) {
                     </div>
                     <div className='flex-row jc-e'>
                         <label className="custom-toggle-btn">
-                            <input type="checkbox" id='remember-me'  defaultChecked={props.details.isActive == 1 ? true : false} value={props.details.userId} onClick={updateStatus} />
+                            <input type="checkbox" defaultChecked={props.details.isActive == 1 ? true : false} value={props.details.userId} onClick={updateStatus} />
                             <span>
                                 <i className="fas fa-check"></i>
                             </span>

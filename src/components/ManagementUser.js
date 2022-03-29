@@ -37,12 +37,10 @@ function ManagementUser() {
                     else arr.push({})
                     users.push(arr);
                 }
-                console.log(users);
                 setUsers(users);
-                console.log(res.users);
                 setLoad(true);
             })
-        }, 1000);
+        }, 500);
     }
 
     const getSelectedUser = () => {
@@ -69,7 +67,7 @@ function ManagementUser() {
         }
         Request.post(url, data)
         .then((res) => {
-            if(res.success)
+            if(res.success) 
                 Flash.message(res.success, 'bg-success');
             else Flash.message(res.error, 'bg-danger');
             fetchUsers();
@@ -78,6 +76,7 @@ function ManagementUser() {
     }
 
     useEffect(() => {
+        document.getElementById('route-overlay').style.display = 'none';
         fetchUsers();
     }, []);
 
@@ -88,9 +87,11 @@ function ManagementUser() {
             return;
         }
         document.getElementById('confirmation-dialog').style.display = 'block';
+        document.getElementById('route-overlay').style.display = 'block';
     }
     const hideConfirmationDialog = () => {
         document.getElementById('confirmation-dialog').style.display = 'none';
+        document.getElementById('route-overlay').style.display = 'none';
     }
 
     const showUpdateUserRolesDialog = () => {

@@ -1,10 +1,7 @@
+import React from 'react'
 
-import React from 'react';
-import $ from 'jquery';
-import Request from '../services/Request';
-import Flash from '../services/Flash';
+function SectionForm() {
 
-function ExamForm() {
     const viewTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'flex';
     }
@@ -216,4 +213,4 @@ function ExamForm() {
     );
 }
 
-export default ExamForm;
+export default SectionForm

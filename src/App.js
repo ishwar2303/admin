@@ -17,6 +17,7 @@ import CreateExam from './components/CreateExam';
 import ReactEditor from './components/ReactEditor';
 import WorkingOfTimer from './components/WorkingOfTimer';
 import ManagementUser from './components/ManagementUser';
+import AddSection from './components/AddSection';
 
 function App() {
 
@@ -37,7 +38,6 @@ function App() {
     }
     Request.post(url, data)
     .then((res) => {
-        console.log(res)
         if(res.success) {
             setAdmin(res.details);
             setLogin(true);
@@ -63,6 +63,7 @@ function App() {
                       <Route path='/' element={<Dashboard />}/>
                       <Route path='/profile' element={<Profile admin={admin} />}/>
                       <Route path='/create-exam' element={<CreateExam />}/>
+                      <Route path='/add-section' element={<AddSection />}/>
                       <Route path='/view-exams' element={<ViewExams />}/>
                       <Route path='/settings' element={<Settings />}/>
                       <Route path='/ace-editor' element={<ProgramEditor />}/>

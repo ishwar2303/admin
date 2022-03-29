@@ -18,7 +18,6 @@ function Signin(props) {
         let data = $('#signin-form').serialize();
 
         let rememberMe = document.getElementById('remember-me');
-        console.log(rememberMe)
         Request.post(url, data)
         .then((res) => {
             console.log(res)

@@ -26,6 +26,7 @@ function Settings() {
     }
 
     useEffect(() => {
+        document.getElementById('route-overlay').style.display = 'none';
         let perPageExams = localStorage.getItem('perPageExams');
         if(perPageExams == null) {
             localStorage.setItem('perPageExams', 4);
