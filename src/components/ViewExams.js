@@ -40,8 +40,6 @@ function ViewExams() {
         url += "&limit=" + limit;
         Request.get(url)
         .then((res) => {
-            console.log('*************** Exam details fetched ******************')
-            console.log(res);
             if(res.success) {
                 setLoad(true);
                 let details = res.examDetails;
@@ -55,8 +53,7 @@ function ViewExams() {
             else {
                 Flash.message(res.error, 'bg-danger');
             }
-        })
-        
+        }) 
     }
 
     const nextPage = () => {
@@ -138,23 +135,38 @@ function ViewExams() {
         }
          
     }
+
+    const addSection = () => {
+        if(setExam()) {
+            let a = document.createElement('a');
+            a.href = 'add-section';
+            a.click();
+        }
+    }
+
+    const editExam = () => {
+        if(setExam()) {
+            let a = document.createElement('a');
+            a.href = 'edit-exam';
+            a.click();
+        }
+    }
+
     const setExam = () => {
         let obj = getSelectedExam();
         if(obj) {
             localStorage.setItem('examId', obj.examId);
             localStorage.setItem('examTitle', obj.examTitle);
-            let a = document.createElement('a');
-            a.href = 'add-section';
-            a.click();
+            return true;
         }
         else {
             Flash.message('Select an exam', 'bg-secondary');
+            return false;
         }
     }
-    // useEffect(() => {
-    //     document.getElementById('route-overlay').style.display = 'none';
-    //     fetchDetails();
-    // }, []);
+    useEffect(() => {
+        document.getElementById('route-overlay').style.display = 'none';
+    }, []);
 
     useEffect(() => {
         fetchDetails();
@@ -168,11 +180,11 @@ function ViewExams() {
                     {
                         examDetails.length > 0 ? 
                         <>
-                            <button  className='btn btn-primary btn-small ml-10' onClick={setExam}>
+                            <button  className='btn btn-primary btn-small ml-10' onClick={addSection}>
                                 <i className='fas fa-plus mr-5'></i>
                                 Add Section
                             </button>
-                            <button className='btn btn-tertiary btn-small ml-10' >
+                            <button className='btn btn-tertiary btn-small ml-10' onClick={editExam}>
                                 <i className='fas fa-pen mr-5'></i>
                                 Edit
                             </button>

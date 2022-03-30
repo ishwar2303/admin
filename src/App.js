@@ -18,6 +18,7 @@ import ReactEditor from './components/ReactEditor';
 import WorkingOfTimer from './components/WorkingOfTimer';
 import ManagementUser from './components/ManagementUser';
 import AddSection from './components/AddSection';
+import EditExam from './components/EditExam';
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
                       <Route path='/' element={<Dashboard />}/>
                       <Route path='/profile' element={<Profile admin={admin} />}/>
                       <Route path='/create-exam' element={<CreateExam />}/>
+                      <Route path='/edit-exam' element={<EditExam />}/>
                       <Route path='/add-section' element={<AddSection />}/>
                       <Route path='/view-exams' element={<ViewExams />}/>
                       <Route path='/settings' element={<Settings />}/>

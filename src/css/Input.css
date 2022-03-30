@@ -140,8 +140,8 @@
 /* custom toggle button start */
 
 .custom-toggle-btn {
-  height: 26px;
-  width: 50px;
+  height: 19px;
+  width: 43px;
   border-radius: 50px;
   background: #3e3e3e;
   position: relative;
@@ -157,8 +157,8 @@
 .custom-toggle-btn>span {
   transition: 300ms;
   background: white;
-  height: 21px;
-  width: 21px;
+  height: 14px;
+  width: 14px;
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -170,7 +170,7 @@
 }
 
 .custom-toggle-btn>span>i {
-  font-size: 8px;
+  font-size: 6px;
   color: white;
 }
 
@@ -181,8 +181,8 @@
   position: absolute;
   top: 50%;
   transform: translate(25px, -50%) rotate(360deg);
-  height: 21px;
-  width: 21px;
+  height: 14px;
+  width: 14px;
   transition: 300ms;
 }
 
