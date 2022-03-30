@@ -4,6 +4,8 @@ import WrapperHeader from './util/WrapperHeader';
 import WrapperFooter from './util/WrapperFooter';
 import ExamForm from './exam/ExamForm';
 import Loader from './util/Loader';
+import SectionForm from './exam/SectionForm';
+
 
 function AddSection() {
     const [load, setLoad] = useState(false);
@@ -27,7 +29,7 @@ function AddSection() {
             <div className='content-loaded'>
                 <div>
                     { !load && <Loader /> }
-                    { load && <ExamForm /> }
+                    { load && <SectionForm examId={examId}/> }
                 </div>
             </div>
             <WrapperFooter 
