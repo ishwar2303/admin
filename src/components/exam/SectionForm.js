@@ -1,7 +1,13 @@
 import React from 'react'
+import AddSection from '../AddSection';
+import Flash from '../services/Flash';
+import $ from 'jquery';
+import Request from '../services/Request';
+import { useState } from 'react';
 
-function SectionForm() {
+function SectionForm(props) {
 
+    const [examId, setExamId] = useState(props.examId);
     const viewTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'flex';
     }
@@ -11,15 +17,15 @@ function SectionForm() {
     }
 
     const resetForm = () => {
-        let form = document.getElementById('create-exam-form');
+        let form = document.getElementById('create-section-form');
         form.reset();
     }
 
-    const createExam = (e) => {
+    const addSection = (e) => {
         e.preventDefault();
-        let url = "http://localhost:8080/QuizWit/CreateExam";
+        let url = "http://localhost:8080/QuizWit/AddSection";
 
-        let data = $('#create-exam-form').serialize();
+        let data = $('#create-section-form').serialize();
 
         Request.post(url, data)
         .then((res) => {
@@ -31,7 +37,7 @@ function SectionForm() {
     }
 
     const populateResponse = (res) => {
-        let responseBlock = document.getElementById('create-exam-form').getElementsByClassName('response');
+        let responseBlock = document.getElementById('create-section-form').getElementsByClassName('response');
         if(res.error) {
             Flash.message(res.error, 'bg-danger');
         }
@@ -43,23 +49,21 @@ function SectionForm() {
         else {
             let log = res.errorLog;
             let icon = '<i class="fas fa-exclamation-circle mr-5"></i>';
+            if(log.examId) {
+                Flash.message(log.examId, 'bg-danger');
+            }
             responseBlock[0].innerHTML = (log.title ? icon + log.title : '');
             responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
 
-            responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
-            responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
-            responseBlock[4].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
-            responseBlock[5].innerHTML = (log.startTime ? icon + log.startTime: '' );
-            responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
-            responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
-            responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
-            responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
+            responseBlock[2].innerHTML = (log.questionNavigation ? icon + log.questionNavigation: '');
+            responseBlock[3].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[4].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
         }
     }
 
     return (
-        <form action="" className='pb-10' id="create-exam-form" onSubmit={createExam}>
+        <form action="" className='pb-10' id="create-section-form" onSubmit={addSection}>
+            <input type="hidden" defaultValue={examId} name="examId"/>
             <div className="input-block">
                 <div className="input-custom">
                     <input type="text" name="title" defaultChecked={true} />
@@ -76,73 +80,17 @@ function SectionForm() {
             </div>
             <div className="input-block">
                 <div className="customized-radio-sticky">
-                    <label>Difficulty Level</label>
+                    <label>Question Navigation</label>
                     <div>
                         <label>
-                            <input type="radio" name="difficultyLevel" value="1" />
-                            <span>Easy</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="difficultyLevel" value="2" />
-                            <span>Moderate</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="difficultyLevel" value="3" />
-                            <span>Advance</span>
-                        </label>
-                    </div>
-                    <div className="response"></div>
-                </div>
-                <div className="customized-radio-sticky">
-                    <label>Visibility</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="visibility" value="0" />
-                            <span>Public</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="visibility" value="1" defaultChecked={true}/>
-                            <span>Private</span>
-                        </label>
-                    </div>
-                    <div className="response"></div>
-                </div>
-                <div className="customized-radio-sticky">
-                    <label>Section Navigation</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="sectionNavigation" value="0" />
+                            <input type="radio" name="questionNavigation" value="1" />
                             <span>On</span>
                         </label>
                         <label>
-                            <input type="radio" name="sectionNavigation" value="1" defaultChecked={true} />
+                            <input type="radio" name="questionNavigation" value="0" defaultChecked={true} />
                             <span>Off</span>
                         </label>
                     </div>
-                    <div className="response"></div>
-                </div>
-            </div>
-            <div className="input-block">
-                <div className="input-custom">
-                    <input type="datetime-local" name="startTime" defaultChecked={true} />
-                    <label>Start Time</label>
-                    <div className="response"></div>
-                </div>
-                {/* <div className="input-custom">
-                    <input type="datetime-local" name="endTime" defaultChecked={true} />
-                    <label>End Time</label>
-                    <div className="response"></div>
-                </div> */}
-            </div>
-            <div className="input-block">
-                <div className="input-custom">
-                    <input type="number" name="windowTime" defaultChecked={true} />
-                    <label>Window Time</label>
-                    <div className="response"></div>
-                </div>
-                <div className="input-custom">
-                    <input type="number" name="numberOfAttempts" defaultChecked={true}/>
-                    <label>Number of Attempts</label>
                     <div className="response"></div>
                 </div>
             </div>
@@ -152,11 +100,11 @@ function SectionForm() {
                     <div>
                         <label onClick={viewTimerDurationBlock}>
                             <input type="radio" name="timerType" value="1" />
-                            <span>Single timer for entire exam</span>
+                            <span>Single timer for entire section</span>
                         </label>
                         <label onClick={hideTimerDurationBlock}>
                             <input type="radio" name="timerType" value="2" />
-                            <span>Section wise timer</span>
+                            <span>Question wise timer</span>
                         </label>
                     </div>
                     <div className="response"></div>
@@ -198,16 +146,9 @@ function SectionForm() {
                     <div className="response"></div>
                 </div>
             </div>
-            <div className="input-block">
-                <div className="input-custom">
-                    <textarea type="text" name="instructions" rows="6"></textarea>
-                    <label>Instructions</label>
-                    <div className="response"></div>
-                </div>
-            </div>
             <div className='flex-row jc-sb'>
                 <div className='btn btn-fade btn-small' onClick={resetForm}>Reset</div>
-                <button className='btn btn-primary btn-small'>Create</button>
+                <button className='btn btn-primary btn-small'>Add</button>
             </div>
         </form>
     );

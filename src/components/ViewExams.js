@@ -192,7 +192,6 @@ function ViewExams() {
                                 <i className='fas fa-trash mr-5'></i>
                                 Delete
                             </button>
-                            <div className='btn btn-dark btn-small ml-10'>{currentPage + '/' + totalPages}</div>
                         </>
                         : ''
                     }
@@ -245,6 +244,7 @@ function ViewExams() {
             render={
                 <div className='flex-row jc-sb flex-full'>
                     <button id="prev-btn" className='btn btn-dark btn-small' onClick={prevPage}>Previous</button>
+                    <div className='btn btn-dark btn-small ml-10'>{currentPage + '/' + totalPages}</div>
                     <button id="next-btn" className='btn btn-primary btn-small' onClick={nextPage}>Next</button>
                 </div>
             }
