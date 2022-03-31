@@ -7,6 +7,7 @@ function UpdateRolesDialog(props) {
 
     const hideDialog = () => {
         document.getElementById('update-roles-dialog').style.display = 'none';
+        document.getElementById('route-overlay').style.display = 'none';
     }
 
     const createRoleOption = (data) => {
@@ -119,6 +120,7 @@ function UpdateRolesDialog(props) {
         .then((res) => {
             if(res.success) {
                 document.getElementById('update-roles-dialog').style.display = 'none';
+                document.getElementById('route-overlay').style.display = 'none';
                 Flash.message(res.success, 'bg-success');
             }
             else {

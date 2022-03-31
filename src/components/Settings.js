@@ -13,15 +13,15 @@ function Settings() {
         let v = el.value;
         try {
             v = parseInt(v);
-            if(v >= 4 && v <= 10) {
+            if(v >= 1 && v <= 10) {
                 localStorage.setItem('perPageExams', v);
                 Flash.message('Render setting updated', 'bg-success');
             }
             else {
-                Flash.message('Integer value required between 4 and 10 inclusive.', 'bg-danger');
+                Flash.message('Integer value required between 1 and 10 inclusive.', 'bg-danger');
             }
         } catch(e) {
-            alert('Integer value required between 4 and 10 inclusive.');
+            alert('Integer value required between 1 and 10 inclusive.');
         }
     }
 

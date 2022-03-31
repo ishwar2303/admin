@@ -19,6 +19,7 @@ import WorkingOfTimer from './components/WorkingOfTimer';
 import ManagementUser from './components/ManagementUser';
 import AddSection from './components/AddSection';
 import EditExam from './components/EditExam';
+import Learn from './components/Learn';
 
 function App() {
 
@@ -72,6 +73,8 @@ function App() {
                       <Route path='/react-editor' element={<ReactEditor />}/>
                       <Route path='/timer' element={<WorkingOfTimer />}/>
                       <Route path='/management-users' element={<ManagementUser />} />
+                      <Route path='/learn' element={<Learn />} />
+
                     </Routes>
                     <div id='route-overlay'></div>
                   </div>

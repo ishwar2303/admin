@@ -5,46 +5,85 @@ import $ from 'jquery';
 import Request from '../services/Request';
 import Flash from '../services/Flash';
 
-function EditExamForm(props) {
-    const viewTimerDurationBlock = () => {
+class EditExamForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            examDetails: {}
+        };
+    }
+
+    handleChange = e => {
+        const { name, value } = e.target;
+    
+        this.setState({
+            [name]: value
+        });
+    };
+
+    viewTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'flex';
     }
 
-    const hideTimerDurationBlock = () => {
+    hideTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'none';
     }
 
-    const resetForm = () => {
-        let form = document.getElementById('create-exam-form');
+    resetForm = () => {
+        let form = document.getElementById('update-exam-form');
         form.reset();
     }
 
-    const createExam = (e) => {
+    updateExam = (e) => {
         e.preventDefault();
-        let url = "http://localhost:8080/QuizWit/CreateExam";
+        let url = "http://localhost:8080/QuizWit/UpdateExamDetails";
 
-        let data = $('#create-exam-form').serialize();
+        let data = $('#update-exam-form').serialize();
 
         Request.post(url, data)
         .then((res) => {
             console.log(res);
-            populateResponse(res);
+            this.populateResponse(res);
         })
         
         console.log('submitted');
     }
-
-    const [examDetails, setExamDetails] = useState({});
-    const fetchDetails = () => {
+ 
+    fetchDetails = () => {
         let url = "http://localhost:8080/QuizWit/ViewExams?examId=";
-        url += props.examId;
+        url += this.props.examId;
         console.log(url);
         Request.get(url)
         .then((res) => {
             if(res.success) {
                 let details = res.examDetails;
-                setExamDetails(details);
-                console.log(examDetails)
+                this.setState({
+                    examDetails: details
+                })
+                this.setState({
+                    difficultyLevel: details.difficultyLevel
+                })
+                this.setState({
+                    private: details.private
+                })
+                this.setState({
+                    timeDuration: details.timeDuration
+                })
+                this.setState({
+                    sectionNavigation: details.sectionNavigation
+                })
+
+                let timerType = 1;
+                if(details.setSectionTimer == '1')
+                    timerType = 2;
+                else {
+                    this.viewTimerDurationBlock();
+                }
+                this.setState({
+                    timerType
+                })
+
+                console.log(details);
             }
             else {
                 Flash.message(res.error, 'bg-danger');
@@ -53,13 +92,13 @@ function EditExamForm(props) {
     }
 
 
-    const populateResponse = (res) => {
-        let responseBlock = document.getElementById('create-exam-form').getElementsByClassName('response');
+    populateResponse = (res) => {
+        let responseBlock = document.getElementById('update-exam-form').getElementsByClassName('response');
         if(res.error) {
             Flash.message(res.error, 'bg-danger');
         }
         if(res.success) {
-            resetForm();
+            this.resetForm();
             Flash.message(res.success, 'bg-success');
             document.getElementById('view-exam-nav-link').click();
         }
@@ -80,159 +119,161 @@ function EditExamForm(props) {
             responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
         }
     }
-
-    useEffect(() => {
-        fetchDetails();
-    }, []);
-
-    return (
-        <form action="" className='pb-10' id="create-exam-form" onSubmit={createExam}>
-            <div className="input-block">
-                <div className="input-custom">
-                    <input type="text" name="title" defaultValue={examDetails.title} />
-                    <label>Title</label>
-                    <div className="response"></div>
-                </div>
-            </div>
-            <div className="input-block">
-                <div className="input-custom">
-                    <textarea type="text" name="description" rows="6" defaultValue={examDetails.description}></textarea>
-                    <label>Description</label>
-                    <div className="response"></div>
-                </div>
-            </div>
-            <div className="input-block">
-                <div className="customized-radio-sticky">
-                    <label>Difficulty Level</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="difficultyLevel" value="1" checked={examDetails.difficultyLevel == 'Beginner' ? true : false}/>
-                            <span>Beginner</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="difficultyLevel" value="2" checked={examDetails.difficultyLevel == 'Intermediate' ? true : false}/>
-                            <span>Intermediate</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="difficultyLevel" value="3" checked={examDetails.difficultyLevel == 'Advance' ? true : false}/>
-                            <span>Advance</span>
-                        </label>
+    componentDidMount() {
+        this.fetchDetails();
+    }
+    render() {
+        return (
+            <form action="" className='pb-10' id="update-exam-form" onSubmit={this.updateExam}>
+                <input type="hidden" name="examId" defaultValue={this.props.examId} />
+                <div className="input-block">
+                    <div className="input-custom">
+                        <input type="text" name="title" defaultValue={this.state.examDetails.title} />
+                        <label>Title</label>
+                        <div className="response"></div>
                     </div>
-                    <div className="response"></div>
                 </div>
-                <div className="customized-radio-sticky">
-                    <label>Visibility</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="visibility" checked={examDetails.private == '0' ? true : false} />
-                            <span>Public</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="visibility" value="1" checked={examDetails.private == '1' ? true : false} />
-                            <span>Private</span>
-                        </label>
+                <div className="input-block">
+                    <div className="input-custom">
+                        <textarea type="text" name="description" rows="6" defaultValue={this.state.examDetails.description}></textarea>
+                        <label>Description</label>
+                        <div className="response"></div>
                     </div>
-                    <div className="response"></div>
                 </div>
-                <div className="customized-radio-sticky">
-                    <label>Section Navigation</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="sectionNavigation" value="1" checked={examDetails.sectionNavigation == '1' ? true : false}/>
-                            <span>On</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="sectionNavigation" value="0" checked={examDetails.sectionNavigation == '0' ? true : false} />
-                            <span>Off</span>
-                        </label>
+                <div className="input-block">
+                    <div className="customized-radio-sticky">
+                        <label>Difficulty Level</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="difficultyLevel" value="Beginner" checked={this.state.difficultyLevel == 'Beginner' ? true : false} onChange={this.handleChange}/>
+                                <span>Beginner</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="difficultyLevel" value="Intermediate" checked={this.state.difficultyLevel == 'Intermediate' ? true : false}  onChange={this.handleChange}/>
+                                <span>Intermediate</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="difficultyLevel" value="Advance" checked={this.state.difficultyLevel == 'Advance' ? true : false}  onChange={this.handleChange}/>
+                                <span>Advance</span>
+                            </label>
+                        </div>
+                        <div className="response"></div>
                     </div>
-                    <div className="response"></div>
-                </div>
-            </div>
-            <div className="input-block">
-                <div className="input-custom">
-                    <input type="datetime-local" name="startTime" defaultValue={examDetails.startTime} />
-                    <label>Start Time</label>
-                    <div className="response"></div>
-                </div>
-            </div>
-            <div className="input-block">
-                <div className="input-custom">
-                    <input type="number" name="windowTime" defaultValue={examDetails.windowTime} />
-                    <label>Window Time</label>
-                    <div className="response"></div>
-                </div>
-                <div className="input-custom">
-                    <input type="number" name="numberOfAttempts" defaultValue={examDetails.numberOfAttempts}/>
-                    <label>Number of Attempts</label>
-                    <div className="response"></div>
-                </div>
-            </div>
-            <div className='input-block'>
-                <div className="customized-radio-sticky">
-                    <label>Timer Type</label>
-                    <div>
-                        <label onClick={viewTimerDurationBlock}>
-                            <input type="radio" name="timerType" value="1" checked={examDetails.setEntireExamTimer == '1' ? true : false} />
-                            <span>Single timer for entire exam</span>
-                        </label>
-                        <label onClick={hideTimerDurationBlock}>
-                            <input type="radio" name="timerType" value="2" checked={examDetails.setSectionTimer == '1' ? true : false} />
-                            <span>Section wise ftimer</span>
-                        </label>
+                    <div className="customized-radio-sticky">
+                        <label>Visibility</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="private" value="0" checked={this.state.private == '0' ? true : false} onChange={this.handleChange}/>
+                                <span>Public</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="private" value="1" checked={this.state.private == '1' ? true : false} onChange={this.handleChange}/>
+                                <span>Private</span>
+                            </label>
+                        </div>
+                        <div className="response"></div>
                     </div>
-                    <div className="response"></div>
-                </div>
-            </div>
-            <div className='input-block' id='time-duration-block'>
-                <div className="customized-radio-sticky">
-                    <label>Time Duration</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="timeDuration" value="0" checked={examDetails.timeDuration == '0' ? true : false} />
-                            <span>No time limit</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="900" checked={examDetails.timeDuration == '900' ? true : false} />
-                            <span>15 Minutes</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="1800" checked={examDetails.timeDuration == '1800' ? true : false} />
-                            <span>30 Minutes</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="2700" checked={examDetails.timeDuration == '2700' ? true : false} />
-                            <span>45 Minutes</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="3600" checked={examDetails.timeDuration == '3600' ? true : false} />
-                            <span>1 Hour</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="7200" checked={examDetails.timeDuration == '7200' ? true : false} />
-                            <span>2 Hours</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="10800" checked={examDetails.timeDuration == '10800' ? true : false} />
-                            <span>3 Hours</span>
-                        </label>
+                    <div className="customized-radio-sticky">
+                        <label>Section Navigation</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="sectionNavigation" value="1" checked={this.state.sectionNavigation == '1' ? true : false} onChange={this.handleChange}/>
+                                <span>On</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="sectionNavigation" value="0" checked={this.state.sectionNavigation == '0' ? true : false} onChange={this.handleChange}/>
+                                <span>Off</span>
+                            </label>
+                        </div>
+                        <div className="response"></div>
                     </div>
-                    <div className="response"></div>
                 </div>
-            </div>
-            <div className="input-block">
-                <div className="input-custom">
-                    <textarea type="text" name="instructions" rows="6" defaultValue={examDetails.instructions}></textarea>
-                    <label>Instructions</label>
-                    <div className="response"></div>
+                <div className="input-block">
+                    <div className="input-custom">
+                        <input type="datetime-local" name="startTime" defaultValue={this.state.examDetails.startTime} />
+                        <label>Start Time</label>
+                        <div className="response"></div>
+                    </div>
                 </div>
-            </div>
-            <div className='flex-row jc-sb'>
-                <div className='btn btn-fade btn-small' onClick={resetForm}>Reset</div>
-                <button className='btn btn-primary btn-small'>Update</button>
-            </div>
-        </form>
-    );
+                <div className="input-block">
+                    <div className="input-custom">
+                        <input type="number" name="windowTime" defaultValue={this.state.examDetails.windowTime} />
+                        <label>Window Time</label>
+                        <div className="response"></div>
+                    </div>
+                    <div className="input-custom">
+                        <input type="number" name="numberOfAttempts" defaultValue={this.state.examDetails.numberOfAttempts}/>
+                        <label>Number of Attempts</label>
+                        <div className="response"></div>
+                    </div>
+                </div>
+                <div className='input-block'>
+                    <div className="customized-radio-sticky">
+                        <label>Timer Type</label>
+                        <div>
+                            <label onClick={this.viewTimerDurationBlock}>
+                                <input type="radio" name="timerType" value="1" checked={this.state.timerType == '1' ? true : false} onChange={this.handleChange}/>
+                                <span>Single timer for entire exam</span>
+                            </label>
+                            <label onClick={this.hideTimerDurationBlock}>
+                                <input type="radio" name="timerType" value="2" checked={this.state.timerType == '2' ? true : false} onChange={this.handleChange}/>
+                                <span>Section wise ftimer</span>
+                            </label>
+                        </div>
+                        <div className="response"></div>
+                    </div>
+                </div>
+                <div className='input-block' id='time-duration-block'>
+                    <div className="customized-radio-sticky">
+                        <label>Time Duration</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="timeDuration" value="0" checked={this.state.timeDuration == '0' ? true : false} onChange={this.handleChange}/>
+                                <span>No time limit</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDuration" value="900" checked={this.state.timeDuration == '900' ? true : false} onChange={this.handleChange}/>
+                                <span>15 Minutes</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDuration" value="1800" checked={this.state.timeDuration == '1800' ? true : false} onChange={this.handleChange}/>
+                                <span>30 Minutes</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDuration" value="2700" checked={this.state.timeDuration == '2700' ? true : false} onChange={this.handleChange}/>
+                                <span>45 Minutes</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDuration" value="3600" checked={this.state.timeDuration == '3600' ? true : false} onChange={this.handleChange}/>
+                                <span>1 Hour</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDuration" value="7200" checked={this.state.timeDuration == '7200' ? true : false} onChange={this.handleChange}/>
+                                <span>2 Hours</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDuration" value="10800" checked={this.state.timeDuration == '10800' ? true : false} onChange={this.handleChange}/>
+                                <span>3 Hours</span>
+                            </label>
+                        </div>
+                        <div className="response"></div>
+                    </div>
+                </div>
+                <div className="input-block">
+                    <div className="input-custom">
+                        <textarea type="text" name="instructions" rows="6" defaultValue={this.state.examDetails.instructions}></textarea>
+                        <label>Instructions</label>
+                        <div className="response"></div>
+                    </div>
+                </div>
+                <div className='flex-row jc-sb'>
+                    <div className='btn btn-fade btn-small' onClick={this.resetForm}>Reset</div>
+                    <button className='btn btn-primary btn-small'>Update</button>
+                </div>
+            </form>
+        );
+    }
+    
 }
 
 export default EditExamForm;

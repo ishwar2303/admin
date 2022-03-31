@@ -46,6 +46,7 @@ function ExamTableRow(props) {
           
             </div>
           </td>
+          <td>{props.createdOn}</td>
           <td className='select-exam-radio-container'>
             <div className='flex-row jc-c'>
               <label className='select-exam-radio'>

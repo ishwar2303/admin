@@ -9,7 +9,6 @@
     width: 500px;
     background: white;
     color: rgb(52, 52, 52);
-    border: 5px solid rgb(238, 104, 51);
     display: none;
     z-index: 101;
 }

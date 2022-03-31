@@ -211,6 +211,7 @@ function ViewExams() {
                                     <th>Visibility</th>
                                     <th>Start Time</th>
                                     <th>Status</th>
+                                    <th>Created On</th>
                                     <th className='select-exam-radio-container'>Select</th>
                                 </tr>
                             </thead>
@@ -225,6 +226,7 @@ function ViewExams() {
                                             visibility={d.private}
                                             startTime={d.startTime}
                                             status={d.isActive}
+                                            createdOn={d.timestamp}
                                             fetchDetails={fetchDetails}
                                         />
                                     })

@@ -23,7 +23,7 @@ function EditExam() {
     return (
         <>
             <WrapperHeader 
-                    heading={examTitle + ' > Edit Exam'}
+                    heading={examTitle + ' > Update Exam'}
             />
             <div className='content-loaded'>
                 <div>

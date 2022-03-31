@@ -16,8 +16,10 @@ function ManagementUser() {
     const [users, setUsers] = useState([]);
     const [availableRoles, setAvailableRoles] = useState([]);
     const [assignedRoles, setAssignedRoles] = useState([]);
+
     const showCreateDialog = () => {
         document.getElementsByClassName('management-user-dialog')[0].style.display = 'block';
+        document.getElementById('route-overlay').style.display = 'block';
     }
 
     const fetchUsers = () => {
@@ -100,6 +102,7 @@ function ManagementUser() {
             Flash.message("Please select a user", 'bg-secondary');
             return;
         }
+        document.getElementById('route-overlay').style.display = 'block';
         let url = "http://localhost:8080/QuizWit/Roles?";
         Request.get(url + "roleType=Assigned&userId=" + selectedUser)
         .then((res) => {

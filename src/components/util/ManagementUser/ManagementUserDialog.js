@@ -7,6 +7,7 @@ import Flash from '../../services/Flash';
 function ManagementUserDialog(props) {
     const hideCreateDialog = () => {
         document.getElementsByClassName('management-user-dialog')[0].style.display = 'none';
+        document.getElementById('route-overlay').style.display = 'none';
         resetForm();
     }
     const resetForm = () => {
@@ -31,6 +32,7 @@ function ManagementUserDialog(props) {
             Flash.message(res.error, 'bg-danger');
         }
         if(res.success) {
+            document.getElementById('route-overlay').style.display = 'none';
             Flash.message(res.success, 'bg-success');
             document.getElementsByClassName('management-user-dialog')[0].style.display = 'none';
             resetForm();
