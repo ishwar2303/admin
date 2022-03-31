@@ -11,12 +11,15 @@ import Request from './services/Request';
 import Flash from './services/Flash';
 import Loader from './util/Loader';
 import ConfirmationDialogWithInput from './util/ConfirmationDialogWithInput';
+import Sections from './util/section/Sections';
 
 function ViewExams() {
     const [load, setLoad] = useState(false);
     const [examDetails, setExamDetails] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
+    const [sectionDetails, setSectionDetails] = useState([]);
+    const [examTitle ,setExamTitle] = useState('');
 
     const fetchDetails = () => {
         setLoad(false);
@@ -164,6 +167,35 @@ function ViewExams() {
             return false;
         }
     }
+
+    const fetchSections = () => {
+        setSectionDetails([{
+            examId: 10,
+            sectionId: 20,
+            serialNo: 1,
+            title: 'Aptitude',
+            questions: 10
+        }])
+
+    }
+
+    const viewSections = () => {
+        let obj = getSelectedExam();
+        if(obj) {
+            setExamTitle(obj.examTitle);
+            fetchSections();
+            // if(sectionDetails.length == 0) {
+            //     Flash.message("Exam doesn't contain any section to show", "bg-primary");
+            //     return;
+            // }
+            document.getElementById('route-overlay').style.display = 'block';
+            document.getElementById('sections-dialog').style.display = 'flex';
+        }
+        else {
+            Flash.message('Select an exam', 'bg-secondary');
+        }
+    }
+
     useEffect(() => {
         document.getElementById('route-overlay').style.display = 'none';
     }, []);
@@ -183,6 +215,10 @@ function ViewExams() {
                             <button  className='btn btn-primary btn-small ml-10' onClick={addSection}>
                                 <i className='fas fa-plus mr-5'></i>
                                 Add Section
+                            </button>
+                            <button className='btn btn-secondary btn-small ml-10' onClick={viewSections}>
+                                <i className='fas fa-box mr-5'></i>
+                                View Sections
                             </button>
                             <button className='btn btn-tertiary btn-small ml-10' onClick={editExam}>
                                 <i className='fas fa-pen mr-5'></i>
@@ -241,6 +277,7 @@ function ViewExams() {
         <ConfirmationDialogWithInput 
             operation={deleteExam}
         />
+        <Sections sections={sectionDetails} examTitle={examTitle}/>
         <WrapperFooter
             heading=''
             render={
