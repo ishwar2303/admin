@@ -9,6 +9,14 @@ class Sections extends React.Component {
         document.getElementById('sections-dialog').style.display = 'none';
         document.getElementById('route-overlay').style.display = 'none';
     }
+    editSection(e) {
+        if(e.target.id) {
+            localStorage.setItem("SectionId", e.target.id);
+            let a = document.createElement('a');
+            a.href = 'edit-section';
+            a.click();
+        }
+    }
     render() {
         return (
             <>
@@ -30,6 +38,7 @@ class Sections extends React.Component {
                                                 <th>Section Timer</th>
                                                 <th>Duration</th>
                                                 <th>Question Navigation</th>
+                                                <th>Shuffle Questions</th>
                                                 <th style={{"textAlign":"center"}}>Action</th>
                                             </tr>
                                         </thead>
@@ -42,12 +51,13 @@ class Sections extends React.Component {
                                                                 <td>{d.serialNo}</td>
                                                                 <td>{d.title}</td>
                                                                 <td>{d.questions}</td>
-                                                                <td>On</td>
-                                                                <td>1 Hour</td>
-                                                                <td>Off</td>
+                                                                <td>{d.setSectionTimer == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
+                                                                <td>{d.timeDuration}</td>
+                                                                <td>{d.questionNavigation == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
+                                                                <td>{d.shuffleQuestions == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
                                                                 <td>
                                                                     <div className='action-btn-container'>
-                                                                        <button className='bg-primary'>
+                                                                        <button className='bg-primary' id={d.sectionId} onClick={this.editSection}>
                                                                             <i className='fas fa-pen'></i>
                                                                         </button>
                                                                         <button className='bg-danger'>

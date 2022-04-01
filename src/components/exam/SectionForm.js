@@ -56,8 +56,9 @@ function SectionForm(props) {
             responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
 
             responseBlock[2].innerHTML = (log.questionNavigation ? icon + log.questionNavigation: '');
-            responseBlock[3].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            responseBlock[4].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[3].innerHTML = (log.shuffleQuestions ? icon + log.shuffleQuestions: '');
+            responseBlock[4].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[5].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
         }
     }
 
@@ -88,6 +89,20 @@ function SectionForm(props) {
                         </label>
                         <label>
                             <input type="radio" name="questionNavigation" value="0" defaultChecked={true} />
+                            <span>Off</span>
+                        </label>
+                    </div>
+                    <div className="response"></div>
+                </div>
+                <div className="customized-radio-sticky">
+                    <label>Shuffle Question</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="shuffleQuestions" value="1" />
+                            <span>On</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="shuffleQuestions" value="0" defaultChecked={true} />
                             <span>Off</span>
                         </label>
                     </div>

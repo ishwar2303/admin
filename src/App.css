@@ -388,7 +388,7 @@ form .footer {
   height: 1px;
   padding: 10px;
 }
-.content-loaded .loader-container {
+.loader-container {
   position: absolute;
   left: 50%;
   top: 40%;

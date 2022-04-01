@@ -20,6 +20,7 @@ import ManagementUser from './components/ManagementUser';
 import AddSection from './components/AddSection';
 import EditExam from './components/EditExam';
 import Learn from './components/Learn';
+import EditSection from './components/EditSection';
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
                       <Route path='/create-exam' element={<CreateExam />}/>
                       <Route path='/edit-exam' element={<EditExam />}/>
                       <Route path='/add-section' element={<AddSection />}/>
+                      <Route path='/edit-section' element={<EditSection />}/>
                       <Route path='/view-exams' element={<ViewExams />}/>
                       <Route path='/settings' element={<Settings />}/>
                       <Route path='/ace-editor' element={<ProgramEditor />}/>

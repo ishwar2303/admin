@@ -1,9 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import LoaderHeading from './util/LoaderHeading';
-import ExamCard from './util/ExamCard';
-import PageNavigateButton from './util/PageNavigateButton';
-import ViewExamHeaderOptions from './util/ViewExamHeaderOptions';
 import ExamTableRow from './util/exams/ExamTableRow';
 import WrapperFooter from './util/WrapperFooter';
 import WrapperHeader from './util/WrapperHeader';
@@ -15,6 +11,7 @@ import Sections from './util/section/Sections';
 
 function ViewExams() {
     const [load, setLoad] = useState(false);
+    const [load2, setLoad2] = useState(true);
     const [examDetails, setExamDetails] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
@@ -51,6 +48,7 @@ function ViewExams() {
                 for(let i=0; i<details.length; i++) {
                     details[i]["serialNo"] = i+1;
                 }
+                console.log(details);
                 setExamDetails(details);
             }
             else {
@@ -60,13 +58,17 @@ function ViewExams() {
     }
 
     const nextPage = () => {
-        if(currentPage < totalPages)
-        setCurrentPage(currentPage + 1);
+        if(currentPage < totalPages) {
+            localStorage.setItem("ViewExamPage", currentPage + 1);
+            setCurrentPage(currentPage + 1);
+        }
     }
 
     const prevPage = () => {
-        if(currentPage > 1)
+        if(currentPage > 1) {
+            localStorage.setItem("ViewExamPage", currentPage - 1);
             setCurrentPage(currentPage - 1);
+        }
     }
 
     const getSelectedExam = () => {
@@ -169,14 +171,37 @@ function ViewExams() {
     }
 
     const fetchSections = () => {
-        setSectionDetails([{
-            examId: 10,
-            sectionId: 20,
-            serialNo: 1,
-            title: 'Aptitude',
-            questions: 10
-        }])
-
+        let obj = getSelectedExam();
+        if(obj) {
+            setLoad2(false);
+            document.getElementById('route-overlay').style.display = 'block';
+            let url = "http://localhost:8080/QuizWit/ViewSections?examId=";
+            url += obj.examId;
+            console.log(url);
+            Request.get(url)
+            .then((res) => {
+                console.log(res);
+                if(res.success) {
+                    let details = res.sectionDetails;
+                    for(let i=0; i<details.length; i++)
+                        details[i]["serialNo"] = i+1;
+                    setSectionDetails(details);
+                    setLoad2(true);
+                    document.getElementById('route-overlay').style.display = 'none';
+                    if(details.length == 0) {
+                        Flash.message("Exam doesn't contain any section to show", "bg-primary");
+                    }
+                    else {
+                        document.getElementById('route-overlay').style.display = 'block';
+                        document.getElementById('sections-dialog').style.display = 'flex';
+                    }
+                }
+            })
+        }
+        else {
+            Flash.message('Select an exam', 'bg-secondary');
+            return false;
+        }
     }
 
     const viewSections = () => {
@@ -184,12 +209,6 @@ function ViewExams() {
         if(obj) {
             setExamTitle(obj.examTitle);
             fetchSections();
-            // if(sectionDetails.length == 0) {
-            //     Flash.message("Exam doesn't contain any section to show", "bg-primary");
-            //     return;
-            // }
-            document.getElementById('route-overlay').style.display = 'block';
-            document.getElementById('sections-dialog').style.display = 'flex';
         }
         else {
             Flash.message('Select an exam', 'bg-secondary');
@@ -198,6 +217,17 @@ function ViewExams() {
 
     useEffect(() => {
         document.getElementById('route-overlay').style.display = 'none';
+        let cp = localStorage.getItem("ViewExamPage");
+        try {
+            console.log('load current page')
+            cp = parseInt(cp);
+            if(cp)
+                setCurrentPage(cp);
+                fetchDetails();
+            console.log(currentPage)
+        }catch(e) {
+            console.log(e);
+        }
     }, []);
 
     useEffect(() => {
@@ -246,6 +276,9 @@ function ViewExams() {
                                     <th>Exam Title</th>
                                     <th>Visibility</th>
                                     <th>Start Time</th>
+                                    <th>Section Navigation</th>
+                                    <th>Exam Timer</th>
+                                    <th>Time Duration</th>
                                     <th>Status</th>
                                     <th>Created On</th>
                                     <th className='select-exam-radio-container'>Select</th>
@@ -263,6 +296,9 @@ function ViewExams() {
                                             startTime={d.startTime}
                                             status={d.isActive}
                                             createdOn={d.timestamp}
+                                            sectionNavigation={d.sectionNavigation}
+                                            examTimer={d.setEntireExamTimer}
+                                            timeDuration={d.timeDuration}
                                             fetchDetails={fetchDetails}
                                         />
                                     })
@@ -277,7 +313,12 @@ function ViewExams() {
         <ConfirmationDialogWithInput 
             operation={deleteExam}
         />
-        <Sections sections={sectionDetails} examTitle={examTitle}/>
+        {
+            load2 && <Sections sections={sectionDetails} examTitle={examTitle} setExam={setExam}/>
+        }
+        {
+            !load2 && <Loader />
+        }
         <WrapperFooter
             heading=''
             render={

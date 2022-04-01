@@ -32,6 +32,9 @@ function ExamTableRow(props) {
           <td className='exam-title-value'>{props.title}</td>
           <td>{props.visibility == 1 ? <span className='primary'><i className='fas fa-lock mr-5'></i> Private</span> : <span><i className='fas fa-lock-open mr-5'></i>Public</span> }</td>
           <td>{props.startTime}</td>
+          <td>{props.sectionNavigation == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
+          <td>{props.examTimer == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
+          <td>{props.timeDuration}</td>
           <td> 
             <div className='flex-row ai-c'>
               <label className="custom-toggle-btn mr-5">
