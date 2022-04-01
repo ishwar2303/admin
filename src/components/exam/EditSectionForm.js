@@ -36,15 +36,15 @@ class EditSectionForm extends React.Component {
     }
 
     resetForm = () => {
-        let form = document.getElementById('create-section-form');
+        let form = document.getElementById('update-section-form');
         form.reset();
     }
 
     updateSection = (e) => {
         e.preventDefault();
-        let url = "http://localhost:8080/QuizWit/updateSection";
+        let url = "http://localhost:8080/QuizWit/UpdateSectionDetails";
 
-        let data = $('#create-section-form').serialize();
+        let data = $('#update-section-form').serialize();
 
         Request.post(url, data)
         .then((res) => {
@@ -56,7 +56,7 @@ class EditSectionForm extends React.Component {
     }
 
     populateResponse = (res) => {
-        let responseBlock = document.getElementById('create-section-form').getElementsByClassName('response');
+        let responseBlock = document.getElementById('update-section-form').getElementsByClassName('response');
         if(res.error) {
             Flash.message(res.error, 'bg-danger');
         }
@@ -89,7 +89,7 @@ class EditSectionForm extends React.Component {
     render() {
         return (
             <>
-            <form action="" className='pb-10' id="create-section-form" onSubmit={this.updateSection}>
+            <form action="" className='pb-10' id="update-section-form" onSubmit={this.updateSection}>
                 <input type="hidden" defaultValue={this.props.sectionId} name="sectionId"/>
                 <div className="input-block">
                     <div className="input-custom">
@@ -189,7 +189,7 @@ class EditSectionForm extends React.Component {
                 </div>
                 <div className='flex-row jc-sb'>
                     <div className='btn btn-fade btn-small' onClick={this.resetForm}>Reset</div>
-                    <button className='btn btn-primary btn-small'>Add</button>
+                    <button className='btn btn-primary btn-small'>Update</button>
                 </div>
             </form>
             </>
