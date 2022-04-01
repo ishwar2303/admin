@@ -314,7 +314,13 @@ function ViewExams() {
             operation={deleteExam}
         />
         {
-            load2 && <Sections sections={sectionDetails} examTitle={examTitle} setExam={setExam}/>
+            load2 && <Sections 
+                        sections={sectionDetails} 
+                        examTitle={examTitle} 
+                        setExam={setExam}
+                        fetchSections={fetchSections}
+                        sectionDetails={sectionDetails}
+                        />
         }
         {
             !load2 && <Loader />

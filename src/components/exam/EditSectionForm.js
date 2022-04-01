@@ -14,7 +14,8 @@ class EditSectionForm extends React.Component {
         this.state = {
             questionNavigation: this.props.sectionDetails.questionNavigation,
             shuffleQuestions: this.props.sectionDetails.shuffleQuestions,
-            timerType: tt
+            timerType: tt,
+            timeDuration: this.props.sectionDetails.timeDuration
         }
     }
 
@@ -80,6 +81,9 @@ class EditSectionForm extends React.Component {
     }
 
     componentDidMount() {
+        if(this.props.sectionDetails.setSectionTimer) {
+            this.viewTimerDurationBlock();
+        }
     }
 
     render() {
@@ -152,31 +156,31 @@ class EditSectionForm extends React.Component {
                         <label>Time Duration</label>
                         <div>
                             <label>
-                                <input type="radio" name="timeDuration" value="0" />
+                                <input type="radio" name="timeDuration" value="0" checked={this.state.timeDuration == '0' ? true : false} onChange={this.handleChange}/>
                                 <span>No time limit</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="900" />
+                                <input type="radio" name="timeDuration" value="900" checked={this.state.timeDuration == '900' ? true : false} onChange={this.handleChange}/>
                                 <span>15 Minutes</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="1800" />
+                                <input type="radio" name="timeDuration" value="1800" checked={this.state.timeDuration == '1800' ? true : false} onChange={this.handleChange}/>
                                 <span>30 Minutes</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="2700" />
+                                <input type="radio" name="timeDuration" value="2700"  checked={this.state.timeDuration == '2700' ? true : false} onChange={this.handleChange}/>
                                 <span>45 Minutes</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="3600" />
+                                <input type="radio" name="timeDuration" value="3600" checked={this.state.timeDuration == '3600' ? true : false} onChange={this.handleChange}/>
                                 <span>1 Hour</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="7200" />
+                                <input type="radio" name="timeDuration" value="7200" checked={this.state.timeDuration == '7200' ? true : false} onChange={this.handleChange}/>
                                 <span>2 Hours</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="10800" />
+                                <input type="radio" name="timeDuration" value="10800" checked={this.state.timeDuration == '10800' ? true : false} onChange={this.handleChange}/>
                                 <span>3 Hours</span>
                             </label>
                         </div>

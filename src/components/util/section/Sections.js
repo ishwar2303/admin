@@ -1,5 +1,8 @@
 import React from 'react';
 import '../../css/Sections.css';
+import Flash from '../../services/Flash';
+import ConfirmationDialog from '../ConfirmationDialog';
+import Request from '../../services/Request';
 
 class Sections extends React.Component {
     constructor(props) {
@@ -16,6 +19,31 @@ class Sections extends React.Component {
             a.href = 'edit-section';
             a.click();
         }
+    }
+    showConfirmationDialog(e) {
+        if(e.target.id) {
+            localStorage.setItem("SectionId", e.target.id);
+            document.getElementById('confirmation-dialog').style.display = 'block';
+        }
+    }
+
+    deleteSection() {
+        let url = "http://localhost:8080/QuizWit/DeleteSection?sectionId=";
+        url += localStorage.getItem("SectionId");
+        console.log(url);
+        Request.get(url)
+        .then((res) => {
+            if(res.success) {
+                document.getElementById('confirmation-dialog').style.display = 'none';
+                Flash.message(res.success, 'bg-success');
+                console.log('Section deleted successfully');
+                this.props.fetchSections();
+
+            }
+            else {
+                Flash.message(res.error, 'bg-danger');
+            }
+        })
     }
     render() {
         return (
@@ -60,7 +88,7 @@ class Sections extends React.Component {
                                                                         <button className='bg-primary' id={d.sectionId} onClick={this.editSection}>
                                                                             <i className='fas fa-pen'></i>
                                                                         </button>
-                                                                        <button className='bg-danger'>
+                                                                        <button className='bg-danger' id={d.sectionId} onClick={this.showConfirmationDialog}>
                                                                             <i className='fas fa-trash'></i>
                                                                         </button>
                                                                     </div>
@@ -85,6 +113,12 @@ class Sections extends React.Component {
                         </div>
                     </div>
                 </div>
+                <ConfirmationDialog 
+                    message='Delete section' 
+                    type='danger' 
+                    btn='Delete'
+                    btnClass='btn-danger'
+                    operation={this.deleteSection}/>
             </>
         );
     }
