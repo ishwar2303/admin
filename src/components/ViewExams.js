@@ -264,6 +264,10 @@ function ViewExams() {
     }
 
 
+    const createExam = () => {
+        document.getElementById('create-exam-nav-link').click();
+    }
+
     useEffect(() => {
         document.getElementById('route-overlay').style.display = 'none';
     }, []);
@@ -299,13 +303,32 @@ function ViewExams() {
                         </>
                         : ''
                     }
+                    {
+                        examDetails.length == 0 &&
+                        <div>
+                            <button className='btn btn-primary btn-small' onClick={createExam}>
+                                <i className='fas fa-plus mr-5'></i>
+                                Create Exam
+                            </button>
+                        </div>
+                    }
                 </div>
             }
         />
         <div className='content-loaded'>
             <div>
+                {
+                    !examDetails.length && <div className='primary'>
+                        <ul style={{"listStyle":"decimal", "marginLeft":"20px"}}>
+                            <li>Create a Exam.</li>
+                            <li>Add Section in exam.</li>
+                            <li>Choose question from templates.</li>
+                            <li>Add Question in sections.</li>
+                        </ul>
+                    </div>
+                }
                 { !load && <Loader /> }
-                { load && 
+                { load && examDetails.length > 0 &&
                     <div className='table-container'>
                         <table>
                             <thead>
@@ -314,7 +337,7 @@ function ViewExams() {
                                     <th>Exam Title</th>
                                     <th>Visibility</th>
                                     <th>Start Time</th>
-                                    <th>Section Navigation</th>
+                                    <th>Section <br/> Navigation</th>
                                     <th>Exam Timer</th>
                                     <th>Time Duration</th>
                                     <th>Status</th>
@@ -363,6 +386,7 @@ function ViewExams() {
         <WrapperFooter
             heading=''
             render={
+                examDetails.length > 0 && 
                 <div className='flex-row jc-sb flex-full'>
                     <button id="prev-btn" className='btn btn-dark btn-small' onClick={prevPage}>Previous</button>
                     <div className='btn btn-dark btn-small ml-10'>{currentPage + '/' + totalPages}</div>
