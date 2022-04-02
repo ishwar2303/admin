@@ -189,7 +189,8 @@ function ManagementUser() {
                     }
                     <ManagementUserDialog fetchUsers={fetchUsers}/>
                     <ConfirmationDialog 
-                        message='Delete management user' 
+                        title='Are you sure?'
+                        message='Management user will be permanently deleted.' 
                         type='danger' 
                         operation={deleteUsers}
                         btn='Delete'

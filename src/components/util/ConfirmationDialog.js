@@ -9,7 +9,7 @@ function ConfirmationDialog(props) {
         <div id='confirmation-dialog' className='confirmation-dialog'>
             <div className='flex-col flex-full jc-sb'>
                 <div>
-                    <h4 className='primary'>Confirmation Dialog</h4>
+                    <h4 className='primary'>{props.title}</h4>
                     <p className={props.type}>{props.message}</p>
                 </div>
                 <div className='flex-full flex-col jc-e'>

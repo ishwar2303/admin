@@ -39,6 +39,7 @@ function ExamForm() {
             Flash.message(res.error, 'bg-danger');
         }
         if(res.success) {
+            localStorage.setItem("CreatedExam", true);
             resetForm();
             Flash.message(res.success, 'bg-success');
             document.getElementById('view-exam-nav-link').click();

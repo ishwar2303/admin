@@ -10,10 +10,18 @@ import ConfirmationDialogWithInput from './util/ConfirmationDialogWithInput';
 import Sections from './util/section/Sections';
 
 function ViewExams() {
+    const getCurrentPageFromCookie = () => {
+        let cp = localStorage.getItem("CreatedExam");
+        if(cp != null) {
+            return 1;
+        }
+        return localStorage.getItem('ViewExamPage') != null ? parseInt(localStorage.getItem('ViewExamPage')) : 1;
+    
+    }
     const [load, setLoad] = useState(false);
     const [load2, setLoad2] = useState(true);
     const [examDetails, setExamDetails] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(getCurrentPageFromCookie());
     const [totalPages, setTotalPages] = useState(0);
     const [sectionDetails, setSectionDetails] = useState([]);
     const [examTitle ,setExamTitle] = useState('');
@@ -40,7 +48,9 @@ function ViewExams() {
         url += "&limit=" + limit;
         Request.get(url)
         .then((res) => {
+            console.log(url)
             if(res.success) {
+                console.log(res);
                 setLoad(true);
                 let details = res.examDetails;
                 setTotalPages(res.totalPages);
@@ -48,8 +58,10 @@ function ViewExams() {
                 for(let i=0; i<details.length; i++) {
                     details[i]["serialNo"] = i+1;
                 }
-                console.log(details);
                 setExamDetails(details);
+                loadAddedSection();
+                loadUpdatedSection();
+                localStorage.removeItem("CreatedExam");
             }
             else {
                 Flash.message(res.error, 'bg-danger');
@@ -177,10 +189,8 @@ function ViewExams() {
             document.getElementById('route-overlay').style.display = 'block';
             let url = "http://localhost:8080/QuizWit/ViewSections?examId=";
             url += obj.examId;
-            console.log(url);
             Request.get(url)
             .then((res) => {
-                console.log(res);
                 if(res.success) {
                     let details = res.sectionDetails;
                     for(let i=0; i<details.length; i++)
@@ -215,19 +225,47 @@ function ViewExams() {
         }
     }
 
+    const loadAddedSection = () => {
+        let ce = localStorage.getItem("SectionAdded");
+        if(ce) {
+            let ei = document.getElementsByName('examId');
+
+            let control = false;
+            for(let i=0; i<ei.length; i++) {
+                if(ei[i].value == ce) {
+                    ei[i].checked = true;
+                    control = true;
+                    break;
+                }
+            }
+            if(control)
+                viewSections();
+            localStorage.setItem("SectionAdded", null);
+        }
+    }
+
+    const loadUpdatedSection = () => {
+        let ce = localStorage.getItem("SectionUpdated");
+        if(ce) {
+            let ei = document.getElementsByName('examId');
+
+            let control = false;
+            for(let i=0; i<ei.length; i++) {
+                if(ei[i].value == ce) {
+                    ei[i].checked = true;
+                    control = true;
+                    break;
+                }
+            }
+            if(control)
+                viewSections();
+            localStorage.setItem("SectionUpdated", null);
+        }
+    }
+
+
     useEffect(() => {
         document.getElementById('route-overlay').style.display = 'none';
-        let cp = localStorage.getItem("ViewExamPage");
-        try {
-            console.log('load current page')
-            cp = parseInt(cp);
-            if(cp)
-                setCurrentPage(cp);
-                fetchDetails();
-            console.log(currentPage)
-        }catch(e) {
-            console.log(e);
-        }
     }, []);
 
     useEffect(() => {
@@ -242,7 +280,7 @@ function ViewExams() {
                     {
                         examDetails.length > 0 ? 
                         <>
-                            <button  className='btn btn-primary btn-small ml-10' onClick={addSection}>
+                            <button id='add-section-btn' className='btn btn-primary btn-small ml-10' onClick={addSection}>
                                 <i className='fas fa-plus mr-5'></i>
                                 Add Section
                             </button>
@@ -317,9 +355,6 @@ function ViewExams() {
             load2 && <Sections 
                         sections={sectionDetails} 
                         examTitle={examTitle} 
-                        setExam={setExam}
-                        fetchSections={fetchSections}
-                        sectionDetails={sectionDetails}
                         />
         }
         {

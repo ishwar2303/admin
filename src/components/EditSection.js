@@ -56,7 +56,7 @@ class EditSection extends React.Component {
             />
             <div className='content-loaded'>
                 <div>
-                    { this.state.load && <EditSectionForm sectionId={this.state.sectionId} sectionDetails={this.state.sectionDetails} /> }
+                    { this.state.load && <EditSectionForm sectionId={this.state.sectionId} examId={this.state.sectionDetails.examId} sectionDetails={this.state.sectionDetails} /> }
                 </div>
             </div>
             <WrapperFooter

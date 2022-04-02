@@ -11,11 +11,14 @@ class EditSectionForm extends React.Component {
         if(this.props.sectionDetails.setQuestionTimer == '1') {
             tt = 2;
         }
+        let duration = null;
+        if(tt == 1)
+            duration = this.props.sectionDetails.timeDuration;
         this.state = {
             questionNavigation: this.props.sectionDetails.questionNavigation,
             shuffleQuestions: this.props.sectionDetails.shuffleQuestions,
             timerType: tt,
-            timeDuration: this.props.sectionDetails.timeDuration
+            timeDuration: duration
         }
     }
 
@@ -61,6 +64,7 @@ class EditSectionForm extends React.Component {
             Flash.message(res.error, 'bg-danger');
         }
         if(res.success) {
+            localStorage.setItem('SectionUpdated', this.props.examId);
             this.resetForm();
             Flash.message(res.success, 'bg-success');
             document.getElementById('view-exam-nav-link').click();
@@ -81,9 +85,7 @@ class EditSectionForm extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.sectionDetails.setSectionTimer) {
-            this.viewTimerDurationBlock();
-        }
+        
     }
 
     render() {
