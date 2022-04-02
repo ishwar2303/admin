@@ -118,11 +118,11 @@ class Sections extends React.Component {
                                             <tr>
                                                 <th>S No.</th>
                                                 <th>Title</th>
-                                                <th>Questions</th>
-                                                <th>Section Timer</th>
+                                                <th className='text-center'>Questions</th>
+                                                <th className='text-center'>Section<br/>Timer</th>
                                                 <th>Duration</th>
-                                                <th>Question Navigation</th>
-                                                <th>Shuffle Questions</th>
+                                                <th className='text-center'>Question<br/>Navigation</th>
+                                                <th className='text-center'>Shuffle<br/>Questions</th>
                                                 <th style={{"textAlign":"center"}}>Action</th>
                                             </tr>
                                         </thead>
@@ -134,11 +134,11 @@ class Sections extends React.Component {
                                                             <tr key={k}>
                                                                 <td>{d.serialNo}</td>
                                                                 <td>{d.title}</td>
-                                                                <td>{d.questions}</td>
-                                                                <td>{d.setSectionTimer == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
+                                                                <td className='text-center'>{d.questions}</td>
+                                                                <td className='text-center'>{d.setSectionTimer == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
                                                                 <td>{d.timeDuration}</td>
-                                                                <td>{d.questionNavigation == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
-                                                                <td>{d.shuffleQuestions == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
+                                                                <td className='text-center'>{d.questionNavigation == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
+                                                                <td className='text-center'>{d.shuffleQuestions == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
                                                                 <td>
                                                                     <div className='action-btn-container'>
                                                                         <button className='bg-primary' id={d.sectionId} onClick={this.editSection}>

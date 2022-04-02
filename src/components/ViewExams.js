@@ -333,15 +333,15 @@ function ViewExams() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>S No.</th>
-                                    <th>Exam Title</th>
-                                    <th>Visibility</th>
-                                    <th>Start Time</th>
-                                    <th>Section <br/> Navigation</th>
-                                    <th>Exam Timer</th>
-                                    <th>Time Duration</th>
-                                    <th>Status</th>
-                                    <th>Created On</th>
+                                    <th className='text-left'>S&nbsp;No.</th>
+                                    <th className='text-left'>Exam&nbsp;Title</th>
+                                    <th className='text-left'>Visibility</th>
+                                    <th className='text-left'>Start&nbsp;Time</th>
+                                    <th className='text-center'>Section <br/> Navigation</th>
+                                    <th className='text-center'>Exam Timer</th>
+                                    <th className='text-left'>Time&nbsp;Duration</th>
+                                    <th className='text-left'>Status</th>
+                                    <th className='text-left'>Created&nbsp;On</th>
                                     <th className='select-exam-radio-container'>Select</th>
                                 </tr>
                             </thead>
@@ -388,9 +388,24 @@ function ViewExams() {
             render={
                 examDetails.length > 0 && 
                 <div className='flex-row jc-sb flex-full'>
-                    <button id="prev-btn" className='btn btn-dark btn-small' onClick={prevPage}>Previous</button>
+                    {
+                        currentPage > 1 && 
+                        <button id="prev-btn" className='btn btn-dark btn-small' onClick={prevPage}>Previous</button>
+                    }
+                    {
+                        currentPage == 1 &&
+                        <div></div>
+                    }
+
                     <div className='btn btn-dark btn-small ml-10'>{currentPage + '/' + totalPages}</div>
-                    <button id="next-btn" className='btn btn-primary btn-small' onClick={nextPage}>Next</button>
+                    {
+                        currentPage < totalPages && 
+                        <button id="next-btn" className='btn btn-primary btn-small' onClick={nextPage}>Next</button>
+                    }
+                    {
+                        currentPage == totalPages &&
+                        <div></div>
+                    }
                 </div>
             }
         />

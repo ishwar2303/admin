@@ -412,6 +412,12 @@ form .footer {
 .text-center {
   text-align: center;
 }
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
 .cursor-p {
   cursor: pointer;
 }
@@ -502,7 +508,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
 }
 .table-container th {
-  font-size: 15px;
+  font-size: 13px;
 }
 /* .table-container tr:first-child:hover {
   background: none;
@@ -516,8 +522,7 @@ input::-webkit-inner-spin-button {
 .table-container table td, tr, th {
   border: 0.5px solid rgba(0, 0, 0, 0.4);
   padding: 10px 5px;
-  text-align: left;
-  font-size: 14px;
+  font-size: 13px;
 }
 .table-container tr:nth-child(even) {
   background: rgb(0, 0, 0, 0.03);
