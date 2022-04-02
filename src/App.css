@@ -311,6 +311,10 @@ form .footer {
   background: rgb(8, 156, 255);
   color: rgb(233, 233, 233);
 }
+.bg-tertiary {
+  background: rgb(250, 46, 124);
+  color: rgb(233, 233, 233);
+}
 .bg-dark {
   background: rgba(0, 0, 0, 0.9);
   color: rgb(233, 233, 233);

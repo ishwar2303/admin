@@ -50,7 +50,7 @@
     display: flex;
     justify-content: center;
 }
-#sections-dialog .action-btn-container button {
+#sections-dialog .action-btn-container i {
     width: 23px;
     height: 23px;
     display: flex;
@@ -58,14 +58,14 @@
     align-items: center;
     font-size: 12px;
 }
-#sections-dialog .action-btn-container button:hover {
+#sections-dialog .action-btn-container i:hover {
     box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.5);
 }
-#sections-dialog .action-btn-container button:nth-child(1) {
+#sections-dialog .action-btn-container i:nth-child(1) {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
-#sections-dialog .action-btn-container button:nth-child(2) {
+#sections-dialog .action-btn-container i:nth-child(2) {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }

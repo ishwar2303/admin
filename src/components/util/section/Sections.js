@@ -141,12 +141,9 @@ class Sections extends React.Component {
                                                                 <td className='text-center'>{d.shuffleQuestions == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
                                                                 <td>
                                                                     <div className='action-btn-container'>
-                                                                        <button className='bg-primary' id={d.sectionId} onClick={this.editSection}>
-                                                                            <i className='fas fa-pen'></i>
-                                                                        </button>
-                                                                        <button className='bg-danger' id={d.sectionId} onClick={this.showConfirmationDialog}>
-                                                                            <i className='fas fa-trash'></i>
-                                                                        </button>
+                                                                         <i className='fas fa-pen bg-primary' id={d.sectionId} onClick={this.editSection}></i>
+                                                                        <i className='fas fa-trash bg-danger' id={d.sectionId} onClick={this.showConfirmationDialog}></i>
+
                                                                     </div>
                                                                 </td>
                                                             </tr>
