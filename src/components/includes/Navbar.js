@@ -26,6 +26,7 @@ function Navbar() {
                             description='Create Exam'
                             route='/create-exam'
                             icon='fas fa-plus-square'
+                            id='create-exam-nav-link'
                         />
                         <NavLinkCustom 
                             description='View Exams'
