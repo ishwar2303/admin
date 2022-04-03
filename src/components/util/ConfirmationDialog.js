@@ -3,13 +3,13 @@ import '../css/ConfirmationDialog.css';
 function ConfirmationDialog(props) {
     const hideDialog = () => {
         document.getElementById('confirmation-dialog').style.display = 'none';
-        document.getElementById('route-overlay').style.display = 'none';
     }
     return (
         <div id='confirmation-dialog' className='confirmation-dialog'>
             <div className='flex-col flex-full jc-sb'>
                 <div>
                     <h4 className='primary'>{props.title}</h4>
+                    <div className='secondary entity'>{props.entity}</div>
                     <p className={props.type}>{props.message}</p>
                 </div>
                 <div className='flex-full flex-col jc-e'>

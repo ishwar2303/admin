@@ -23,7 +23,13 @@ function EditExam() {
     return (
         <>
             <WrapperHeader 
-                    heading={examTitle + ' > Update Exam'}
+                    heading={
+                        <>
+                            <span className='primary'>{examTitle}</span>
+                            <span className='gray'> &gt; </span>
+                            <span>Update Exam</span>
+                        </>
+                    }
             />
             <div className='content-loaded'>
                 <div>

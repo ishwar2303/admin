@@ -24,7 +24,14 @@ function AddSection() {
     return (
         <>
             <WrapperHeader 
-                heading={examTitle + ' > Add Section'}
+                heading={
+                    <>
+                        <span className='primary'>{examTitle}</span>
+                        <span className='gray'> &gt; </span>
+                        <span>Add Section</span>
+                    </>
+                }
+
             />
             <div className='content-loaded'>
                 <div>

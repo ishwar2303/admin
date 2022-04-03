@@ -89,7 +89,6 @@ function ManagementUser() {
             return;
         }
         document.getElementById('confirmation-dialog').style.display = 'block';
-        document.getElementById('route-overlay').style.display = 'block';
     }
     const hideConfirmationDialog = () => {
         document.getElementById('confirmation-dialog').style.display = 'none';

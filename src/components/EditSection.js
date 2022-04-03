@@ -52,7 +52,13 @@ class EditSection extends React.Component {
         return (
             <>
             <WrapperHeader
-                    heading={this.state.sectionDetails.title + ' > Update Section'}
+                    heading={
+                        <>
+                            <span className='primary'>{this.state.sectionDetails.title}</span>
+                            <span className='gray'> &gt; </span>
+                            <span>Update Section</span>
+                        </>
+                    }
             />
             <div className='content-loaded'>
                 <div>

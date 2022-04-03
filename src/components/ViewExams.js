@@ -284,7 +284,7 @@ function ViewExams() {
                     {
                         examDetails.length > 0 ? 
                         <>
-                            <button id='add-section-btn' className='btn btn-primary btn-small ml-10' onClick={addSection}>
+                            <button id='add-section-btn' className='btn btn-tertiary btn-small ml-10' onClick={addSection}>
                                 <i className='fas fa-plus mr-5'></i>
                                 Add Section
                             </button>
@@ -292,7 +292,7 @@ function ViewExams() {
                                 <i className='fas fa-box mr-5'></i>
                                 View Sections
                             </button>
-                            <button className='btn btn-tertiary btn-small ml-10' onClick={editExam}>
+                            <button className='btn btn-primary btn-small ml-10' onClick={editExam}>
                                 <i className='fas fa-pen mr-5'></i>
                                 Edit
                             </button>
@@ -384,7 +384,6 @@ function ViewExams() {
             !load2 && <Loader />
         }
         <WrapperFooter
-            heading=''
             render={
                 examDetails.length > 0 && 
                 <div className='flex-row jc-sb flex-full'>

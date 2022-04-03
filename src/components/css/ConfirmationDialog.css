@@ -25,3 +25,7 @@
     font-size: 14px;
     color: rgb(46, 46, 46);
 }
+.confirmation-dialog .entity {
+    font-size: 14px;
+    margin-bottom: 10px;
+}

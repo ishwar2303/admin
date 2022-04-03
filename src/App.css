@@ -330,6 +330,9 @@ form .footer {
 .secondary {
   color:rgb(238, 104, 51);
 }
+.tertiary {
+  color: rgb(250, 46, 124);
+}
 .danger {
   color: rgb(253, 66, 66);
 }

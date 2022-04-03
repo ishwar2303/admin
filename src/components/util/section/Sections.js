@@ -8,24 +8,53 @@ class Sections extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sections: this.props.sections
+            sections: this.props.sections,
+            deleteSectionTitle: ''
         }
     }
     closeDialog() {
         document.getElementById('sections-dialog').style.display = 'none';
         document.getElementById('route-overlay').style.display = 'none';
     }
-    editSection(e) {
+
+    setSection(e) {
         if(e.target.id) {
-            localStorage.setItem("SectionId", e.target.id);
-            let a = document.createElement('a');
-            a.href = 'edit-section';
-            a.click();
+            let temp = e.target.id;
+            temp = temp.split(",");
+            localStorage.setItem("SectionId", temp[0]);
+            let name = '';
+            for(let i=1; i<temp.length; i++) {
+                name += temp[i]
+                if(i != temp.length - 1)
+                    name += ','
+            }
+            localStorage.setItem("SectionTitle", name);
+            this.setState({
+                deleteSectionTitle: localStorage.getItem("SectionTitle")
+            })
+            return true;
+        }
+        else return false;
+    }
+
+    redirectToLink(link) {
+        let a = document.createElement('a');
+        a.href = link;
+        a.click();
+    }
+
+    editSection = (e) => {
+        if(this.setSection(e)) {
+            this.redirectToLink('edit-section');
         }
     }
-    showConfirmationDialog(e) {
-        if(e.target.id) {
-            localStorage.setItem("SectionId", e.target.id);
+    addQuestion = (e) => {
+        if(this.setSection(e)) {
+            this.redirectToLink('add-question');
+        }
+    }
+    showConfirmationDialog = (e) => {
+        if(this.setSection(e)) {
             document.getElementById('confirmation-dialog').style.display = 'block';
         }
     }
@@ -141,8 +170,9 @@ class Sections extends React.Component {
                                                                 <td className='text-center'>{d.shuffleQuestions == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
                                                                 <td>
                                                                     <div className='action-btn-container'>
-                                                                         <i className='fas fa-pen bg-primary' id={d.sectionId} onClick={this.editSection}></i>
-                                                                        <i className='fas fa-trash bg-danger' id={d.sectionId} onClick={this.showConfirmationDialog}></i>
+                                                                         <i className='fas fa-plus bg-tertiary' id={d.sectionId + "," + d.title} onClick={this.addQuestion}></i>
+                                                                         <i className='fas fa-pen bg-primary' id={d.sectionId + "," + d.title} onClick={this.editSection}></i>
+                                                                        <i className='fas fa-trash bg-danger' id={d.sectionId + "," + d.title} onClick={this.showConfirmationDialog}></i>
 
                                                                     </div>
                                                                 </td>
@@ -163,12 +193,14 @@ class Sections extends React.Component {
                         </div>
                         <div className='flex-row jc-sb'>
                             <button className='btn btn-fade btn-small' onClick={this.closeDialog}>Close</button>
+                            <p style={{fontSize: "14px"}} className='tertiary'>Click on plus icon to add questions in that section.</p>
                             <button className='btn btn-primary btn-small' onClick={this.addSection}>Add</button>
                         </div>
                     </div>
                 </div>
                 <ConfirmationDialog 
                     title='Are you sure?'
+                    entity={this.state.deleteSectionTitle}
                     message='Section will be permanently deleted.' 
                     type='' 
                     btn='Delete'
