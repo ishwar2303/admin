@@ -4,6 +4,10 @@ import WrapperFooter from './util/WrapperFooter';
 import ChooseQuestionTemplate from './util/questions/ChooseQuestionTemplate';
 import Flash from './services/Flash';
 import TrueFalseTemplate from './util/questions/TrueFalseTemplate';
+import DatabaseQueryTemplate from './util/questions/DatabaseQueryTemplate';
+import MCQSingleCorrectTemplate from './util/questions/MCQSingleCorrectTemplate';
+import MCQMultipleCorrectTemplate from './util/questions/MCQMultipleCorrectTemplate';
+import ProgrammingTemplate from './util/questions/ProgrammingTemplate';
 
 class AddQuestion extends React.Component {
     constructor(props) {
@@ -11,7 +15,11 @@ class AddQuestion extends React.Component {
         this.state = {
             sectionId: localStorage.getItem("SectionId"),
             sectionTitle: localStorage.getItem("SectionTitle"),
-            trueFalseTemplate: false
+            trueFalseTemplate: false,
+            mcqSingleCorrect: false,
+            mcqMutipleCorrect: false,
+            databaseQuery: false,
+            programming: false
         }
     }
     showTemplateDialog() {
@@ -38,17 +46,41 @@ class AddQuestion extends React.Component {
         }
         let control = false;
         if(selectedTemplate == 'TF') {
-            this.setState({
-                trueFalseTemplate: true
-            })
+            this.updateTemplateState(true,false,false,false,false)
             control = true;
         }
-        console.log(selectedTemplate)
+        else if(selectedTemplate == 'DATABASE') {
+            this.updateTemplateState(false,false,false,true,false)
+            control = true;
+        }
+        else if(selectedTemplate == 'PROGRAMMING') {
+            this.updateTemplateState(false,false,false,false,true)
+            control = true;
+        }
+        else if(selectedTemplate == 'MCQ SC') {
+            this.updateTemplateState(false,true,false,false,false)
+            control = true;
+        }
+        else if(selectedTemplate == 'MCQ MC') {
+            this.updateTemplateState(false,false,true,false,false)
+            control = true;
+        }
+        
 
         if(control) {
             this.closeTemplateDialog();
         }
 
+    }
+
+    updateTemplateState = (a, b, c, d, e) => {
+        this.setState({
+            trueFalseTemplate: a,
+            mcqSingleCorrect: b,
+            mcqMutipleCorrect: c,
+            databaseQuery: d,
+            programming: e
+        })
     }
     componentDidMount() {
 
@@ -73,6 +105,18 @@ class AddQuestion extends React.Component {
                 <div>
                     {
                         this.state.trueFalseTemplate && <TrueFalseTemplate />
+                    }
+                    {
+                        this.state.databaseQuery && <DatabaseQueryTemplate />
+                    }
+                    {
+                        this.state.mcqMutipleCorrect && <MCQMultipleCorrectTemplate />
+                    }
+                    {
+                        this.state.mcqSingleCorrect && <MCQSingleCorrectTemplate />
+                    }
+                    {
+                        this.state.programming && <ProgrammingTemplate />
                     }
                 </div>
             </div>
