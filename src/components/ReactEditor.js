@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import EditorJS from '@editorjs/editorjs';
-import LoaderHeading from './util/LoaderHeading';
 import { EDITOR_JS_TOOLS } from './util/Tool';
 
 function ReactEditor() {
@@ -20,9 +19,6 @@ function ReactEditor() {
     }, []);
     return (
         <>
-            <LoaderHeading 
-                description='React Editor'
-            />
             <div className='content-loaded'>
                 <div>
                     <div>

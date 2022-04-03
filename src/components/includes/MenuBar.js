@@ -26,7 +26,7 @@ function MenuBar(props) {
 
     return (
         <div id="menubar" className='menubar'>
-            <p className='primary' >Logged in as {props.userType}</p>
+            <p className='primary' >Logged in as <br/> <span style={{fontWeight: "bold"}}>{props.userType}</span></p>
             <div className='links'>
                 <MenuLink 
                 route='/profile'

@@ -334,7 +334,7 @@ function ViewExams() {
                             <thead>
                                 <tr>
                                     <th className='text-left'>S&nbsp;No.</th>
-                                    <th className='text-left'>Exam&nbsp;Title</th>
+                                    <th className='text-left' style={{width: "300px"}}>Exam&nbsp;Title</th>
                                     <th className='text-left'>Visibility</th>
                                     <th className='text-left'>Start&nbsp;Time</th>
                                     <th className='text-center'>Section <br/> Navigation</th>
@@ -386,20 +386,23 @@ function ViewExams() {
         <WrapperFooter
             render={
                 examDetails.length > 0 && 
-                <div className='flex-row jc-sb flex-full'>
+                <div className='flex-row jc-c flex-full'>
                     {
-                        currentPage > 1 && 
-                        <button id="prev-btn" className='btn btn-dark btn-small' onClick={prevPage}>Previous</button>
+                        <button id="prev-btn" className='btn-small' onClick={prevPage}>
+                            <i className={'fas fa-angle-left ' + (currentPage > 1 ? '' : ' disabled-btn')}></i>
+                        </button>
                     }
                     {
                         currentPage == 1 &&
                         <div></div>
                     }
 
-                    <div className='btn btn-dark btn-small ml-10'>{currentPage + '/' + totalPages}</div>
+                    <div className='btn btn-small ml-10'>{currentPage + '/' + totalPages}</div>
                     {
-                        currentPage < totalPages && 
-                        <button id="next-btn" className='btn btn-primary btn-small' onClick={nextPage}>Next</button>
+                        <button id="next-btn" className='btn-small ml-10' onClick={nextPage} disabled={currentPage < totalPages ? false : true}>
+                            <i className={'fas fa-angle-right ' + (currentPage < totalPages ? '' : ' disabled-btn')}></i>
+                        </button>
+
                     }
                     {
                         currentPage == totalPages &&

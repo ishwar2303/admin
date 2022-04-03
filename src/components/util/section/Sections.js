@@ -135,12 +135,15 @@ class Sections extends React.Component {
             <>
                 <div id='sections-dialog'>
                     <div>
-                        <div className='flex=-col flex-full jc-sb'>
-                            <div id='exam-name-section-reference'> {this.props.examTitle}</div>
+                        <div className='flex-col flex-full jc-sb'>
+                            <h3 className='secondary mb-10' id='exam-name-section-reference'>
+                                <span className='secondary'>{this.props.examTitle} </span>
+                                <span className='gray'> &gt; </span>
+                                <span className='primary'>Sections</span>
+                            </h3>
                             {
                                 this.props.sections.length != 0 ? 
                                 <>
-                                    <h3 className='secondary mb-10'>Sections</h3>
                                     <div className="table-container">
                                         <table>
                                         <thead>
@@ -193,9 +196,10 @@ class Sections extends React.Component {
                         </div>
                         <div className='flex-row jc-sb'>
                             <button className='btn btn-fade btn-small' onClick={this.closeDialog}>Close</button>
-                            <p style={{fontSize: "14px"}} className='tertiary'>Click on plus icon to add questions in that section.</p>
+                            <p style={{fontSize: "14px"}} className='tertiary'>Click on <i className='fas fa-plus'></i> icon to add questions in that section.</p>
                             <button className='btn btn-primary btn-small' onClick={this.addSection}>Add</button>
                         </div>
+                        <div className='table-border'></div>
                     </div>
                 </div>
                 <ConfirmationDialog 

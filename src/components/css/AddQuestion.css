@@ -1,0 +1,96 @@
+
+/*
+  react editor js
+*/
+#react-editor-js-for-question {
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    background: white;
+    padding: 10px;
+    display: none;
+}
+.ce-block__content {
+    max-width: 100%;
+    margin: 0;
+}
+.codex-editor__redactor {
+    padding-bottom: 0;
+}
+.template-headings {
+    font-weight: normal;
+    margin-bottom: 5px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.ce-toolbar__actions {
+    right: 0px;
+}
+.ce-toolbar__content {
+    max-width: 100%;
+}
+.true-false-option {
+    display: flex;
+    margin: 20px 0px;
+    flex-direction: column;
+}
+.true-false-option input {
+    display: none;
+}
+.true-false-option > div {
+    display: flex;
+}
+.true-false-option span {
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+    height: 40px;
+    width: 60px;
+    border-radius: 3px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.true-false-option input:checked ~ span {
+    background: rgb(8, 156, 255, 0.7);
+    color: white;
+}
+
+
+/* mcq options */
+.mcq-option-container {
+    display: flex;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+.mcq-option-container > div:nth-child(1), .mcq-option-container > div:nth-child(3) {
+    padding: 10px;
+}
+.mcq-option-container > div:nth-child(2) {
+    flex: 1;
+}
+.mcq-option-container  .fa-trash {
+    width: 25px;
+    height: 25px;
+    background: rgb(253, 66, 66);
+    font-size: 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+.mcq-option-container  span {
+    font-size: 14px;
+}
+.mcq-dot {
+    font-size: 12px;
+}
+.mcq-option-container textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    resize: vertical;
+    font-size: 16px;
+}

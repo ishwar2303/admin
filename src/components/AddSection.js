@@ -41,7 +41,7 @@ function AddSection() {
             </div>
             <WrapperFooter 
                 render={
-                    <p className='primary flex-row jc-c' style={{"width": "100%"}}>You can add questions in section once the section is created.</p>
+                    <p className='tertiary flex-row jc-c' style={{"width": "100%"}}>You can add questions in section once the section is created.</p>
                 }
             />
         </>

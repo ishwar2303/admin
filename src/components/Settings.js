@@ -1,10 +1,11 @@
 import React from 'react';
 import { useEffect } from 'react';
-import LoaderHeading from './util/LoaderHeading';
 
 import Flash from './services/Flash';
 
 import './css/Settings.css';
+import WrapperHeader from './util/WrapperHeader';
+import WrapperFooter from './util/WrapperFooter';
 
 function Settings() {
 
@@ -36,8 +37,8 @@ function Settings() {
     }, []);
     return (
         <>
-            <LoaderHeading 
-                description='Settings'
+            <WrapperHeader
+                heading='Settings'
             />
             <div className='content-loaded'>
                 <div className='settings'>
@@ -58,6 +59,7 @@ function Settings() {
                     </div>
                 </div>
             </div>
+            <WrapperFooter />
         </>
     );
 }

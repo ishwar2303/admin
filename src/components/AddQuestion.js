@@ -8,6 +8,7 @@ import DatabaseQueryTemplate from './util/questions/DatabaseQueryTemplate';
 import MCQSingleCorrectTemplate from './util/questions/MCQSingleCorrectTemplate';
 import MCQMultipleCorrectTemplate from './util/questions/MCQMultipleCorrectTemplate';
 import ProgrammingTemplate from './util/questions/ProgrammingTemplate';
+import './css/AddQuestion.css';
 
 class AddQuestion extends React.Component {
     constructor(props) {
@@ -15,11 +16,12 @@ class AddQuestion extends React.Component {
         this.state = {
             sectionId: localStorage.getItem("SectionId"),
             sectionTitle: localStorage.getItem("SectionTitle"),
-            trueFalseTemplate: false,
+            trueFalseTemplate: true,
             mcqSingleCorrect: false,
-            mcqMutipleCorrect: false,
+            mcqMultipleCorrect: false,
             databaseQuery: false,
-            programming: false
+            programming: false,
+            selectedTemplateName: 'True or False'
         }
     }
     showTemplateDialog() {
@@ -48,22 +50,37 @@ class AddQuestion extends React.Component {
         if(selectedTemplate == 'TF') {
             this.updateTemplateState(true,false,false,false,false)
             control = true;
+            this.setState({
+                selectedTemplateName: 'True or False'
+            })
         }
         else if(selectedTemplate == 'DATABASE') {
             this.updateTemplateState(false,false,false,true,false)
             control = true;
+            this.setState({
+                selectedTemplateName: 'Database Query'
+            })
         }
         else if(selectedTemplate == 'PROGRAMMING') {
             this.updateTemplateState(false,false,false,false,true)
             control = true;
+            this.setState({
+                selectedTemplateName: 'Programming | Coding'
+            })
         }
         else if(selectedTemplate == 'MCQ SC') {
             this.updateTemplateState(false,true,false,false,false)
             control = true;
+            this.setState({
+                selectedTemplateName: 'Multiple Choice Question | Single Correct'
+            })
         }
         else if(selectedTemplate == 'MCQ MC') {
             this.updateTemplateState(false,false,true,false,false)
             control = true;
+            this.setState({
+                selectedTemplateName: 'Multiple Choice Question | Multiple Correct'
+            })
         }
         
 
@@ -77,12 +94,22 @@ class AddQuestion extends React.Component {
         this.setState({
             trueFalseTemplate: a,
             mcqSingleCorrect: b,
-            mcqMutipleCorrect: c,
+            mcqMultipleCorrect: c,
             databaseQuery: d,
             programming: e
         })
     }
-    componentDidMount() {
+
+    resetQuestionForm = () => {
+        console.log('reset')
+        document.getElementById('question-form').reset();
+    }
+
+    submitQuestionForm = () => {
+        document.getElementById('submit-question-form').click();
+    }
+
+    componentDidMount = () => {
 
     }
 
@@ -95,6 +122,8 @@ class AddQuestion extends React.Component {
                         <span className='primary'>{this.state.sectionTitle}</span>
                         <span className='gray'> &gt; </span>
                         <span>Add Question</span>
+                        <span className='gray'> &gt; </span>
+                        <span className='success'>{this.state.selectedTemplateName}</span>
                     </>
                 }
                 component={
@@ -110,7 +139,7 @@ class AddQuestion extends React.Component {
                         this.state.databaseQuery && <DatabaseQueryTemplate />
                     }
                     {
-                        this.state.mcqMutipleCorrect && <MCQMultipleCorrectTemplate />
+                        this.state.mcqMultipleCorrect && <MCQMultipleCorrectTemplate />
                     }
                     {
                         this.state.mcqSingleCorrect && <MCQSingleCorrectTemplate />
@@ -123,7 +152,22 @@ class AddQuestion extends React.Component {
             <ChooseQuestionTemplate 
                 operation={this.loadTemplate}
             />
-            <WrapperFooter />
+            <WrapperFooter 
+                render={
+                    <div className='flex-row jc-sb'>
+                        <button id='reset-question-form-btn' className='btn btn-fade btn-small' onClick={this.resetQuestionForm}>Reset</button>
+                        {
+                            this.state.mcqSingleCorrect &&
+                            <p className='tertiary'><sup>*</sup>To select the correct answer click on radio button.</p>
+                        }
+                        {
+                            this.state.mcqMultipleCorrect &&
+                            <p className='tertiary'><sup>*</sup>To select the correct answers select checkbox.</p>
+                        }
+                        <button id='add-question-form-btn' className='btn btn-primary btn-small' onClick={this.submitQuestionForm}>Add</button>
+                    </div>
+                }
+            />
             </>
         )
     }

@@ -14,7 +14,6 @@ import 'ace-builds/src-noconflict/theme-eclipse';
 import Request from './services/Request';
 import Flash from './services/Flash';
 import Button from './services/Button';
-import LoaderHeading from './util/LoaderHeading';
 
 import './css/ProgramEditor.css';
 
@@ -96,9 +95,6 @@ function ProgramEditor() {
 
     return (
     <>
-        <LoaderHeading
-            description='Program Editor'
-        />
         <div className='content-loaded'>
             <div>
                 <div  className='editor-header'>
