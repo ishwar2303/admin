@@ -136,16 +136,16 @@ class AddQuestion extends React.Component {
                         this.state.trueFalseTemplate && <TrueFalseTemplate sectionId={this.state.sectionId} />
                     }
                     {
-                        this.state.databaseQuery && <DatabaseQueryTemplate />
+                        this.state.databaseQuery && <DatabaseQueryTemplate sectionId={this.state.sectionId} />
                     }
                     {
-                        this.state.mcqMultipleCorrect && <MCQMultipleCorrectTemplate />
+                        this.state.mcqMultipleCorrect && <MCQMultipleCorrectTemplate sectionId={this.state.sectionId} />
                     }
                     {
-                        this.state.mcqSingleCorrect && <MCQSingleCorrectTemplate />
+                        this.state.mcqSingleCorrect && <MCQSingleCorrectTemplate sectionId={this.state.sectionId} />
                     }
                     {
-                        this.state.programming && <ProgrammingTemplate />
+                        this.state.programming && <ProgrammingTemplate sectionId={this.state.sectionId} />
                     }
                 </div>
             </div>

@@ -9,7 +9,7 @@ class TrueFalseTemplate extends React.Component {
         super(props);
         this.state = {
             question: '',
-            load: true
+            load: false
         }
     }
 
@@ -19,12 +19,18 @@ class TrueFalseTemplate extends React.Component {
     }
 
     componentDidMount = () => {
+        this.setState({
+            load: true
+        })
+        this.pickTimeFromSlots();
     }
     onChange = (defaultValue) => {
         localStorage.setItem('questionStringFromSimpleMde', defaultValue);
     }
+
     pickTimeFromSlots = () => {
         let slots = document.getElementsByName('timeDurationSlots');
+        console.log(slots)
         for(let i=0; i<slots.length; i++) {
             slots[i].addEventListener('click', (e) => {
                 document.getElementsByName('timeDuration')[0].defaultValue = e.target.defaultValue;
@@ -68,7 +74,7 @@ class TrueFalseTemplate extends React.Component {
                 <input className='hidden' type="number" name="sectionId" defaultValue={this.props.sectionId} />
                 <textarea className='hidden' name="question" rows="10" id='question'></textarea>
                 {
-                    this.state.load &&
+                    
                     <>
                         <div className='true-false-option'>
                             <h3 className='template-headings'>Select Answer</h3>
