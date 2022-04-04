@@ -133,7 +133,7 @@ class AddQuestion extends React.Component {
             <div className='content-loaded'>
                 <div>
                     {
-                        this.state.trueFalseTemplate && <TrueFalseTemplate />
+                        this.state.trueFalseTemplate && <TrueFalseTemplate sectionId={this.state.sectionId} />
                     }
                     {
                         this.state.databaseQuery && <DatabaseQueryTemplate />

@@ -397,7 +397,7 @@ function ViewExams() {
                         <div></div>
                     }
 
-                    <div className='btn btn-small ml-10'>{currentPage + '/' + totalPages}</div>
+                    <div className='btn-small ml-10'>{currentPage + '/' + totalPages}</div>
                     {
                         <button id="next-btn" className='btn-small ml-10' onClick={nextPage} disabled={currentPage < totalPages ? false : true}>
                             <i className={'fas fa-angle-right ' + (currentPage < totalPages ? '' : ' disabled-btn')}></i>

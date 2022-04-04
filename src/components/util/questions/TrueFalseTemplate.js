@@ -1,58 +1,72 @@
 import React from 'react';
-import EditorJS from '@editorjs/editorjs';
-import {EDITOR_JS_TOOLS} from '../../util/Tool';
+import SimpleMDE from "react-simplemde-editor";
+import ReactDOMServer from "react-dom/server";
+import ReactMarkdown from 'react-markdown';
+import "easymde/dist/easymde.min.css";
 import Loader from '../../util/Loader';
 class TrueFalseTemplate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             question: '',
-            load: false
+            load: true
         }
     }
 
     addQuestion = (e) => {
         e.preventDefault();
-        console.log('submitted');
-        console.log(JSON.stringify(this.state.question))
+        document.getElementById('question').defaultValue = localStorage.getItem('questionStringFromSimpleMde');
     }
 
     componentDidMount = () => {
-        const reactEditor = new EditorJS({
-            holder: 'react-editor-js-for-question',
-            tools: EDITOR_JS_TOOLS,
-            placeholder: 'Type your question here...',
-            onChange: () => {
-                reactEditor.save().then((d) => {
-                    this.setState({
-                        question: d.blocks
-                    })
-                })
-            },
-            onReady: () => {
-                document.getElementsByClassName('codex-editor__redactor')[0].style.paddingBottom = '0px';
-                document.getElementById('react-editor-js-for-question').style.display = 'block';
-                this.setState({
-                    load: true
-                })
-            }
-        });
+    }
+    onChange = (defaultValue) => {
+        localStorage.setItem('questionStringFromSimpleMde', defaultValue);
+    }
+    pickTimeFromSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].addEventListener('click', (e) => {
+                document.getElementsByName('timeDuration')[0].defaultValue = e.target.defaultValue;
+            })
+        }
+    }
+
+
+    resetTimeSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].checked = false;
+        }
     }
 
     render() {
         return (
-            <form id='question-form' onSubmit={this.addQuestion}>
+            <form id='question-form' className='pb-10' onSubmit={this.addQuestion}>
                 {
                     !this.state.load &&
                     <Loader />
                 }
                 {
                     this.state.load &&
+                    <>
                     <div className='question-container'>
                         <h3 className='template-headings'>Question</h3>
                     </div>
+                    <SimpleMDE 
+                        defaultValue={this.state.question}
+                        onChange={this.onChange}
+                        options={{
+                            previewRender(plainText) {
+                                return ReactDOMServer.renderToString(<ReactMarkdown>{plainText}</ReactMarkdown>);
+                            }
+                        }}
+                    />
+                    </>
+                
                 }
-                <div id='react-editor-js-for-question'></div>
+                <input className='hidden' type="number" name="sectionId" defaultValue={this.props.sectionId} />
+                <textarea className='hidden' name="question" rows="10" id='question'></textarea>
                 {
                     this.state.load &&
                     <>
@@ -60,13 +74,80 @@ class TrueFalseTemplate extends React.Component {
                             <h3 className='template-headings'>Select Answer</h3>
                             <div>
                                 <label>
-                                    <input type="radio" name='trueFalseAnswer' value="1" />
+                                    <input type="radio" name='trueFalseAnswer' defaultValue="1" />
                                     <span>True</span>
                                 </label>
                                 <label>
-                                    <input type="radio" name='trueFalseAnswer' value="0"/>
+                                    <input type="radio" name='trueFalseAnswer' defaultValue="0"/>
                                     <span>False</span>
                                 </label>
+                            </div>
+                        </div>
+                        
+                        <div className="input-block">
+                            <div className="input-custom">
+                                <input type="number" name="score" defaultChecked={true} />
+                                <label>Score</label>
+                                <div className="response"></div>
+                            </div>
+                            <div className="input-custom">
+                                <input type="number" name="negativeMarking" defaultChecked={true}/>
+                                <label>Negative Marking</label>
+                                <div className="response"></div>
+                            </div>
+                        </div>
+                        <div className="input-block">
+                            <div className="input-custom">
+                                <textarea type="text" name="explanation" rows="6"></textarea>
+                                <label>Explanation</label>
+                                <div className="response"></div>
+                            </div>
+                        </div>
+                        <div className='input-block'>
+                            <div className="customized-radio-sticky">
+                                <label>Choose time duration from slots</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="0" />
+                                        <span>No time limit</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="10" />
+                                        <span>10 Seconds</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="20" />
+                                        <span>20 Seconds</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="30" />
+                                        <span>30 Seconds</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="60" />
+                                        <span>1 Minute</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="120" />
+                                        <span>2 Minutes</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="120" />
+                                        <span>3 Minutes</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="300" />
+                                        <span>5 Minutes</span>
+                                    </label>
+                                </div>
+                                <div className="response"></div>
+                            </div>
+                        </div>
+                        <div className="input-block">
+                            <div className="input-custom">
+                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} defaultChecked={true} />
+                                <label>Time Duration</label>
+                                <div className="response"></div>
                             </div>
                         </div>
                         <input className='hidden' type="submit" id='submit-question-form' />
