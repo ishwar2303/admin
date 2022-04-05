@@ -216,7 +216,7 @@ class Sections extends React.Component {
                 <ConfirmationDialog 
                     title='Are you sure?'
                     entity={this.state.deleteSectionTitle}
-                    message='Section will be permanently deleted.' 
+                    message='The section will be permanently deleted.' 
                     type='' 
                     btn='Delete'
                     btnClass='btn-danger'

@@ -348,6 +348,7 @@ form .footer {
   border: none;
   font-size: 15px;
   color: rgb(42, 42, 42);
+  width: 30px;
 }
 .disabled-btn {
   color: #dedede;
