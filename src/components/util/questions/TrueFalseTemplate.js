@@ -42,22 +42,22 @@ class TrueFalseTemplate extends React.Component {
             this.resetForm();
             Flash.message(res.success, 'bg-success');
         }
-        // else {
-        //     let log = res.errorLog;
-        //     let icon = '<i class="fas fa-exclamation-circle mr-5"></i>';
-        //     responseBlock[0].innerHTML = (log.title ? icon + log.title : '');
-        //     responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
+        else {
+            let log = res.errorLog;
+            let icon = '<i class="fas fa-exclamation-circle mr-5"></i>';
+            responseBlock[0].innerHTML = (log.question ? icon + log.question : '');
+            // responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
 
-        //     responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
-        //     responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
-        //     responseBlock[4].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
-        //     responseBlock[5].innerHTML = (log.startTime ? icon + log.startTime: '' );
-        //     responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
-        //     responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
-        //     responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
-        //     responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
-        //     responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
-        // }
+            // responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
+            // responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
+            // responseBlock[4].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
+            // responseBlock[5].innerHTML = (log.startTime ? icon + log.startTime: '' );
+            // responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
+            // responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
+            // responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            // responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            // responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
+        }
     }
 
     componentDidMount = () => {
@@ -110,6 +110,7 @@ class TrueFalseTemplate extends React.Component {
                             }
                         }}
                     />
+                    <div className="response flex-row jc-e"></div>
                     </>
                 
                 }
