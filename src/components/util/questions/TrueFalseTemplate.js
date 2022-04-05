@@ -4,6 +4,10 @@ import ReactDOMServer from "react-dom/server";
 import ReactMarkdown from 'react-markdown';
 import "easymde/dist/easymde.min.css";
 import Loader from '../../util/Loader';
+import $ from 'jquery';
+import Request from '../../services/Request';
+import Flash from '../../services/Flash';
+
 class TrueFalseTemplate extends React.Component {
     constructor(props) {
         super(props);
@@ -16,6 +20,44 @@ class TrueFalseTemplate extends React.Component {
     addQuestion = (e) => {
         e.preventDefault();
         document.getElementById('question').defaultValue = localStorage.getItem('questionStringFromSimpleMde');
+        let url = "http://localhost:8080/QuizWit/TrueFalseQuestion";
+        let data = $('#question-form').serialize();
+        Request.post(url,data)
+        .then((res) => {
+            this.populateResponse(res);
+        })
+    }
+
+    resetForm = () => {
+
+    }
+
+    populateResponse = (res) => {
+        console.log(res);
+        let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
+        if(res.error) {
+            Flash.message(res.error, 'bg-danger');
+        }
+        if(res.success) {
+            this.resetForm();
+            Flash.message(res.success, 'bg-success');
+        }
+        // else {
+        //     let log = res.errorLog;
+        //     let icon = '<i class="fas fa-exclamation-circle mr-5"></i>';
+        //     responseBlock[0].innerHTML = (log.title ? icon + log.title : '');
+        //     responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
+
+        //     responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
+        //     responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
+        //     responseBlock[4].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
+        //     responseBlock[5].innerHTML = (log.startTime ? icon + log.startTime: '' );
+        //     responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
+        //     responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
+        //     responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
+        //     responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+        //     responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
+        // }
     }
 
     componentDidMount = () => {
@@ -71,6 +113,7 @@ class TrueFalseTemplate extends React.Component {
                     </>
                 
                 }
+                <input className='hidden' type="number" name="categoryId" defaultValue={3} />
                 <input className='hidden' type="number" name="sectionId" defaultValue={this.props.sectionId} />
                 <textarea className='hidden' name="question" rows="10" id='question'></textarea>
                 {
@@ -146,7 +189,6 @@ class TrueFalseTemplate extends React.Component {
                                         <span>5 Minutes</span>
                                     </label>
                                 </div>
-                                <div className="response"></div>
                             </div>
                         </div>
                         <div className="input-block">

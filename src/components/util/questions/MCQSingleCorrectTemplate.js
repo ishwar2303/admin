@@ -119,6 +119,7 @@ class MCQSingleCorrectTemplate extends React.Component {
                     />
                     </>
                 }
+                <input className='hidden' type="number" name="categoryId" defaultValue={1} />
                 <input className='hidden' type="number" name="sectionId" defaultValue={this.props.sectionId} />
                 <textarea className='hidden' name="question" rows="10" id='question'></textarea>
                 {
@@ -187,7 +188,6 @@ class MCQSingleCorrectTemplate extends React.Component {
                                         <span>5 Minutes</span>
                                     </label>
                                 </div>
-                                <div className="response"></div>
                             </div>
                         </div>
                         <div className="input-block">

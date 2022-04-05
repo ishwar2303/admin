@@ -1,6 +1,8 @@
 import React from 'react';
-import EditorJS from '@editorjs/editorjs';
-import {EDITOR_JS_TOOLS} from '../../util/Tool';
+import SimpleMDE from "react-simplemde-editor";
+import ReactDOMServer from "react-dom/server";
+import ReactMarkdown from 'react-markdown';
+import "easymde/dist/easymde.min.css";
 import Loader from '../../util/Loader';
 import Flash from '../../services/Flash';
 
@@ -31,28 +33,28 @@ class MCQMultipleCorrectTemplate extends React.Component {
         console.log(correctAnswer);
     }
     componentDidMount = () => {
-        const reactEditor = new EditorJS({
-            holder: 'react-editor-js-for-question',
-            tools: EDITOR_JS_TOOLS,
-            placeholder: 'Type your question here...',
-            onChange: () => {
-                reactEditor.save().then((d) => {
-                    this.setState({
-                        question: d.blocks
-                    })
-                })
-            },
-            onReady: () => {
-                document.getElementsByClassName('codex-editor__redactor')[0].style.paddingBottom = '0px';
-                document.getElementById('react-editor-js-for-question').style.display = 'block';
-                this.setState({
-                    load: true
-                })
-                for(let i=0; i<4; i++)
-                    this.createMcqOption();
-            }
-        });
+        this.setState({
+            load: true
+        })
+        this.pickTimeFromSlots();
+        for(let i=0; i<2; i++)  
+            this.createMcqOption();
+    }
 
+    pickTimeFromSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].addEventListener('click', (e) => {
+                document.getElementsByName('timeDuration')[0].defaultValue = e.target.defaultValue;
+            })
+        }
+    }
+
+    resetTimeSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].checked = false;
+        }
     }
 
     createMcqOption = () => {
@@ -94,23 +96,100 @@ class MCQMultipleCorrectTemplate extends React.Component {
                 }
                 {
                     this.state.load &&
+                    <>
                     <div className='question-container'>
                         <h3 className='template-headings'>Question</h3>
                     </div>
+                    <SimpleMDE 
+                        defaultValue={this.state.question}
+                        onChange={this.onChange}
+                        options={{
+                            previewRender(plainText) {
+                                return ReactDOMServer.renderToString(<ReactMarkdown>{plainText}</ReactMarkdown>);
+                            }
+                        }}
+                    />
+                    </>
                 }
-                <div id='react-editor-js-for-question'></div>
+                <input className='hidden' type="number" name="categoryId" defaultValue={2} />
+                <input className='hidden' type="number" name="sectionId" defaultValue={this.props.sectionId} />
+                <textarea className='hidden' name="question" rows="10" id='question'></textarea>
                 {
-                    this.state.load &&
                     <>
                         <div className='mcq-options'>
                             <h3 className='template-headings'>MCQ Options</h3>
                             <div className='mcq-options-block'>
                             </div>
                             <div className='flex-row jc-e mt-10 pb-10'>
-                                <button className='btn btn-secondary btn-small' onClick={this.createMcqOption}>Add option</button>
+                                <label className='btn btn-secondary btn-small' onClick={this.createMcqOption}>Add option</label>
+                            </div>
+                        </div><div className="input-block">
+                            <div className="input-custom">
+                                <input type="number" name="score" defaultChecked={true} />
+                                <label>Score</label>
+                                <div className="response"></div>
+                            </div>
+                            <div className="input-custom">
+                                <input type="number" name="negativeMarking" defaultChecked={true}/>
+                                <label>Negative Marking</label>
+                                <div className="response"></div>
+                            </div>
+                        </div>
+                        <div className="input-block">
+                            <div className="input-custom">
+                                <textarea type="text" name="explanation" rows="6"></textarea>
+                                <label>Explanation</label>
+                                <div className="response"></div>
+                            </div>
+                        </div>
+                        <div className='input-block'>
+                            <div className="customized-radio-sticky">
+                                <label>Choose time duration from slots</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="0" />
+                                        <span>No time limit</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="10" />
+                                        <span>10 Seconds</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="20" />
+                                        <span>20 Seconds</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="30" />
+                                        <span>30 Seconds</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="60" />
+                                        <span>1 Minute</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="120" />
+                                        <span>2 Minutes</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="120" />
+                                        <span>3 Minutes</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" defaultValue="300" />
+                                        <span>5 Minutes</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-block">
+                            <div className="input-custom">
+                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} defaultChecked={true} />
+                                <label>Time Duration</label>
+                                <div className="response"></div>
                             </div>
                         </div>
                         <input className='hidden' type="submit" id='submit-question-form' />
+                        
                     </>
                 }
             </form>
