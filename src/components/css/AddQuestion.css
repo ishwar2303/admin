@@ -74,8 +74,8 @@
 .mcq-option-container  .fa-trash {
     width: 25px;
     height: 25px;
-    background: rgb(253, 66, 66);
-    font-size: 14px;
+    background: rgb(227 80 80);
+    font-size: 12px;
     color: white;
     display: flex;
     justify-content: center;
@@ -94,4 +94,7 @@
     padding: 10px;
     resize: vertical;
     font-size: 16px;
+}
+.mcq-options-block textarea {
+    min-height: 60px;
 }

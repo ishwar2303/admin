@@ -158,11 +158,11 @@ class AddQuestion extends React.Component {
                         <button id='reset-question-form-btn' className='btn btn-fade btn-small' onClick={this.resetQuestionForm}>Reset</button>
                         {
                             this.state.mcqSingleCorrect &&
-                            <p className='tertiary'><sup>*</sup>To select the correct answer click on radio button.</p>
+                            <p className='tertiary'>To select the correct answer click on radio button.</p>
                         }
                         {
                             this.state.mcqMultipleCorrect &&
-                            <p className='tertiary'><sup>*</sup>To select the correct answers select checkbox.</p>
+                            <p className='tertiary'>To select the correct answers select checkbox.</p>
                         }
                         <button id='add-question-form-btn' className='btn btn-primary btn-small' onClick={this.submitQuestionForm}>Add</button>
                     </div>
