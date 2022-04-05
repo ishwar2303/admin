@@ -61,15 +61,21 @@
 /* mcq options */
 .mcq-option-container {
     display: flex;
+    flex-direction: column;
     border: 0.5px solid rgba(0, 0, 0, 0.4);
     border-radius: 3px;
     margin-bottom: 10px;
 }
-.mcq-option-container > div:nth-child(1), .mcq-option-container > div:nth-child(3) {
+.mcq-option-container .mcq-option-response {
+    color: rgb(227 80 80);
+    font-size: 12px;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
     padding: 10px;
 }
-.mcq-option-container > div:nth-child(2) {
-    flex: 1;
+.mcq-option-container > div:nth-child(1), .mcq-option-container > div:nth-child(3) {
+    padding: 10px;
 }
 .mcq-option-container  .fa-trash {
     width: 25px;
@@ -91,7 +97,7 @@
 .mcq-option-container textarea {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 0px 10px;
     resize: vertical;
     font-size: 16px;
 }
