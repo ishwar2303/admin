@@ -19,7 +19,11 @@ class TrueFalseTemplate extends React.Component {
 
     addQuestion = (e) => {
         e.preventDefault();
-        document.getElementById('question').defaultValue = localStorage.getItem('questionStringFromSimpleMde');
+        let question = localStorage.getItem('questionStringFromSimpleMde');
+        document.getElementById('question').defaultValue = question;
+        this.setState({
+            question: question
+        })
         let url = "http://localhost:8080/QuizWit/TrueFalseQuestion";
         let data = $('#question-form').serialize();
         Request.post(url,data)
@@ -28,9 +32,6 @@ class TrueFalseTemplate extends React.Component {
         })
     }
 
-    resetForm = () => {
-
-    }
 
     populateResponse = (res) => {
         console.log(res);
@@ -46,17 +47,11 @@ class TrueFalseTemplate extends React.Component {
             let log = res.errorLog;
             let icon = '<i class="fas fa-exclamation-circle mr-5"></i>';
             responseBlock[0].innerHTML = (log.question ? icon + log.question : '');
-            // responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
+            responseBlock[1].innerHTML = (log.answer ? icon + log.answer : '');
 
-            // responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
-            // responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
-            // responseBlock[4].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
-            // responseBlock[5].innerHTML = (log.startTime ? icon + log.startTime: '' );
-            // responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
-            // responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
-            // responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            // responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
-            // responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
+            responseBlock[2].innerHTML = (log.score ? icon + log.score: '');
+            responseBlock[3].innerHTML = (log.negativeMarking ? icon + log.negativeMarking: '');
+            responseBlock[4].innerHTML = (log.timeDuration ? icon + log.timeDuration: '');
         }
     }
 
@@ -72,15 +67,20 @@ class TrueFalseTemplate extends React.Component {
 
     pickTimeFromSlots = () => {
         let slots = document.getElementsByName('timeDurationSlots');
-        console.log(slots)
         for(let i=0; i<slots.length; i++) {
             slots[i].addEventListener('click', (e) => {
-                document.getElementsByName('timeDuration')[0].defaultValue = e.target.defaultValue;
+                document.getElementsByName('timeDuration')[0].value = e.target.value;
             })
         }
     }
 
 
+    resetForm = () => {
+        this.setState({
+            question: ""
+        })
+        document.getElementById('question-form').reset();
+    }
     resetTimeSlots = () => {
         let slots = document.getElementsByName('timeDurationSlots');
         for(let i=0; i<slots.length; i++) {
@@ -102,7 +102,7 @@ class TrueFalseTemplate extends React.Component {
                         <h3 className='template-headings'>Question</h3>
                     </div>
                     <SimpleMDE 
-                        defaultValue={this.state.question}
+                        value={this.state.question}
                         onChange={this.onChange}
                         options={{
                             previewRender(plainText) {
@@ -132,7 +132,9 @@ class TrueFalseTemplate extends React.Component {
                                     <span>False</span>
                                 </label>
                             </div>
+                            <div className="response"></div>
                         </div>
+
                         
                         <div className="input-block">
                             <div className="input-custom">
@@ -149,8 +151,7 @@ class TrueFalseTemplate extends React.Component {
                         <div className="input-block">
                             <div className="input-custom">
                                 <textarea type="text" name="explanation" rows="6"></textarea>
-                                <label>Explanation</label>
-                                <div className="response"></div>
+                                <label>Explanation</label>  
                             </div>
                         </div>
                         <div className='input-block'>
@@ -194,12 +195,14 @@ class TrueFalseTemplate extends React.Component {
                         </div>
                         <div className="input-block">
                             <div className="input-custom">
-                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} defaultChecked={true} />
+                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} />
                                 <label>Time Duration</label>
                                 <div className="response"></div>
                             </div>
                         </div>
+                        <div className='hidden' id='reset-question-form' onClick={this.resetForm}>reset</div>
                         <input className='hidden' type="submit" id='submit-question-form' />
+                        
                     </>
 
                 }

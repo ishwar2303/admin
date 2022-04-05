@@ -50,6 +50,13 @@ class MCQMultipleCorrectTemplate extends React.Component {
         }
     }
 
+    resetForm = () => {
+        this.setState({
+            question: ""
+        })
+        document.getElementById('question-form').reset();
+    }
+    
     resetTimeSlots = () => {
         let slots = document.getElementsByName('timeDurationSlots');
         for(let i=0; i<slots.length; i++) {
@@ -188,6 +195,7 @@ class MCQMultipleCorrectTemplate extends React.Component {
                                 <div className="response"></div>
                             </div>
                         </div>
+                        <div className='hidden' id='reset-question-form' onClick={this.resetForm}>reset</div>
                         <input className='hidden' type="submit" id='submit-question-form' />
                         
                     </>

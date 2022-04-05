@@ -101,8 +101,7 @@ class AddQuestion extends React.Component {
     }
 
     resetQuestionForm = () => {
-        console.log('reset')
-        document.getElementById('question-form').reset();
+        document.getElementById('reset-question-form').click();
     }
 
     submitQuestionForm = () => {
