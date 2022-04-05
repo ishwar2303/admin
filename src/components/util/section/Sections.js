@@ -40,6 +40,7 @@ class Sections extends React.Component {
     redirectToLink(link) {
         let a = document.createElement('a');
         a.href = link;
+        a.target = '_blank';
         a.click();
     }
 
@@ -58,7 +59,7 @@ class Sections extends React.Component {
             document.getElementById('confirmation-dialog').style.display = 'block';
         }
     }
-    getSelectedExam() {
+    getSelectedExam = () => {
         let exams = document.getElementsByName('examId');
         let examNames = document.getElementsByClassName('exam-title-value');
         for(let i=0; i<exams.length; i++) {
@@ -75,7 +76,7 @@ class Sections extends React.Component {
         document.getElementById('add-section-btn').click();
     }
 
-    fetchSections() {
+    fetchSections = () => {
         let obj = this.getSelectedExam();
         if(obj) {
             document.getElementById('route-overlay').style.display = 'block';
@@ -136,10 +137,15 @@ class Sections extends React.Component {
                 <div id='sections-dialog'>
                     <div>
                         <div className='flex-col flex-full jc-sb'>
-                            <h3 className='secondary mb-10' id='exam-name-section-reference'>
-                                <span className='secondary'>{this.props.examTitle} </span>
-                                <span className='gray'> &gt; </span>
-                                <span className='primary'>Sections</span>
+                            <h3 className='secondary mb-10 flex-row jc-sb' id='exam-name-section-reference'>
+                                <div>
+                                    <span className='secondary'>{this.props.examTitle} </span>
+                                    <span className='gray'> &gt; </span>
+                                    <span className='primary'>Sections</span>
+                                </div>
+                                <div>
+                                    <i className='fas fa-sync bg-refresh-icon' onClick={this.fetchSections}></i>
+                                </div>
                             </h3>
                             {
                                 this.props.sections.length != 0 ? 
@@ -149,10 +155,10 @@ class Sections extends React.Component {
                                         <thead>
                                             <tr>
                                                 <th>S No.</th>
-                                                <th>Title</th>
+                                                <th style={{width: '300px'}}>Title</th>
+                                                <th style={{width: '100px'}} className='text-left'>Duration</th>
                                                 <th className='text-center'>Questions</th>
                                                 <th className='text-center'>Section<br/>Timer</th>
-                                                <th>Duration</th>
                                                 <th className='text-center'>Question<br/>Navigation</th>
                                                 <th className='text-center'>Shuffle<br/>Questions</th>
                                                 <th style={{"textAlign":"center"}}>Action</th>
@@ -166,14 +172,15 @@ class Sections extends React.Component {
                                                             <tr key={k}>
                                                                 <td>{d.serialNo}</td>
                                                                 <td>{d.title}</td>
+                                                                <td className='text-left'>{d.timeDuration}</td>
                                                                 <td className='text-center'>{d.questions}</td>
                                                                 <td className='text-center'>{d.setSectionTimer == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
-                                                                <td>{d.timeDuration}</td>
                                                                 <td className='text-center'>{d.questionNavigation == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
                                                                 <td className='text-center'>{d.shuffleQuestions == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
                                                                 <td>
                                                                     <div className='action-btn-container'>
                                                                          <i className='fas fa-plus bg-tertiary' id={d.sectionId + "," + d.title} onClick={this.addQuestion}></i>
+                                                                         <i className='fas fa-box  bg-secondary'></i>
                                                                          <i className='fas fa-pen bg-primary' id={d.sectionId + "," + d.title} onClick={this.editSection}></i>
                                                                         <i className='fas fa-trash bg-danger' id={d.sectionId + "," + d.title} onClick={this.showConfirmationDialog}></i>
 
@@ -196,7 +203,11 @@ class Sections extends React.Component {
                         </div>
                         <div className='flex-row jc-sb'>
                             <button className='btn btn-fade btn-small' onClick={this.closeDialog}>Close</button>
+                            <div className='flex-row'>
                             <p style={{fontSize: "14px"}} className='tertiary'>Click on <i className='fas fa-plus'></i> icon to add questions in that section.</p>
+                            &nbsp;<span className='gray'>|</span>&nbsp;
+                            <p style={{fontSize: "14px"}} className='secondary'>Click on <i className='fas fa-box'></i> icon to view questions in that section.</p>
+                            </div>
                             <button className='btn btn-primary btn-small' onClick={this.addSection}>Add</button>
                         </div>
                         <div className='table-border'></div>

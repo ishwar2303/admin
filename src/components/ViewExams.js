@@ -388,7 +388,7 @@ function ViewExams() {
                 examDetails.length > 0 && 
                 <div className='flex-row jc-c flex-full'>
                     {
-                        <button id="prev-btn" className='btn-small' onClick={prevPage}>
+                        <button id="prev-btn" className='btn-small' onClick={prevPage} disabled={currentPage > 1 ? false : true}>
                             <i className={'fas fa-angle-left ' + (currentPage > 1 ? '' : ' disabled-btn')}></i>
                         </button>
                     }

@@ -4,6 +4,8 @@ import ReactDOMServer from "react-dom/server";
 import ReactMarkdown from 'react-markdown';
 import "easymde/dist/easymde.min.css";
 import Loader from '../../util/Loader';
+import $ from 'jquery';
+import Request from '../../services/Request';
 import Flash from '../../services/Flash';
 
 class MCQSingleCorrectTemplate extends React.Component {
@@ -13,28 +15,65 @@ class MCQSingleCorrectTemplate extends React.Component {
             question: '',
             load: false
         }
+        
     }
     addQuestion = (e) => {
         e.preventDefault();
-        document.getElementById('question').defaultValue = localStorage.getItem('questionStringFromSimpleMde');
-        console.log('submitted');
-        console.log(JSON.stringify(this.state.question))
-
-        let mcqOptionAnswer = document.getElementsByName('mcqOptionAnswer');
-        let correctAnswer = null;
-        for(let i=0; i<mcqOptionAnswer.length; i++) {
-            if(mcqOptionAnswer[i].checked) {
-                correctAnswer = i+1;
-                break;
+        let mcqOptionAnswerRadioInput = document.getElementsByName('mcqOptionAnswerRadioInput');
+        if(mcqOptionAnswerRadioInput.length >=2) {
+            let correctAnswer = null;
+            for(let i=0; i<mcqOptionAnswerRadioInput.length; i++) {
+                if(mcqOptionAnswerRadioInput[i].checked) {
+                    correctAnswer = i+1;
+                    break;
+                }
             }
+            if(!correctAnswer) {
+                Flash.message('Please select correct option', 'bg-primary');
+                return;
+            }
+            document.getElementsByName('mcqOptionAnswer')[0].value = correctAnswer;
+            console.log(correctAnswer);
         }
-        if(!correctAnswer) {
-            Flash.message('Please select correct option', 'bg-primary');
+        else {
+            Flash.message('Add atleast 2 options', 'bg-primary');
             return;
         }
-        console.log(correctAnswer);
+
+        let question = localStorage.getItem('questionStringFromSimpleMde');
+        document.getElementById('question').defaultValue = question;
+        this.setState({
+            question: question
+        })
+        let url = "http://localhost:8080/QuizWit/MultipleChoiceQuestionSingleCorrect";
+        let data = $('#question-form').serialize();
+        Request.post(url,data)
+        .then((res) => {
+            this.populateResponse(res);
+        })
     }
 
+    populateResponse = (res) => {
+        console.log(res);
+        let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
+        if(res.error) {
+            Flash.message(res.error, 'bg-danger');
+        }
+        if(res.success) {
+            this.resetForm();
+            Flash.message(res.success, 'bg-success');
+        }
+        else {
+            let log = res.errorLog;
+            let icon = '<i class="fas fa-exclamation-circle mr-5"></i>';
+            responseBlock[0].innerHTML = (log.question ? icon + log.question : '');
+            responseBlock[1].innerHTML = (log.answer ? icon + log.answer : '');
+
+            responseBlock[2].innerHTML = (log.score ? icon + log.score: '');
+            responseBlock[3].innerHTML = (log.negativeMarking ? icon + log.negativeMarking: '');
+            responseBlock[4].innerHTML = (log.timeDuration ? icon + log.timeDuration: '');
+        }
+    }
 
     componentDidMount = () => {
         this.setState({
@@ -43,6 +82,7 @@ class MCQSingleCorrectTemplate extends React.Component {
         this.pickTimeFromSlots();
         for(let i=0; i<2; i++)  
             this.createMcqOption();
+        localStorage.setItem('questionStringFromSimpleMde', '');
     }
     onChange = (defaultValue) => {
         localStorage.setItem('questionStringFromSimpleMde', defaultValue);
@@ -55,7 +95,7 @@ class MCQSingleCorrectTemplate extends React.Component {
         let div1 = document.createElement('div');
         let input = document.createElement('input');
         input.type = 'radio';
-        input.name = 'mcqOptionAnswer';
+        input.name = 'mcqOptionAnswerRadioInput';
         div1.appendChild(input);
         let div2 = document.createElement('div');
         let textarea = document.createElement('textarea');
@@ -93,6 +133,9 @@ class MCQSingleCorrectTemplate extends React.Component {
             question: ""
         })
         document.getElementById('question-form').reset();
+        let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
+        for(let i=0; i<responseBlock.length; i++)
+            responseBlock[i].innerHTML = '';
     }
     
     resetTimeSlots = () => {
@@ -124,10 +167,12 @@ class MCQSingleCorrectTemplate extends React.Component {
                             }
                         }}
                     />
+                    <div className="response flex-row jc-e"></div>
                     </>
                 }
                 <input className='hidden' type="number" name="categoryId" defaultValue={1} />
                 <input className='hidden' type="number" name="sectionId" defaultValue={this.props.sectionId} />
+                <input type="number" name="mcqOptionAnswer" />
                 <textarea className='hidden' name="question" rows="10" id='question'></textarea>
                 {
                     <>
@@ -155,7 +200,6 @@ class MCQSingleCorrectTemplate extends React.Component {
                             <div className="input-custom">
                                 <textarea type="text" name="explanation" rows="6"></textarea>
                                 <label>Explanation</label>
-                                <div className="response"></div>
                             </div>
                         </div>
                         <div className='input-block'>

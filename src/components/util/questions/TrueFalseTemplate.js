@@ -60,6 +60,7 @@ class TrueFalseTemplate extends React.Component {
             load: true
         })
         this.pickTimeFromSlots();
+        localStorage.setItem('questionStringFromSimpleMde', '');
     }
     onChange = (defaultValue) => {
         localStorage.setItem('questionStringFromSimpleMde', defaultValue);
@@ -80,6 +81,9 @@ class TrueFalseTemplate extends React.Component {
             question: ""
         })
         document.getElementById('question-form').reset();
+        let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
+        for(let i=0; i<responseBlock.length; i++)
+            responseBlock[i].innerHTML = '';
     }
     resetTimeSlots = () => {
         let slots = document.getElementsByName('timeDurationSlots');

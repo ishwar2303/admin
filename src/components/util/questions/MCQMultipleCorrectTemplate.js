@@ -39,6 +39,7 @@ class MCQMultipleCorrectTemplate extends React.Component {
         this.pickTimeFromSlots();
         for(let i=0; i<2; i++)  
             this.createMcqOption();
+        localStorage.setItem('questionStringFromSimpleMde', '');
     }
 
     pickTimeFromSlots = () => {
@@ -55,6 +56,9 @@ class MCQMultipleCorrectTemplate extends React.Component {
             question: ""
         })
         document.getElementById('question-form').reset();
+        let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
+        for(let i=0; i<responseBlock.length; i++)
+            responseBlock[i].innerHTML = '';
     }
     
     resetTimeSlots = () => {

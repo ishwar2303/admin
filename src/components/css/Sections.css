@@ -68,7 +68,7 @@
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
-#sections-dialog .action-btn-container i:nth-child(3) {
+#sections-dialog .action-btn-container i:nth-child(4) {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
@@ -77,8 +77,19 @@
     z-index: 100;
     position: absolute;
     width: 100%;
-    top: 24px;
+    top: 27px;
     left: 0px;
     height: 2px;
     background: white;
+}
+.bg-refresh-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    background: rgb(227 132 74);
+    color: white;
+    font-size: 11px;
 }
