@@ -27,33 +27,34 @@ class ViewQuestion extends React.Component {
     fetchQuestion = () => {
         this.setState({
             load: false
-        })
-        let url = "http://localhost:8080/QuizWit/ViewQuestion?sectionId=";
-        url += this.state.sectionId; // section ID
-        url += "&page="
-        url += this.state.currentPage; // page number
-        Request.get(url)
-        .then((res) => {
-            console.log(res);
-            this.setState({
-                totalPages: res.totalQuestions
-            })
-            if(res.success) {
-                let details = res.questionDetails;
+        }, () => {
+            let url = "http://localhost:8080/QuizWit/ViewQuestion?sectionId=";
+            url += this.state.sectionId; // section ID
+            url += "&page="
+            url += this.state.currentPage; // page number
+            Request.get(url)
+            .then((res) => {
+                console.log(res);
                 this.setState({
-                    questionDetails: {},
-                    categoryId: 0
-                }, () => {
+                    totalPages: res.totalQuestions
+                })
+                if(res.success) {
+                    let details = res.questionDetails;
                     this.setState({
-                        questionDetails: details,
-                        categoryId: details.categoryId
+                        questionDetails: {},
+                        categoryId: 0
                     }, () => {
                         this.setState({
-                            load: true
+                            questionDetails: details,
+                            categoryId: details.categoryId
+                        }, () => {
+                            this.setState({
+                                load: true
+                            })
                         })
                     })
-                })
-            }
+                }
+            })
         })
     }
     resetQuestionForm = () => {
