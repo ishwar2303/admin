@@ -132,7 +132,7 @@ class TrueFalseTemplateEdit extends React.Component {
                 }
                 <input className='hidden' type="number" name="categoryId" defaultValue={3} />
                 <input className='hidden' type="number" name="questionId" defaultValue={this.state.questionDetails.questionId} />
-                <textarea className='hidden' name="question" rows="10" id='question'></textarea>
+                <textarea className='hidden' name="question" rows="10" id='question' value={this.state.questionDetails.question}></textarea>
                 {
                     
                     <>

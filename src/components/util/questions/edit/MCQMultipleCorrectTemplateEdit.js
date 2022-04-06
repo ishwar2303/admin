@@ -3,20 +3,20 @@ import SimpleMDE from "react-simplemde-editor";
 import ReactDOMServer from "react-dom/server";
 import ReactMarkdown from 'react-markdown';
 import "easymde/dist/easymde.min.css";
-import Loader from '../../util/Loader';
+import Loader from '../../Loader';
 import $ from 'jquery';
-import Request from '../../services/Request';
-import Flash from '../../services/Flash';
+import Request from '../../../services/Request';
+import Flash from '../../../services/Flash';
 
-class MCQMultipleCorrectTemplate extends React.Component {
+class MCQMultipleCorrectTemplateEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            question: '',
+            questionDetails: this.props.questionDetails,
             load: false
         }
     }
-    addQuestion = (e) => {
+    updateQuestion = (e) => {
         e.preventDefault();
         console.log('submitted');
         console.log(JSON.stringify(this.state.question))
@@ -82,13 +82,25 @@ class MCQMultipleCorrectTemplate extends React.Component {
             responseBlock[5].innerHTML = (log.timeDuration ? icon + log.timeDuration: '');
         }
     }
+
+    checkAnswerOption = (optionId) => {
+        let mcqAnswers = this.state.questionDetails.mcqAnswers;
+        for(let i=0; i<mcqAnswers.length; i++) {
+            if(mcqAnswers[i].optionId == optionId)
+                return true;
+        }
+        return false;
+    }
+
     componentDidMount = () => {
         this.setState({
             load: true
         })
         this.pickTimeFromSlots();
-        for(let i=0; i<2; i++)  
-            this.createMcqOption();
+        let mcqOptions = this.state.questionDetails.mcqOptions;
+        for(let i=0; i<mcqOptions.length; i++) { 
+            this.createMcqOption(mcqOptions[i].option, this.checkAnswerOption(mcqOptions[i].optionId));
+        }
         localStorage.setItem('questionStringFromSimpleMde', '');
     }
 
@@ -103,7 +115,7 @@ class MCQMultipleCorrectTemplate extends React.Component {
 
     resetForm = () => {
         this.setState({
-            question: this.state.questionDetails.question,
+            question: ""
         })
         document.getElementById('question-form').reset();
         localStorage.setItem('questionStringFromSimpleMde', '');
@@ -125,8 +137,10 @@ class MCQMultipleCorrectTemplate extends React.Component {
             slots[i].checked = false;
         }
     }
-
-    createMcqOption = () => {
+    createMcqOptionBlank = () => {
+        this.createMcqOption('', false);
+    }
+    createMcqOption = (optionText, answer) => {
         let div = document.createElement('div');
         div.className = 'mcq-option-container';
         let container1 = document.createElement('div');
@@ -136,13 +150,15 @@ class MCQMultipleCorrectTemplate extends React.Component {
         let div1 = document.createElement('div');
         let input = document.createElement('input');
         input.type = 'checkbox';
+        input.checked = answer;
         input.name = 'mcqOptionAnswerCheckboxInput';
         div1.appendChild(input);
         let div2 = document.createElement('div');
         div2.className = 'flex-full';
         let textarea = document.createElement('textarea');
-        textarea.name = 'mcqOption[]'
-        textarea.placeholder = 'Type your option here...'
+        textarea.name = 'mcqOption[]';
+        textarea.value = optionText;
+        textarea.placeholder = 'Type your option here...';
         div2.appendChild(textarea);
         let div3 = document.createElement('div');
         let i = document.createElement('i');
@@ -165,7 +181,7 @@ class MCQMultipleCorrectTemplate extends React.Component {
 
     render() {
         return (
-            <form id='question-form' className='pb-10' onSubmit={this.addQuestion}>
+            <form id='question-form' className='pb-10' onSubmit={this.updateQuestion}>
                 {
                     !this.state.load &&
                     <Loader />
@@ -177,7 +193,7 @@ class MCQMultipleCorrectTemplate extends React.Component {
                         <h3 className='template-headings'>Question</h3>
                     </div>
                     <SimpleMDE 
-                        value={this.state.question}
+                        value={this.state.questionDetails.question}
                         onChange={this.onChange}
                         options={{
                             previewRender(plainText) {
@@ -188,10 +204,10 @@ class MCQMultipleCorrectTemplate extends React.Component {
                     <div className="response flex-row jc-e"></div>
                     </>
                 }
+                <input className='hidden' type="number" name="mcqOptionAnswer" />
                 <input className='hidden' type="number" name="categoryId" defaultValue={2} />
-                <input className='hidden' type="number" name="sectionId" defaultValue={this.props.sectionId} />
-                <input className='hidden' type="text" name="mcqOptionAnswer" />
-                <textarea className='hidden' name="question" rows="10" id='question'></textarea>
+                <input className='hidden' type="number" name="questionId" defaultValue={this.state.questionDetails.questionId} />
+                <textarea className='hidden' name="question" rows="10" id='question' value={this.state.questionDetails.question}></textarea>
                 {
                     <>
                         <div className='mcq-options'>
@@ -203,24 +219,25 @@ class MCQMultipleCorrectTemplate extends React.Component {
                                     <div className='response'></div>
                                     <div className='response'></div>
                                 </div>
-                                <label className='btn btn-secondary btn-small' onClick={this.createMcqOption}>Add option</label>
+                                <label className='btn btn-secondary btn-small' onClick={this.createMcqOptionBlank}>Add option</label>
                             </div>
-                        </div><div className="input-block">
+                        </div>
+                        <div className="input-block">
                             <div className="input-custom">
-                                <input type="number" name="score" defaultChecked={true} />
+                                <input type="number" name="score" defaultValue={parseInt(this.state.questionDetails.score)} />
                                 <label>Score</label>
                                 <div className="response"></div>
                             </div>
                             <div className="input-custom">
-                                <input type="number" name="negativeMarking" defaultChecked={true}/>
+                                <input type="number" name="negativeMarking" defaultValue={parseInt(this.state.questionDetails.negative)}/>
                                 <label>Negative Marking</label>
                                 <div className="response"></div>
                             </div>
                         </div>
                         <div className="input-block">
                             <div className="input-custom">
-                                <textarea type="text" name="explanation" rows="6"></textarea>
-                                <label>Explanation</label>
+                                <textarea type="text" name="explanation" rows="6" defaultValue={this.state.questionDetails.explanation}></textarea>
+                                <label>Explanation</label>  
                             </div>
                         </div>
                         <div className='input-block'>
@@ -252,7 +269,7 @@ class MCQMultipleCorrectTemplate extends React.Component {
                                         <span>2 Minutes</span>
                                     </label>
                                     <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="180" />
+                                        <input type="radio" name="timeDurationSlots" defaultValue="120" />
                                         <span>3 Minutes</span>
                                     </label>
                                     <label>
@@ -264,7 +281,7 @@ class MCQMultipleCorrectTemplate extends React.Component {
                         </div>
                         <div className="input-block">
                             <div className="input-custom">
-                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} defaultChecked={true} />
+                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} defaultValue={this.state.questionDetails.timeDuration} />
                                 <label>Time Duration</label>
                                 <div className="response"></div>
                             </div>
@@ -279,4 +296,4 @@ class MCQMultipleCorrectTemplate extends React.Component {
     }
 }
 
-export default MCQMultipleCorrectTemplate;
+export default MCQMultipleCorrectTemplateEdit;

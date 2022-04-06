@@ -2,6 +2,8 @@ import React from 'react';
 import Request from './services/Request';
 import Loader from './util/Loader';
 import QuestionNavigationDialog from './util/QuestionNavigationDialog';
+import MCQMultipleCorrectTemplateEdit from './util/questions/edit/MCQMultipleCorrectTemplateEdit';
+import MCQSingleCorrectTemplateEdit from './util/questions/edit/MCQSingleCorrectTemplateEdit';
 import TrueFalseTemplateEdit from './util/questions/edit/TrueFalseTemplateEdit';
 import WrapperFooter from './util/WrapperFooter';
 import WrapperHeader from './util/WrapperHeader';
@@ -39,14 +41,19 @@ class ViewQuestion extends React.Component {
             if(res.success) {
                 let details = res.questionDetails;
                 this.setState({
-                    questionDetails: details,
-                    categoryId: details.categoryId
+                    questionDetails: {},
+                    categoryId: 0
+                }, () => {
+                    this.setState({
+                        questionDetails: details,
+                        categoryId: details.categoryId
+                    }, () => {
+                        this.setState({
+                            load: true
+                        })
+                    })
                 })
-
             }
-            this.setState({
-                load: true
-            })
         })
     }
     resetQuestionForm = () => {
@@ -140,6 +147,14 @@ class ViewQuestion extends React.Component {
                         {
                             this.state.categoryId == '3' &&
                             <TrueFalseTemplateEdit questionDetails={this.state.questionDetails} />
+                        }
+                        {
+                            this.state.categoryId == '1' &&
+                            <MCQSingleCorrectTemplateEdit questionDetails={this.state.questionDetails} />
+                        }
+                        {
+                            this.state.categoryId == '2' &&
+                            <MCQMultipleCorrectTemplateEdit questionDetails={this.state.questionDetails} />
                         }
                         <QuestionNavigationDialog sectionId={this.state.sectionId} sectionTitle={this.state.sectionTitle} navigateToQuestion={this.navigateToQuestion}/>
                     </div>
