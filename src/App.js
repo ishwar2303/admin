@@ -19,6 +19,7 @@ import AddSection from './components/AddSection';
 import EditExam from './components/EditExam';
 import EditSection from './components/EditSection';
 import AddQuestion from './components/AddQuestion';
+import ViewQuestion from './components/ViewQuestion';
 
 function App() {
 
@@ -68,6 +69,7 @@ function App() {
                       <Route path='/edit-section' element={<EditSection />}/>
                       <Route path='/add-question' element={<AddQuestion />} />
                       <Route path='/view-exams' element={<ViewExams />}/>
+                      <Route path='/view-question' element={<ViewQuestion />} />
                       <Route path='/settings' element={<Settings />}/>
                       <Route path='/ace-editor' element={<ProgramEditor />}/>
                       <Route path='/timer' element={<WorkingOfTimer />}/>

@@ -3,22 +3,33 @@ import SimpleMDE from "react-simplemde-editor";
 import ReactDOMServer from "react-dom/server";
 import ReactMarkdown from 'react-markdown';
 import "easymde/dist/easymde.min.css";
-import Loader from '../../util/Loader';
+import Loader from '../../Loader';
 import $ from 'jquery';
-import Request from '../../services/Request';
-import Flash from '../../services/Flash';
+import Request from '../../../services/Request';
+import Flash from '../../../services/Flash';
 
-class TrueFalseTemplate extends React.Component {
+class TrueFalseTemplateEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            question: '',
+            questionDetails: this.props.questionDetails,
+            trueFalseAnswer: this.props.questionDetails.answerDetails.answer,
             load: false
         }
+        
     }
 
+    handleChange = e => {
+        const { name, value } = e.target;
+    
+        this.setState({
+            [name]: value
+        });
+    }
     addQuestion = (e) => {
         e.preventDefault();
+        console.log('update true false question');
+        return;
         let question = localStorage.getItem('questionStringFromSimpleMde');
         document.getElementById('question').defaultValue = question;
         this.setState({
@@ -75,10 +86,11 @@ class TrueFalseTemplate extends React.Component {
         }
     }
 
-
     resetForm = () => {
+        console.log('reset called')
         this.setState({
-            question: ""
+            question: this.state.questionDetails.question,
+            trueFalseAnswer: this.state.questionDetails.answerDetails.answer
         })
         document.getElementById('question-form').reset();
         let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
@@ -106,7 +118,7 @@ class TrueFalseTemplate extends React.Component {
                         <h3 className='template-headings'>Question</h3>
                     </div>
                     <SimpleMDE 
-                        value={this.state.question}
+                        value={this.state.questionDetails.question}
                         onChange={this.onChange}
                         options={{
                             previewRender(plainText) {
@@ -119,7 +131,7 @@ class TrueFalseTemplate extends React.Component {
                 
                 }
                 <input className='hidden' type="number" name="categoryId" defaultValue={3} />
-                <input className='hidden' type="number" name="sectionId" defaultValue={this.props.sectionId} />
+                <input className='hidden' type="number" name="questionId" defaultValue={this.state.questionDetails.questionId} />
                 <textarea className='hidden' name="question" rows="10" id='question'></textarea>
                 {
                     
@@ -128,11 +140,11 @@ class TrueFalseTemplate extends React.Component {
                             <h3 className='template-headings'>Select Answer</h3>
                             <div>
                                 <label>
-                                    <input type="radio" name='trueFalseAnswer' defaultValue="1" />
+                                    <input type="radio" name='trueFalseAnswer' value="1" checked={this.state.trueFalseAnswer == '1' ? true : false} onChange={this.handleChange} />
                                     <span>True</span>
                                 </label>
                                 <label>
-                                    <input type="radio" name='trueFalseAnswer' defaultValue="0"/>
+                                    <input type="radio" name='trueFalseAnswer' value="0" checked={this.state.trueFalseAnswer == '0' ? true : false} onChange={this.handleChange} />
                                     <span>False</span>
                                 </label>
                             </div>
@@ -142,19 +154,19 @@ class TrueFalseTemplate extends React.Component {
                         
                         <div className="input-block">
                             <div className="input-custom">
-                                <input type="number" name="score" />
+                                <input type="number" name="score" defaultValue={parseInt(this.state.questionDetails.score)} />
                                 <label>Score</label>
                                 <div className="response"></div>
                             </div>
                             <div className="input-custom">
-                                <input type="number" name="negativeMarking" />
+                                <input type="number" name="negativeMarking" defaultValue={parseInt(this.state.questionDetails.negative)}/>
                                 <label>Negative Marking</label>
                                 <div className="response"></div>
                             </div>
                         </div>
                         <div className="input-block">
                             <div className="input-custom">
-                                <textarea type="text" name="explanation" rows="6"></textarea>
+                                <textarea type="text" name="explanation" rows="6" defaultValue={this.state.questionDetails.explanation}></textarea>
                                 <label>Explanation</label>  
                             </div>
                         </div>
@@ -199,7 +211,7 @@ class TrueFalseTemplate extends React.Component {
                         </div>
                         <div className="input-block">
                             <div className="input-custom">
-                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} />
+                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} defaultValue={this.state.questionDetails.timeDuration} />
                                 <label>Time Duration</label>
                                 <div className="response"></div>
                             </div>
@@ -215,4 +227,4 @@ class TrueFalseTemplate extends React.Component {
     }
 }
 
-export default TrueFalseTemplate;
+export default TrueFalseTemplateEdit;

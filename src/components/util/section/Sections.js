@@ -54,6 +54,11 @@ class Sections extends React.Component {
             this.redirectToLink('add-question');
         }
     }
+    viewQuestions = (e) => {
+        if(this.setSection(e)) {
+            this.redirectToLink('view-question');
+        }
+    }
     showConfirmationDialog = (e) => {
         if(this.setSection(e)) {
             document.getElementById('confirmation-dialog').style.display = 'block';
@@ -180,7 +185,7 @@ class Sections extends React.Component {
                                                                 <td>
                                                                     <div className='action-btn-container'>
                                                                          <i className='fas fa-plus bg-tertiary' id={d.sectionId + "," + d.title} onClick={this.addQuestion}></i>
-                                                                         <i className='fas fa-box  bg-secondary'></i>
+                                                                         <i className='fas fa-box  bg-secondary' id={d.sectionId + "," + d.title} onClick={this.viewQuestions}></i>
                                                                          <i className='fas fa-pen bg-primary' id={d.sectionId + "," + d.title} onClick={this.editSection}></i>
                                                                         <i className='fas fa-trash bg-danger' id={d.sectionId + "," + d.title} onClick={this.showConfirmationDialog}></i>
 
