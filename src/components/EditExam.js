@@ -13,8 +13,8 @@ function EditExam() {
     const [examId, setExamId] = useState(0);
     const [examTitle, setExamTitle] = useState('');
     useEffect(() => {
-        let tempExamId = localStorage.getItem('examId');
-        let tempExamTitle = localStorage.getItem('examTitle');
+        let tempExamId = localStorage.getItem('ExamId');
+        let tempExamTitle = localStorage.getItem('ExamTitle');
         setExamId(tempExamId);
         setExamTitle(tempExamTitle);
         document.getElementById('route-overlay').style.display = 'none';
@@ -25,9 +25,9 @@ function EditExam() {
             <WrapperHeader 
                     heading={
                         <>
-                            <span className='primary'>{examTitle}</span>
+                            <span className='secondary'>{examTitle}</span>
                             <span className='gray'> &gt; </span>
-                            <span>Update Exam</span>
+                            <span className='success'>Update Exam</span>
                         </>
                     }
             />

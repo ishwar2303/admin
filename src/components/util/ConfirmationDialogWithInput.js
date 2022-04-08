@@ -7,21 +7,24 @@ function ConfirmationDialogWithInput(props) {
     }
     return (
         <div id='confirmation-dialog-with-input'>
-            <div>
-                <h4 className='mb-20 secondary flex-row jc-sb'>
-                    <div>Deletion Confirmation</div>
-                    <div className='flex-row jc-c m-5'>
-                        <i className='fas fa-trash'></i>
+            <div className='flex-col jc-sb flex-full'>
+                <div className='flex-full'>
+                    <h4 className='mb-20 secondary flex-row jc-sb'>
+                        <div>Deletion Confirmation</div>
+                        <div className='flex-row jc-c m-5'>
+                            <i className='fas fa-trash'></i>
+                        </div>
+                    </h4>
+                    <p className='primary' id='delete-exam-title'></p>
+                    <p className='mb-10'>
+                        <input type="checkbox" id="permanently-delete" className='mr-10' />
+                        Permanently Delete
+                    </p>
+                    <div>
+                        <p>Type "DELETE ME" in input box</p>
+                        <input type="text" id="delete-me" />
                     </div>
-                </h4>
-                <p className='primary' id='delete-exam-title'></p>
-                <p className='mb-10'>
-                    <input type="checkbox" id="permanently-delete" className='mr-10' />
-                    Permanently Delete
-                </p>
-                <div>
-                    <p>Type "DELETE ME" in input box</p>
-                    <input type="text" id="delete-me" />
+                    <p className='mb-10 danger'>All sections, questions and photos that the exam contains will be deleted.</p>
                 </div>
                 <div className='flex-row jc-sb'>
                     <button className='btn btn-fade btn-small' onClick={hideDialog}>Cancel</button>

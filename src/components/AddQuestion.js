@@ -21,6 +21,7 @@ class AddQuestion extends React.Component {
             mcqMultipleCorrect: false,
             databaseQuery: false,
             programming: false,
+            examTitle: localStorage.getItem('ExamTitle'),
             selectedTemplateName: 'True or False'
         }
     }
@@ -118,11 +119,13 @@ class AddQuestion extends React.Component {
             <WrapperHeader 
                 heading={
                     <>
+                        <span className='secondary'>{this.state.examTitle}</span>
+                        <span className='gray'> &gt; </span>
                         <span className='primary'>{this.state.sectionTitle}</span>
                         <span className='gray'> &gt; </span>
-                        <span>Add Question</span>
+                        <span className='success'>Add Question</span>
                         <span className='gray'> &gt; </span>
-                        <span className='success'>{this.state.selectedTemplateName}</span>
+                        <span className='tertiary'>{this.state.selectedTemplateName}</span>
                     </>
                 }
                 component={

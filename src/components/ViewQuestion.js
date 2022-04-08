@@ -15,6 +15,7 @@ class ViewQuestion extends React.Component {
         this.state = {
             sectionId: localStorage.getItem("SectionId"),
             sectionTitle: localStorage.getItem("SectionTitle"),
+            examTitle: localStorage.getItem('ExamTitle'),
             questionDetails: {},
             categoryId: '',
             currentPage: 1,
@@ -108,11 +109,13 @@ class ViewQuestion extends React.Component {
                 <WrapperHeader
                 heading={
                     <>
+                        <span className='secondary'>{this.state.examTitle}</span>
+                        <span className='gray'> &gt; </span>
                         <span className='primary'>{this.state.sectionTitle}</span>
                         <span className='gray'> &gt; </span>
-                        <span>Update Question</span>
+                        <span className='success'>Update Question</span>
                         <span className='gray'> &gt; </span>
-                        <span className='success'>
+                        <span className='tertiary'>
                             {
                                 this.state.categoryId == '1' && 'Multiple Choice Question | Single Correct'
                             }

@@ -3,6 +3,7 @@ import '../../css/Sections.css';
 import Flash from '../../services/Flash';
 import ConfirmationDialog from '../ConfirmationDialog';
 import Request from '../../services/Request';
+import TimeToString from '../../services/TimeToString';
 
 class Sections extends React.Component {
     constructor(props) {
@@ -15,6 +16,8 @@ class Sections extends React.Component {
     closeDialog() {
         document.getElementById('sections-dialog').style.display = 'none';
         document.getElementById('route-overlay').style.display = 'none';
+        localStorage.setItem('ViewSectionExamId', null);
+        localStorage.setItem('ExamId', null);
     }
 
     setSection(e) {
@@ -40,7 +43,7 @@ class Sections extends React.Component {
     redirectToLink(link) {
         let a = document.createElement('a');
         a.href = link;
-        a.target = '_blank';
+        // a.target = '_blank';
         a.click();
     }
 
@@ -93,8 +96,11 @@ class Sections extends React.Component {
                 console.log(res);
                 if(res.success) {
                     let details = res.sectionDetails;
-                    for(let i=0; i<details.length; i++)
+                    for(let i=0; i<details.length; i++) {
                         details[i]["serialNo"] = i+1;
+                        let tts = new TimeToString(parseInt(details[i].timeDuration));
+                        details[i].timeDuration = tts.convert();
+                    }
                     this.setState({
                         sections: details
                     })

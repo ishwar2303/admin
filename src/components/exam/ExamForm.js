@@ -1,16 +1,20 @@
 
 import React from 'react';
+import { useEffect } from 'react';
 import $ from 'jquery';
 import Request from '../services/Request';
 import Flash from '../services/Flash';
+import TimeToString from '../services/TimeToString';
 
 function ExamForm() {
     const viewTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'flex';
+        document.getElementById('time-duration-input-block').style.display = 'block';
     }
 
     const hideTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'none';
+        document.getElementById('time-duration-input-block').style.display = 'none';
     }
 
     const resetForm = () => {
@@ -61,6 +65,34 @@ function ExamForm() {
             responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
         }
     }
+
+    const pickTimeFromSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].addEventListener('click', (e) => {
+                document.getElementsByName('timeDuration')[0].value = e.target.value;
+                document.getElementById('time-duration').innerText = (new TimeToString(e.target.value)).convert();
+            })
+        }
+    }
+    const resetTimeSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].checked = false;
+        }
+    }
+
+    const convertTime = (e) => {
+        let el = e.target;
+        let value = el.value;
+        let response = el.nextElementSibling;
+        let convertedTime = (new TimeToString(parseInt(value))).convert();
+        response.innerHTML = convertedTime;
+    }
+
+    useEffect(() => {
+        pickTimeFromSlots();
+    }, []);
 
     return (
         <form action="" className='pb-10' id="create-exam-form" onSubmit={createExam}>
@@ -140,12 +172,13 @@ function ExamForm() {
             </div>
             <div className="input-block">
                 <div className="input-custom">
-                    <input type="number" name="windowTime" defaultChecked={true} />
+                    <input type="number" name="windowTime" defaultChecked={true} onChange={convertTime} />
+                    <div className='primary converted-time'></div>
                     <label>Window Time</label>
                     <div className="response"></div>
                 </div>
                 <div className="input-custom">
-                    <input type="number" name="numberOfAttempts" defaultChecked={true}/>
+                    <input type="number" name="numberOfAttempts" defaultChecked={true} />
                     <label>Number of Attempts</label>
                     <div className="response"></div>
                 </div>
@@ -171,34 +204,42 @@ function ExamForm() {
                     <label>Time Duration</label>
                     <div>
                         <label>
-                            <input type="radio" name="timeDuration" value="0" />
+                            <input type="radio" name="timeDurationSlots" value="0" />
                             <span>No time limit</span>
                         </label>
                         <label>
-                            <input type="radio" name="timeDuration" value="900" />
+                            <input type="radio" name="timeDurationSlots" value="900" />
                             <span>15 Minutes</span>
                         </label>
                         <label>
-                            <input type="radio" name="timeDuration" value="1800" />
+                            <input type="radio" name="timeDurationSlots" value="1800" />
                             <span>30 Minutes</span>
                         </label>
                         <label>
-                            <input type="radio" name="timeDuration" value="2700" />
+                            <input type="radio" name="timeDurationSlots" value="2700" />
                             <span>45 Minutes</span>
                         </label>
                         <label>
-                            <input type="radio" name="timeDuration" value="3600" />
+                            <input type="radio" name="timeDurationSlots" value="3600" />
                             <span>1 Hour</span>
                         </label>
                         <label>
-                            <input type="radio" name="timeDuration" value="7200" />
+                            <input type="radio" name="timeDurationSlots" value="7200" />
                             <span>2 Hours</span>
                         </label>
                         <label>
-                            <input type="radio" name="timeDuration" value="10800" />
+                            <input type="radio" name="timeDurationSlots" value="10800" />
                             <span>3 Hours</span>
                         </label>
                     </div>
+                    <div className="response"></div>
+                </div>
+            </div>
+            <div className="input-block" id='time-duration-input-block'>
+                <div className="input-custom">
+                    <input type="number" name="timeDuration" onInput={resetTimeSlots} onChange={convertTime} />
+                    <div className='primary converted-time' id='time-duration'></div>
+                    <label>Time Duration</label>
                     <div className="response"></div>
                 </div>
             </div>

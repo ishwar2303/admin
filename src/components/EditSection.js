@@ -10,6 +10,7 @@ class EditSection extends React.Component {
         this.state = {
             sectionDetails: {},
             sectionId: null,
+            examTitle: localStorage.getItem('ExamTitle'),
             load: false
         }
     }
@@ -32,8 +33,16 @@ class EditSection extends React.Component {
             })
         })
     }
+    
+    resetForm = () => {
+        document.getElementById('reset-form-btn').click();
+    }
 
-    componentDidMount() {
+    updateForm = () => {
+        document.getElementById('update-form-btn').click();
+    }
+
+    componentDidMount = () => {
         let secId = localStorage.getItem('SectionId');
         if(secId && secId != '0') {
             try {
@@ -53,10 +62,12 @@ class EditSection extends React.Component {
             <>
             <WrapperHeader
                     heading={
-                        <>
+                        <>  
+                            <span className='secondary'>{this.state.examTitle}</span>
+                            <span className='gray'> &gt; </span>
                             <span className='primary'>{this.state.sectionDetails.title}</span>
                             <span className='gray'> &gt; </span>
-                            <span>Update Section</span>
+                            <span className='success'>Update Section</span>
                         </>
                     }
             />
@@ -66,7 +77,12 @@ class EditSection extends React.Component {
                 </div>
             </div>
             <WrapperFooter
-
+                render={
+                    <div className='flex-row jc-sb'>
+                        <button className='btn btn-fade btn-small' onClick={this.resetForm}>Reset</button>
+                        <button className='btn btn-primary btn-small' onClick={this.updateForm}>Update</button>
+                    </div>
+                }
             />
             </>
         )

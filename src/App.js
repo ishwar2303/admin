@@ -20,6 +20,7 @@ import EditExam from './components/EditExam';
 import EditSection from './components/EditSection';
 import AddQuestion from './components/AddQuestion';
 import ViewQuestion from './components/ViewQuestion';
+import ConvertTimeToString from './components/ConvertTimeToString';
 
 function App() {
 
@@ -74,6 +75,7 @@ function App() {
                       <Route path='/ace-editor' element={<ProgramEditor />}/>
                       <Route path='/timer' element={<WorkingOfTimer />}/>
                       <Route path='/management-users' element={<ManagementUser />} />
+                      <Route path='/convert-time-to-string' element={<ConvertTimeToString />} />
                       
                     </Routes>
                     <div id='route-overlay'></div>

@@ -8,6 +8,7 @@ import Flash from './services/Flash';
 import Loader from './util/Loader';
 import ConfirmationDialogWithInput from './util/ConfirmationDialogWithInput';
 import Sections from './util/section/Sections';
+import TimeToString from './services/TimeToString';
 
 function ViewExams() {
     const getCurrentPageFromCookie = () => {
@@ -57,8 +58,11 @@ function ViewExams() {
                 setCurrentPage(res.currentPage);
                 for(let i=0; i<details.length; i++) {
                     details[i]["serialNo"] = i+1;
+                    let tts = new TimeToString(parseInt(details[i].timeDuration));
+                    details[i].timeDuration = tts.convert();
                 }
                 setExamDetails(details);
+                loadSection();
                 loadAddedSection();
                 loadUpdatedSection();
                 localStorage.removeItem("CreatedExam");
@@ -105,10 +109,10 @@ function ViewExams() {
         if(obj) {
             document.getElementById('delete-exam-title').innerText = obj.examTitle;
             document.getElementById('route-overlay').style.display = 'block';
-            document.getElementById('confirmation-dialog-with-input').style.display = 'block';
+            document.getElementById('confirmation-dialog-with-input').style.display = 'flex';
         }
         else {
-            Flash.message('Select an exam', 'bg-secondary');
+            Flash.message('Select an exam', 'bg-primary');
         }
     }
 
@@ -144,11 +148,11 @@ function ViewExams() {
                 })
             }
             else {
-                Flash.message('Please write DELETE ME in input box to delete exam', 'bg-secondary');
+                Flash.message('Please write DELETE ME in input box to delete exam', 'bg-primary');
             }
         }
         else {
-            Flash.message('Select an exam', 'bg-secondary');
+            Flash.message('Select an exam', 'bg-primary');
         }
          
     }
@@ -172,12 +176,12 @@ function ViewExams() {
     const setExam = () => {
         let obj = getSelectedExam();
         if(obj) {
-            localStorage.setItem('examId', obj.examId);
-            localStorage.setItem('examTitle', obj.examTitle);
+            localStorage.setItem('ExamId', obj.examId);
+            localStorage.setItem('ExamTitle', obj.examTitle);
             return true;
         }
         else {
-            Flash.message('Select an exam', 'bg-secondary');
+            Flash.message('Select an exam', 'bg-primary');
             return false;
         }
     }
@@ -218,10 +222,12 @@ function ViewExams() {
         let obj = getSelectedExam();
         if(obj) {
             setExamTitle(obj.examTitle);
+            localStorage.setItem('ViewSectionExamTitle', obj.examTitle);
+            localStorage.setItem('ViewSectionExamId', obj.examId);
             fetchSections();
         }
         else {
-            Flash.message('Select an exam', 'bg-secondary');
+            Flash.message('Select an exam', 'bg-primary');
         }
     }
 
@@ -238,9 +244,31 @@ function ViewExams() {
                     break;
                 }
             }
+            if(control) {
+                viewSections();
+                localStorage.setItem("SectionAdded", null);
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    const loadSection = () => {
+        let ce = localStorage.getItem("ViewSectionExamId");
+        if(ce) {
+            let ei = document.getElementsByName('examId');
+
+            let control = false;
+            for(let i=0; i<ei.length; i++) {
+                if(ei[i].value == ce) {
+                    ei[i].checked = true;
+                    control = true;
+                    break;
+                }
+            }
             if(control)
                 viewSections();
-            localStorage.setItem("SectionAdded", null);
         }
     }
 
@@ -329,7 +357,7 @@ function ViewExams() {
                 }
                 { !load && <Loader /> }
                 { load && examDetails.length > 0 &&
-                    <div className='table-container'>
+                    <div className='table-container pt-10'>
                         <table>
                             <thead>
                                 <tr>

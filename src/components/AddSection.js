@@ -13,8 +13,8 @@ function AddSection() {
     const [examTitle, setExamTitle] = useState('');
 
     useEffect(() => {
-        let tempExamId = localStorage.getItem('examId');
-        let tempExamTitle = localStorage.getItem('examTitle');
+        let tempExamId = localStorage.getItem('ExamId');
+        let tempExamTitle = localStorage.getItem('ExamTitle');
         setExamId(tempExamId);
         setExamTitle(tempExamTitle);
         document.getElementById('route-overlay').style.display = 'none';

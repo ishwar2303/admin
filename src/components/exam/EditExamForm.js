@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import $ from 'jquery';
 import Request from '../services/Request';
 import Flash from '../services/Flash';
+import TimeToString from '../services/TimeToString';
 
 class EditExamForm extends React.Component {
     constructor(props) {
@@ -23,10 +24,12 @@ class EditExamForm extends React.Component {
 
     viewTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'flex';
+        document.getElementById('time-duration-input-block').style.display = 'block';
     }
 
     hideTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'none';
+        document.getElementById('time-duration-input-block').style.display = 'none';
     }
 
     resetForm = () => {
@@ -74,8 +77,10 @@ class EditExamForm extends React.Component {
                 })
 
                 let timerType = 1;
-                if(details.setSectionTimer == '1')
+                if(details.setSectionTimer == '1') {
                     timerType = 2;
+                    this.hideTimerDurationBlock();
+                }
                 else {
                     this.viewTimerDurationBlock();
                 }
@@ -119,8 +124,33 @@ class EditExamForm extends React.Component {
             responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
         }
     }
+    pickTimeFromSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].addEventListener('click', (e) => {
+                document.getElementsByName('timeDuration')[0].value = e.target.value;
+                console.log(e.target.nextElementSibling);
+                document.getElementById('time-duration').innerText = (new TimeToString(e.target.value)).convert();
+            })
+        }
+    }
+    resetTimeSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].checked = false;
+        }
+    }
+
+    convertTime = (e) => {
+        let el = e.target;
+        let value = el.value;
+        let response = el.nextElementSibling;
+        let convertedTime = (new TimeToString(parseInt(value))).convert();
+        response.innerHTML = convertedTime;
+    }
     componentDidMount() {
         this.fetchDetails();
+        this.pickTimeFromSlots();
     }
     render() {
         return (
@@ -197,7 +227,8 @@ class EditExamForm extends React.Component {
                 </div>
                 <div className="input-block">
                     <div className="input-custom">
-                        <input type="number" name="windowTime" defaultValue={this.state.examDetails.windowTime} />
+                        <input type="number" name="windowTime" defaultValue={this.state.examDetails.windowTime} onChange={this.convertTime} />
+                        <div className='primary converted-time'>{(new TimeToString(this.state.examDetails.windowTime)).convert()}</div>
                         <label>Window Time</label>
                         <div className="response"></div>
                     </div>
@@ -228,34 +259,41 @@ class EditExamForm extends React.Component {
                         <label>Time Duration</label>
                         <div>
                             <label>
-                                <input type="radio" name="timeDuration" value="0" checked={this.state.timeDuration == '0' ? true : false} onChange={this.handleChange}/>
+                                <input type="radio" name="timeDurationSlots" value="0" checked={this.state.timeDurationSlots == '0' ? true : false} onChange={this.handleChange}/>
                                 <span>No time limit</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="900" checked={this.state.timeDuration == '900' ? true : false} onChange={this.handleChange}/>
+                                <input type="radio" name="timeDurationSlots" value="900" checked={this.state.timeDurationSlots == '900' ? true : false} onChange={this.handleChange}/>
                                 <span>15 Minutes</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="1800" checked={this.state.timeDuration == '1800' ? true : false} onChange={this.handleChange}/>
+                                <input type="radio" name="timeDurationSlots" value="1800" checked={this.state.timeDurationSlots == '1800' ? true : false} onChange={this.handleChange}/>
                                 <span>30 Minutes</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="2700" checked={this.state.timeDuration == '2700' ? true : false} onChange={this.handleChange}/>
+                                <input type="radio" name="timeDurationSlots" value="2700" checked={this.state.timeDurationSlots == '2700' ? true : false} onChange={this.handleChange}/>
                                 <span>45 Minutes</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="3600" checked={this.state.timeDuration == '3600' ? true : false} onChange={this.handleChange}/>
+                                <input type="radio" name="timeDurationSlots" value="3600" checked={this.state.timeDurationSlots == '3600' ? true : false} onChange={this.handleChange}/>
                                 <span>1 Hour</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="7200" checked={this.state.timeDuration == '7200' ? true : false} onChange={this.handleChange}/>
+                                <input type="radio" name="timeDurationSlots" value="7200" checked={this.state.timeDurationSlots == '7200' ? true : false} onChange={this.handleChange}/>
                                 <span>2 Hours</span>
                             </label>
                             <label>
-                                <input type="radio" name="timeDuration" value="10800" checked={this.state.timeDuration == '10800' ? true : false} onChange={this.handleChange}/>
+                                <input type="radio" name="timeDurationSlots" value="10800" checked={this.state.timeDurationSlots == '10800' ? true : false} onChange={this.handleChange}/>
                                 <span>3 Hours</span>
                             </label>
                         </div>
+                    </div>
+                </div>
+                <div className="input-block" id="time-duration-input-block">
+                    <div className="input-custom">
+                        <input type="number" name="timeDuration" defaultValue={this.state.timeDuration} onInput={this.resetTimeSlots} onChange={this.convertTime} />
+                        <div id='time-duration' className='primary converted-time'>{(new TimeToString(this.state.timeDuration)).convert()}</div>
+                        <label>Time Duration</label>
                         <div className="response"></div>
                     </div>
                 </div>

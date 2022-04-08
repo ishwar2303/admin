@@ -7,6 +7,7 @@ import Loader from '../../Loader';
 import $ from 'jquery';
 import Request from '../../../services/Request';
 import Flash from '../../../services/Flash';
+import TimeToString from '../../../services/TimeToString';
 
 class MCQMultipleCorrectTemplateEdit extends React.Component {
     constructor(props) {
@@ -109,8 +110,17 @@ class MCQMultipleCorrectTemplateEdit extends React.Component {
         for(let i=0; i<slots.length; i++) {
             slots[i].addEventListener('click', (e) => {
                 document.getElementsByName('timeDuration')[0].value = e.target.defaultValue;
+                document.getElementById('time-duration').innerText = (new TimeToString(e.target.value)).convert();
             })
         }
+    }
+
+    convertTime = (e) => {
+        let el = e.target;
+        let value = el.value;
+        let response = el.nextElementSibling;
+        let convertedTime = (new TimeToString(parseInt(value))).convert();
+        response.innerHTML = convertedTime;
     }
 
     resetForm = () => {
@@ -245,10 +255,6 @@ class MCQMultipleCorrectTemplateEdit extends React.Component {
                                 <label>Choose time duration from slots</label>
                                 <div>
                                     <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="0" />
-                                        <span>No time limit</span>
-                                    </label>
-                                    <label>
                                         <input type="radio" name="timeDurationSlots" defaultValue="10" />
                                         <span>10 Seconds</span>
                                     </label>
@@ -281,7 +287,8 @@ class MCQMultipleCorrectTemplateEdit extends React.Component {
                         </div>
                         <div className="input-block">
                             <div className="input-custom">
-                                <input type="number" name="timeDuration" onInput={this.resetTimeSlots} defaultValue={this.state.questionDetails.timeDuration} />
+                                <input type="number" name="timeDuration" defaultValue={this.state.questionDetails.timeDuration} onInput={this.resetTimeSlots} onChange={this.convertTime} />
+                                <div className='primary converted-time' id='time-duration'>{(new TimeToString(this.state.questionDetails.timeDuration)).convert()}</div>
                                 <label>Time Duration</label>
                                 <div className="response"></div>
                             </div>

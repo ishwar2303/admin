@@ -60,7 +60,7 @@ function ManagementUser() {
         let url = "http://localhost:8080/QuizWit/ManagementUser";
         let selectedUser = getSelectedUser();
         if(!selectedUser) {
-            Flash.message("Please select a user", 'bg-secondary');
+            Flash.message("Please select a user", 'bg-primary');
             return;
         }
         let data = {
@@ -98,7 +98,7 @@ function ManagementUser() {
     const showUpdateUserRolesDialog = () => {
         let selectedUser = getSelectedUser();
         if(!selectedUser) {
-            Flash.message("Please select a user", 'bg-secondary');
+            Flash.message("Please select a user", 'bg-primary');
             return;
         }
         document.getElementById('route-overlay').style.display = 'block';
