@@ -27,16 +27,15 @@ class TrueFalseTemplateEdit extends React.Component {
             [name]: value
         });
     }
-    addQuestion = (e) => {
+    updateQuestion = (e) => {
         e.preventDefault();
         console.log('update true false question');
-        return;
         let question = localStorage.getItem('questionStringFromSimpleMde');
         document.getElementById('question').defaultValue = question;
         this.setState({
             question: question
         })
-        let url = "http://localhost:8080/QuizWit/TrueFalseQuestion";
+        let url = "http://localhost:8080/QuizWit/UpdateQuestion";
         let data = $('#question-form').serialize();
         Request.post(url,data)
         .then((res) => {
@@ -116,7 +115,7 @@ class TrueFalseTemplateEdit extends React.Component {
 
     render() {
         return (
-            <form id='question-form' className='pb-10' onSubmit={this.addQuestion}>
+            <form id='question-form' className='pb-10' onSubmit={this.updateQuestion}>
                 {
                     !this.state.load &&
                     <Loader />
