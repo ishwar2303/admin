@@ -150,7 +150,7 @@ class ViewQuestion extends React.Component {
                     <div>
                         {
                             this.state.categoryId == '3' &&
-                            <TrueFalseTemplateEdit questionDetails={this.state.questionDetails} />
+                            <TrueFalseTemplateEdit questionDetails={this.state.questionDetails} fetchQuestion={this.fetchQuestion}/>
                         }
                         {
                             this.state.categoryId == '1' &&

@@ -17,7 +17,7 @@ class TrueFalseTemplateEdit extends React.Component {
             trueFalseAnswer: this.props.questionDetails.answerDetails.answer,
             load: false
         }
-        
+        localStorage.setItem("questionStringFromSimpleMde", this.state.questionDetails.question);
     }
 
     handleChange = e => {
@@ -27,14 +27,11 @@ class TrueFalseTemplateEdit extends React.Component {
             [name]: value
         });
     }
+
+
     updateQuestion = (e) => {
         e.preventDefault();
         console.log('update true false question');
-        let question = localStorage.getItem('questionStringFromSimpleMde');
-        document.getElementById('question').defaultValue = question;
-        this.setState({
-            question: question
-        })
         let url = "http://localhost:8080/QuizWit/UpdateQuestion";
         let data = $('#question-form').serialize();
         Request.post(url,data)
@@ -51,7 +48,7 @@ class TrueFalseTemplateEdit extends React.Component {
             Flash.message(res.error, 'bg-danger');
         }
         if(res.success) {
-            this.resetForm();
+            this.props.fetchQuestion();
             Flash.message(res.success, 'bg-success');
         }
         else {
@@ -75,6 +72,7 @@ class TrueFalseTemplateEdit extends React.Component {
     }
     onChange = (defaultValue) => {
         localStorage.setItem('questionStringFromSimpleMde', defaultValue);
+        document.getElementById('question').value = defaultValue;
     }
 
     pickTimeFromSlots = () => {
