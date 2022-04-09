@@ -116,6 +116,9 @@ class MCQMultipleCorrectTemplate extends React.Component {
         let optionResponseBlock = document.getElementsByClassName('mcq-option-response');
         for(let i=0; i<optionResponseBlock.length; i++)
             optionResponseBlock[i].innerHTML = '';
+        let convertedTimeResponse = document.getElementsByClassName('converted-time');
+        for(let i=0; i<convertedTimeResponse.length; i++)
+            convertedTimeResponse[i].innerHTML = '';
     }
     onChange = (defaultValue) => {
         localStorage.setItem('questionStringFromSimpleMde', defaultValue);

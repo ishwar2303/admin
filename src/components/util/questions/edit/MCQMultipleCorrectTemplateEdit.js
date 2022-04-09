@@ -43,12 +43,8 @@ class MCQMultipleCorrectTemplateEdit extends React.Component {
             Flash.message('Add atleast 2 options', 'bg-primary');
             return;
         }
-        let question = localStorage.getItem('questionStringFromSimpleMde');
-        document.getElementById('question').defaultValue = question;
-        this.setState({
-            question: question
-        })
-        let url = "http://localhost:8080/QuizWit/MultipleChoiceQuestionMultipleCorrect";
+
+        let url = "http://localhost:8080/QuizWit/UpdateQuestion";
         let data = $('#question-form').serialize();
         Request.post(url,data)
         .then((res) => {
@@ -62,7 +58,7 @@ class MCQMultipleCorrectTemplateEdit extends React.Component {
             Flash.message(res.error, 'bg-danger');
         }
         if(res.success) {
-            this.resetForm();
+            this.props.fetchQuestion();
             Flash.message(res.success, 'bg-success');
         }
         else {
@@ -127,7 +123,10 @@ class MCQMultipleCorrectTemplateEdit extends React.Component {
         this.setState({
             question: ""
         })
-        document.getElementById('question-form').reset();
+        this.setState({
+            questionDetails: {}
+        })
+        this.props.fetchQuestion();
         localStorage.setItem('questionStringFromSimpleMde', '');
         let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
         for(let i=0; i<responseBlock.length; i++)
@@ -136,9 +135,14 @@ class MCQMultipleCorrectTemplateEdit extends React.Component {
         let optionResponseBlock = document.getElementsByClassName('mcq-option-response');
         for(let i=0; i<optionResponseBlock.length; i++)
             optionResponseBlock[i].innerHTML = '';
+        
+        let convertedTimeResponse = document.getElementsByClassName('converted-time');
+        for(let i=0; i<convertedTimeResponse.length; i++)
+            convertedTimeResponse[i].innerHTML = '';
     }
     onChange = (defaultValue) => {
         localStorage.setItem('questionStringFromSimpleMde', defaultValue);
+        document.getElementById('question').value = defaultValue;
     }
     
     resetTimeSlots = () => {
@@ -214,7 +218,7 @@ class MCQMultipleCorrectTemplateEdit extends React.Component {
                     <div className="response flex-row jc-e"></div>
                     </>
                 }
-                <input className='hidden' type="number" name="mcqOptionAnswer" />
+                <input className='hidden' type="text" name="mcqOptionAnswer" />
                 <input className='hidden' type="number" name="categoryId" defaultValue={2} />
                 <input className='hidden' type="number" name="questionId" defaultValue={this.state.questionDetails.questionId} />
                 <textarea className='hidden' name="question" rows="10" id='question' value={this.state.questionDetails.question}></textarea>

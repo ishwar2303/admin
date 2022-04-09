@@ -231,7 +231,9 @@ class Sections extends React.Component {
                     type='' 
                     btn='Delete'
                     btnClass='btn-danger'
-                    operation={this.deleteSection}/>
+                    hideRouteOverlay={true}
+                    operation={this.deleteSection}
+                />
             </>
         );
     }

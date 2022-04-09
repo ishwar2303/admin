@@ -95,6 +95,9 @@ class TrueFalseTemplateEdit extends React.Component {
         let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
         for(let i=0; i<responseBlock.length; i++)
             responseBlock[i].innerHTML = '';
+        let convertedTimeResponse = document.getElementsByClassName('converted-time');
+        for(let i=0; i<convertedTimeResponse.length; i++)
+            convertedTimeResponse[i].innerHTML = '';
     }
     resetTimeSlots = () => {
         let slots = document.getElementsByName('timeDurationSlots');

@@ -41,12 +41,7 @@ class MCQSingleCorrectTemplateEdit extends React.Component {
             return;
         }
 
-        let question = localStorage.getItem('questionStringFromSimpleMde');
-        document.getElementById('question').defaultValue = question;
-        this.setState({
-            question: question
-        })
-        let url = "http://localhost:8080/QuizWit/MultipleChoiceQuestionSingleCorrect";
+        let url = "http://localhost:8080/QuizWit/UpdateQuestion";
         let data = $('#question-form').serialize();
         Request.post(url,data)
         .then((res) => {
@@ -61,7 +56,7 @@ class MCQSingleCorrectTemplateEdit extends React.Component {
             Flash.message(res.error, 'bg-danger');
         }
         if(res.success) {
-            this.resetForm();
+            this.props.fetchQuestion();
             Flash.message(res.success, 'bg-success');
         }
         else {
@@ -96,6 +91,7 @@ class MCQSingleCorrectTemplateEdit extends React.Component {
     }
     onChange = (defaultValue) => {
         localStorage.setItem('questionStringFromSimpleMde', defaultValue);
+        document.getElementById('question').value = defaultValue;
     }
     
 
@@ -172,7 +168,10 @@ class MCQSingleCorrectTemplateEdit extends React.Component {
         this.setState({
             question: ""
         })
-        document.getElementById('question-form').reset();
+        this.setState({
+            questionDetails: {}
+        })
+        this.props.fetchQuestion();
         localStorage.setItem('questionStringFromSimpleMde', '');
         let responseBlock = document.getElementById('question-form').getElementsByClassName('response');
         for(let i=0; i<responseBlock.length; i++)
@@ -181,6 +180,9 @@ class MCQSingleCorrectTemplateEdit extends React.Component {
         let optionResponseBlock = document.getElementsByClassName('mcq-option-response');
         for(let i=0; i<optionResponseBlock.length; i++)
             optionResponseBlock[i].innerHTML = '';
+        let convertedTimeResponse = document.getElementsByClassName('converted-time');
+        for(let i=0; i<convertedTimeResponse.length; i++)
+            convertedTimeResponse[i].innerHTML = '';
     }
     
     resetTimeSlots = () => {
