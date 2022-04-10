@@ -21,7 +21,7 @@ class AddQuestion extends React.Component {
             mcqMultipleCorrect: false,
             databaseQuery: false,
             programming: false,
-            examTitle: localStorage.getItem('ExamTitle'),
+            examTitle: localStorage.getItem('ViewSectionExamTitle'),
             selectedTemplateName: 'True or False'
         }
     }

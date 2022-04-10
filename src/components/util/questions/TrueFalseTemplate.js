@@ -14,6 +14,7 @@ class TrueFalseTemplate extends React.Component {
         super(props);
         this.state = {
             question: '',
+            setQuestionTimer: false,
             load: false
         }
     }
@@ -33,6 +34,27 @@ class TrueFalseTemplate extends React.Component {
         })
     }
 
+    setQuestionTimer = () => {
+        let url = "http://localhost:8080/QuizWit/SetQuestionTimer?sectionId=";
+        url += this.props.sectionId;
+        Request.get(url)
+        .then((res) => {
+            console.log(res);
+            if(res.success) {
+                this.setState({
+                    setQuestionTimer: res.setQuestionTimer
+                }, () => {
+                    if(this.state.setQuestionTimer) {
+                        document.getElementById('set-question-timer').style.display = 'block';
+                    }
+                });
+
+            }
+            else {
+                Flash.message(res.error, 'bg-danger');
+            }
+        })
+    }
 
     populateResponse = (res) => {
         console.log(res);
@@ -62,6 +84,7 @@ class TrueFalseTemplate extends React.Component {
         })
         this.pickTimeFromSlots();
         localStorage.setItem('questionStringFromSimpleMde', '');
+        this.setQuestionTimer();
     }
     onChange = (defaultValue) => {
         localStorage.setItem('questionStringFromSimpleMde', defaultValue);
@@ -172,47 +195,49 @@ class TrueFalseTemplate extends React.Component {
                                 <label>Explanation</label>  
                             </div>
                         </div>
-                        <div className='input-block'>
-                            <div className="customized-radio-sticky">
-                                <label>Choose time duration from slots</label>
-                                <div>
-                                    <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="10" />
-                                        <span>10 Seconds</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="20" />
-                                        <span>20 Seconds</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="30" />
-                                        <span>30 Seconds</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="60" />
-                                        <span>1 Minute</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="120" />
-                                        <span>2 Minutes</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="120" />
-                                        <span>3 Minutes</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="timeDurationSlots" defaultValue="300" />
-                                        <span>5 Minutes</span>
-                                    </label>
+                        <div id='set-question-timer'>
+                            <div className='input-block'>
+                                <div className="customized-radio-sticky">
+                                    <label>Choose time duration from slots</label>
+                                    <div>
+                                        <label>
+                                            <input type="radio" name="timeDurationSlots" defaultValue="10" />
+                                            <span>10 Seconds</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="timeDurationSlots" defaultValue="20" />
+                                            <span>20 Seconds</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="timeDurationSlots" defaultValue="30" />
+                                            <span>30 Seconds</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="timeDurationSlots" defaultValue="60" />
+                                            <span>1 Minute</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="timeDurationSlots" defaultValue="120" />
+                                            <span>2 Minutes</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="timeDurationSlots" defaultValue="120" />
+                                            <span>3 Minutes</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="timeDurationSlots" defaultValue="300" />
+                                            <span>5 Minutes</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="input-block">
-                            <div className="input-custom">
-                                <input type="number" name="timeDuration" defaultValue={this.state.timeDuration} onInput={this.resetTimeSlots} onChange={this.convertTime} />
-                                <div className='primary converted-time' id='time-duration'></div>
-                                <label>Time Duration</label>
-                                <div className="response"></div>
+                            <div className="input-block">
+                                <div className="input-custom">
+                                    <input type="number" name="timeDuration" defaultValue={this.state.timeDuration} onInput={this.resetTimeSlots} onChange={this.convertTime} />
+                                    <div className='primary converted-time' id='time-duration'></div>
+                                    <label>Time Duration</label>
+                                    <div className="response"></div>
+                                </div>
                             </div>
                         </div>
                         <div className='hidden' id='reset-question-form' onClick={this.resetForm}>reset</div>
