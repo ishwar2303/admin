@@ -5,7 +5,7 @@ import $ from 'jquery';
 import Request from '../services/Request';
 import Flash from '../services/Flash';
 import TimeToString from '../services/TimeToString';
-
+import DateTime from '../services/DateTime';
 class EditExamForm extends React.Component {
     constructor(props) {
         super(props);
@@ -60,6 +60,8 @@ class EditExamForm extends React.Component {
         .then((res) => {
             if(res.success) {
                 let details = res.examDetails;
+                let timestamp = details.startTime;
+                details.startTime = (new DateTime(timestamp)).convert();
                 this.setState({
                     examDetails: details
                 })

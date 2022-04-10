@@ -9,6 +9,7 @@ import Loader from './util/Loader';
 import ConfirmationDialogWithInput from './util/ConfirmationDialogWithInput';
 import Sections from './util/section/Sections';
 import TimeToString from './services/TimeToString';
+import DateTime from './services/DateTime';
 
 function ViewExams() {
     const getCurrentPageFromCookie = () => {
@@ -60,6 +61,8 @@ function ViewExams() {
                     details[i]["serialNo"] = i+1;
                     let tts = new TimeToString(parseInt(details[i].timeDuration));
                     details[i].timeDuration = tts.convert();
+                    details[i].startTime = (new DateTime(details[i].startTime)).convert();
+                    details[i].timestamp = (new DateTime(details[i].timestamp)).convert();
                 }
                 setExamDetails(details);
                 loadSection();

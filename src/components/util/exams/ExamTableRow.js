@@ -31,7 +31,9 @@ function ExamTableRow(props) {
           <td className='text-left'>{props.serialNo}</td>
           <td className='exam-title-value text-left'>{props.title}</td>
           <td className='text-left'>{props.visibility == 1 ? <span className='primary'><i className='fas fa-lock mr-5'></i> Private</span> : <span><i className='fas fa-lock-open mr-5'></i>Public</span> }</td>
-          <td className='text-left'>{props.startTime}</td>
+          <td className='text-left'>
+            <input type='datetime-local' defaultValue={props.startTime} disabled/>
+          </td>
           <td className='text-center'>{props.sectionNavigation == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
           <td className='text-center'>{props.examTimer == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
           <td>{props.timeDuration}</td>
@@ -49,7 +51,9 @@ function ExamTableRow(props) {
           
             </div>
           </td>
-          <td>{props.createdOn}</td>
+          <td>
+            <input type='datetime-local' defaultValue={props.createdOn} disabled/>
+          </td>
           <td className='select-exam-radio-container'>
             <div className='flex-row jc-c'>
               <label className='select-exam-radio'>
