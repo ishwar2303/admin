@@ -8,6 +8,7 @@ function UpdateRolesDialog(props) {
     const hideDialog = () => {
         document.getElementById('update-roles-dialog').style.display = 'none';
         document.getElementById('route-overlay').style.display = 'none';
+        props.destroyRolesDialog();
     }
 
     const createRoleOption = (data) => {
@@ -116,11 +117,10 @@ function UpdateRolesDialog(props) {
                 rolesString += ",";
         }
         let url = "http://localhost:8080/QuizWit/Roles";
-        Request.post(url, {rolesString: rolesString, userId: props.getSelectedUser()})
+        Request.post(url, {rolesString: rolesString, userId: props.getSelectedUser().userId})
         .then((res) => {
             if(res.success) {
-                document.getElementById('update-roles-dialog').style.display = 'none';
-                document.getElementById('route-overlay').style.display = 'none';
+                hideDialog();
                 Flash.message(res.success, 'bg-success');
             }
             else {

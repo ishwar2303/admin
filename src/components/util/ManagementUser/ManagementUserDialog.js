@@ -56,21 +56,21 @@ function ManagementUserDialog(props) {
                     <input type="hidden" name="operation" value="CreateUser" />
                     <div className="input-block">
                         <div className="input-floating">
-                            <input type="text" name="username" required />
+                            <input type="text" name="username" defaultValue='' required />
                             <label>Username</label>
                             <div className='response'></div>
                         </div>
                     </div>
                     <div className="input-block">
                         <div className="input-floating">
-                            <input type="password" name="password" required />
+                            <input type="password" name="password" defaultValue='' required />
                             <label>Password</label>
                             <div className='response'></div>
                         </div>
                     </div>
                     <div className="input-block">
                         <div className="input-floating">
-                            <input type="password" name="confirmPassword" required />
+                            <input type="password" name="confirmPassword" defaultValue='' required />
                             <label>Confirm Password</label>
                             <div className='response'></div>
                         </div>

@@ -28,11 +28,21 @@ function ExamTableRow(props) {
 
   return (
       <tr key={props.examId} id={'EXAM_ID' + props.examId}>
+          <td className='custom-radio-container'>
+            <div className='flex-row jc-c'>
+              <label className='custom-radio'>
+                <input type="radio" name="examId" value={props.examId}/>
+                <span>
+                  <i className='fas fa-check'></i>
+                </span>
+              </label>
+            </div>
+          </td>
           <td className='text-left'>{props.serialNo}</td>
           <td className='exam-title-value text-left'>{props.title}</td>
           <td className='text-left'>{props.visibility == 1 ? <span className='primary'><i className='fas fa-lock mr-5'></i> Private</span> : <span><i className='fas fa-lock-open mr-5'></i>Public</span> }</td>
           <td className='text-left'>
-            <input type='datetime-local' defaultValue={props.startTime} disabled/>
+            {props.startTime}
           </td>
           <td className='text-center'>{props.sectionNavigation == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
           <td className='text-center'>{props.examTimer == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
@@ -45,24 +55,14 @@ function ExamTableRow(props) {
                       <i className="fas fa-check"></i>
                   </span>
               </label>
-              <div className='mr-10' style={{fontSize: '10px'}}>
+              <div className='mr-10' style={{fontSize: '13px'}}>
                 {examStatus == 1 ? <span className='success'><i className='fa fa-dot-circle-o mr-5'></i>Active</span> : <span className='danger'><i className='fa fa-dot-circle-o mr-5'></i>Inactive</span>}
               </div>
           
             </div>
           </td>
           <td>
-            <input type='datetime-local' defaultValue={props.createdOn} disabled/>
-          </td>
-          <td className='select-exam-radio-container'>
-            <div className='flex-row jc-c'>
-              <label className='select-exam-radio'>
-                <input type="radio" name="examId" value={props.examId}/>
-                <span>
-                  <i className='fas fa-check'></i>
-                </span>
-              </label>
-            </div>
+            {props.createdOn}
           </td>
       </tr>
   )

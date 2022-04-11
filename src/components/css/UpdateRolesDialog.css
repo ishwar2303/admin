@@ -12,6 +12,10 @@
     display: none;
     z-index: 101;
 }
+#update-roles-dialog h4 {
+    font-weight: normal;
+    font-size: 16px;
+}
 #update-roles-dialog .btn-container {
     display: flex;
     flex-direction: column;

@@ -35,6 +35,11 @@ class EditExamForm extends React.Component {
     resetForm = () => {
         let form = document.getElementById('update-exam-form');
         form.reset();
+        this.setState({
+            private: this.state.examDetails.private,
+            difficultyLevel: this.state.examDetails.difficultyLevel,
+            sectionNavigation: this.state.examDetails.sectionNavigation
+        })
     }
 
     updateExam = (e) => {
@@ -307,8 +312,8 @@ class EditExamForm extends React.Component {
                     </div>
                 </div>
                 <div className='flex-row jc-sb'>
-                    <div className='btn btn-fade btn-small' onClick={this.resetForm}>Reset</div>
-                    <button className='btn btn-primary btn-small'>Update</button>
+                    <div id='reset-form-btn'  className='btn btn-fade btn-small hidden' onClick={this.resetForm}>Reset</div>
+                    <button id='submit-form-btn'  className='btn btn-primary btn-small hidden'>Update</button>
                 </div>
             </form>
         );

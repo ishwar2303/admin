@@ -14,13 +14,13 @@ import Settings from './components/Settings';
 import Signin from './components/Signin';
 import CreateExam from './components/CreateExam';
 import WorkingOfTimer from './components/WorkingOfTimer';
-import ManagementUser from './components/ManagementUser';
 import AddSection from './components/AddSection';
 import EditExam from './components/EditExam';
 import EditSection from './components/EditSection';
 import AddQuestion from './components/AddQuestion';
 import ViewQuestion from './components/ViewQuestion';
 import ConvertTimeToString from './components/ConvertTimeToString';
+import ManagementUsers from './components/ManagementUsers';
 
 function App() {
 
@@ -62,6 +62,7 @@ function App() {
                 <Navbar />
                 <div className='main-wrapper'>
                   <div className='route-loader'>
+                    
                     <Routes>
                       <Route path='/' element={<Dashboard />}/>
                       <Route path='/create-exam' element={<CreateExam />}/>
@@ -74,7 +75,7 @@ function App() {
                       <Route path='/settings' element={<Settings />}/>
                       <Route path='/ace-editor' element={<ProgramEditor />}/>
                       <Route path='/timer' element={<WorkingOfTimer />}/>
-                      <Route path='/management-users' element={<ManagementUser />} />
+                      <Route path='/management-users' element={<ManagementUsers />} />
                       <Route path='/convert-time-to-string' element={<ConvertTimeToString />} />
                       
                     </Routes>

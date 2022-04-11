@@ -20,6 +20,15 @@ function EditExam() {
         document.getElementById('route-overlay').style.display = 'none';
         setLoad(true);
     }, []);
+
+    const submitForm = () => {
+        document.getElementById('submit-form-btn').click();
+    }
+
+    const resetForm = () => {
+        document.getElementById('reset-form-btn').click();
+    }
+
     return (
         <>
             <WrapperHeader 
@@ -38,6 +47,12 @@ function EditExam() {
                 </div>
             </div>
             <WrapperFooter 
+                render={
+                    <div className='flex-row jc-sb'>
+                        <button className='btn btn-fade btn-small' onClick={resetForm}>Reset</button>
+                        <button className='btn btn-primary btn-small' onClick={submitForm}>Update</button>
+                    </div>
+                }
             />
         </>
     )

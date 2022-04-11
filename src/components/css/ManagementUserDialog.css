@@ -11,8 +11,10 @@
     display: none;
     z-index: 100;
 }
-.management-user-dialog > div {
 
+.management-user-dialog h3 {
+    font-weight: normal;
+    font-size: 16px;
 }
 .management-user-dialog form {
     display: flex;

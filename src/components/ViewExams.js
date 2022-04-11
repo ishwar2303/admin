@@ -61,8 +61,8 @@ function ViewExams() {
                     details[i]["serialNo"] = i+1;
                     let tts = new TimeToString(parseInt(details[i].timeDuration));
                     details[i].timeDuration = tts.convert();
-                    details[i].startTime = (new DateTime(details[i].startTime)).convert();
-                    details[i].timestamp = (new DateTime(details[i].timestamp)).convert();
+                    details[i].startTime = (new DateTime(details[i].startTime)).convertToView();
+                    details[i].timestamp = (new DateTime(details[i].timestamp)).convertToView();
                 }
                 setExamDetails(details);
                 loadSection();
@@ -349,7 +349,7 @@ function ViewExams() {
         <div className='content-loaded'>
             <div>
                 {
-                    !examDetails.length && <div className='primary'>
+                    load && !examDetails.length && <div className='primary'>
                         <ul style={{"listStyle":"decimal", "marginLeft":"20px"}}>
                             <li>Create a Exam.</li>
                             <li>Add Section in exam.</li>
@@ -360,43 +360,45 @@ function ViewExams() {
                 }
                 { !load && <Loader /> }
                 { load && examDetails.length > 0 &&
-                    <div className='table-container pt-10'>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th className='text-left'>S&nbsp;No.</th>
-                                    <th className='text-left' style={{width: "300px"}}>Exam&nbsp;Title</th>
-                                    <th className='text-left'>Visibility</th>
-                                    <th className='text-left'>Start&nbsp;Time</th>
-                                    <th className='text-center'>Section <br/> Navigation</th>
-                                    <th className='text-center'>Exam Timer</th>
-                                    <th className='text-left'>Time&nbsp;Duration</th>
-                                    <th className='text-left'>Status</th>
-                                    <th className='text-left'>Created&nbsp;On</th>
-                                    <th className='select-exam-radio-container'>Select</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <div className='flex-row flex-full'>
+                        <div className='table-container pt-10 flex-full' style={{width: "100px", overflow: "auto"}}>
+                            <table style={{width: "1500px"}}>
+                                <thead>
+                                    <tr>
+                                        <th style={{width: "40px"}}></th>
+                                        <th className='text-left' style={{width: "50px"}}>S&nbsp;No.</th>
+                                        <th className='text-left' style={{width: "300px"}}>Exam&nbsp;Title</th>
+                                        <th className='text-left' style={{width: "100px"}}>Visibility</th>
+                                        <th className='text-left'>Start&nbsp;Time</th>
+                                        <th className='text-center'>Section&nbsp;Navigation</th>
+                                        <th className='text-center'>Exam Timer</th>
+                                        <th className='text-left'>Time&nbsp;Duration</th>
+                                        <th className='text-left' style={{width: "150px"}}>Status</th>
+                                        <th className='text-left'>Created&nbsp;On</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                {
-                                    examDetails.map((d, k) => {
-                                        return <ExamTableRow 
-                                            examId={d.examId}
-                                            serialNo={d.serialNo}
-                                            title={d.title}
-                                            visibility={d.private}
-                                            startTime={d.startTime}
-                                            status={d.isActive}
-                                            createdOn={d.timestamp}
-                                            sectionNavigation={d.sectionNavigation}
-                                            examTimer={d.setEntireExamTimer}
-                                            timeDuration={d.timeDuration}
-                                            fetchDetails={fetchDetails}
-                                        />
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                                    {
+                                        examDetails.map((d, k) => {
+                                            return <ExamTableRow 
+                                                examId={d.examId}
+                                                serialNo={d.serialNo}
+                                                title={d.title}
+                                                visibility={d.private}
+                                                startTime={d.startTime}
+                                                status={d.isActive}
+                                                createdOn={d.timestamp}
+                                                sectionNavigation={d.sectionNavigation}
+                                                examTimer={d.setEntireExamTimer}
+                                                timeDuration={d.timeDuration}
+                                                fetchDetails={fetchDetails}
+                                            />
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 }
                 <div className='exam-page-navigation-btns-padding'></div>

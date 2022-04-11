@@ -58,7 +58,7 @@ class QuestionNavigationDialog extends React.Component {
                                 {
                                     this.state.question.map((d, k) => {
                                         return <tr key={k} id={d.serial} >
-                                            <td id={d.serial} onClick={this.navigate}>{d.serial}</td>
+                                            <td id={d.serial} style={{width: "40px"}} onClick={this.navigate}>{d.serial}</td>
                                             <td id={d.serial} onClick={this.navigate}>{d.question}</td>
                                         </tr>
                                     })

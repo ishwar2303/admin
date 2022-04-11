@@ -251,8 +251,8 @@ function ExamForm() {
                 </div>
             </div>
             <div className='flex-row jc-sb'>
-                <div className='btn btn-fade btn-small' onClick={resetForm}>Reset</div>
-                <button className='btn btn-primary btn-small'>Create</button>
+                <div id='reset-form-btn' className='btn btn-fade btn-small hidden' onClick={resetForm}>Reset</div>
+                <button id='submit-form-btn' className='btn btn-primary btn-small hidden'>Create</button>
             </div>
         </form>
     );
