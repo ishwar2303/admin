@@ -188,7 +188,7 @@ class EditSectionForm extends React.Component {
                 <div id='time-duration-block' className='flex-col'>
                     <div className='input-block'>
                         <div className="customized-radio-sticky">
-                            <label>Time Duration</label>
+                            <label>Choose time duration from slots</label>
                             <div>
                                 <label>
                                     <input type="radio" name="timeDurationSlots" value="900" checked={this.state.timeDurationSlots == '900' ? true : false} onChange={this.handleChange}/>

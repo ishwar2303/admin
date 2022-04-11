@@ -263,12 +263,8 @@ class EditExamForm extends React.Component {
                 </div>
                 <div className='input-block' id='time-duration-block'>
                     <div className="customized-radio-sticky">
-                        <label>Time Duration</label>
+                        <label>Choose time duration from slots</label>
                         <div>
-                            <label>
-                                <input type="radio" name="timeDurationSlots" value="0" checked={this.state.timeDurationSlots == '0' ? true : false} onChange={this.handleChange}/>
-                                <span>No time limit</span>
-                            </label>
                             <label>
                                 <input type="radio" name="timeDurationSlots" value="900" checked={this.state.timeDurationSlots == '900' ? true : false} onChange={this.handleChange}/>
                                 <span>15 Minutes</span>

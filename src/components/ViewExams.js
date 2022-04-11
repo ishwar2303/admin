@@ -301,6 +301,8 @@ function ViewExams() {
 
     useEffect(() => {
         document.getElementById('route-overlay').style.display = 'none';
+        let height = document.getElementsByClassName('content-loaded')[0].offsetHeight;
+        document.getElementById('table-space-for-exams').style.height = height + 'px';
     }, []);
 
     useEffect(() => {
@@ -347,7 +349,7 @@ function ViewExams() {
             }
         />
         <div className='content-loaded'>
-            <div>
+            <div  id='table-space-for-exams'>
                 {
                     load && !examDetails.length && <div className='primary'>
                         <ul style={{"listStyle":"decimal", "marginLeft":"20px"}}>
@@ -360,8 +362,8 @@ function ViewExams() {
                 }
                 { !load && <Loader /> }
                 { load && examDetails.length > 0 &&
-                    <div className='flex-row flex-full'>
-                        <div className='table-container pt-10 flex-full' style={{width: "100px", overflow: "auto"}}>
+                    <div className='flex-row flex-full' style={{position: "relative", height: "100%"}}>
+                        <div className='table-container table-container-select pt-10 pb-10 flex-full' style={{width: "100px", overflow: "auto"}}>
                             <table style={{width: "1500px"}}>
                                 <thead>
                                     <tr>
@@ -401,7 +403,6 @@ function ViewExams() {
                         </div>
                     </div>
                 }
-                <div className='exam-page-navigation-btns-padding'></div>
             </div>
         </div>
         <ConfirmationDialogWithInput 
