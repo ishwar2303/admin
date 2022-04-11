@@ -53,7 +53,7 @@ function AddSection() {
                     <div className='flex-row jc-sb'>
                         <button className='btn btn-fade btn-small' onClick={resetForm}>Reset</button>
                         <p className='tertiary flex-row jc-c' style={{"width": "100%"}}>You can add questions in section once the section is created.</p>
-                        <button className='btn btn-primary btn-small' onClick={submitForm}>Create</button>
+                        <button className='btn btn-primary btn-small' onClick={submitForm}>Add</button>
                     </div>
                 }
             />

@@ -3,16 +3,19 @@ import AddSection from '../AddSection';
 import Flash from '../services/Flash';
 import $ from 'jquery';
 import Request from '../services/Request';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import TimeToString from '../services/TimeToString';
 
 function SectionForm(props) {
 
     const [examId, setExamId] = useState(props.examId);
     const viewTimerDurationBlock = () => {
+        document.getElementById('set-section-timer').style.display = 'block';
         document.getElementById('time-duration-block').style.display = 'flex';
     }
 
     const hideTimerDurationBlock = () => {
+        document.getElementById('set-section-timer').style.display = 'none';
         document.getElementById('time-duration-block').style.display = 'none';
     }
 
@@ -34,6 +37,50 @@ function SectionForm(props) {
         })
         
         console.log('submitted');
+    }
+
+    const pickTimeFromSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].addEventListener('click', (e) => {
+                console.log(e.target.value);
+                document.getElementsByName('timeDuration')[0].value = e.target.value;
+                document.getElementById('time-duration').innerText = (new TimeToString(e.target.value)).convert();
+            })
+        }
+    }
+
+    const convertTime = (e) => {
+        let el = e.target;
+        let value = el.value;
+        let response = el.nextElementSibling;
+        let convertedTime = (new TimeToString(parseInt(value))).convert();
+        response.innerHTML = convertedTime;
+    }
+
+    const resetTimeSlots = () => {
+        let slots = document.getElementsByName('timeDurationSlots');
+        for(let i=0; i<slots.length; i++) {
+            slots[i].checked = false;
+        }
+    }
+
+    const fetchSetSectionTimer = () => {
+        let url = "http://localhost:8080/QuizWit/SetSectionTimer?examId=";
+        url += props.examId;
+        Request.get(url)
+        .then((res) => {
+            console.log(res);
+            if(res.success) {
+                
+                if(res.setSectionTimer)
+                    document.getElementById('set-section-timer').style.display = 'block';
+
+            }
+            else {
+                Flash.message(res.error, 'bg-danger');
+            }
+        })
     }
 
     const populateResponse = (res) => {
@@ -63,6 +110,10 @@ function SectionForm(props) {
         }
     }
 
+    useEffect(() => {
+        fetchSetSectionTimer();
+        pickTimeFromSlots();
+    }, [])
     return (
         <form action="" className='pb-10' id="create-section-form" onSubmit={addSection}>
             <input type="hidden" defaultValue={examId} name="examId"/>
@@ -110,56 +161,67 @@ function SectionForm(props) {
                     <div className="response"></div>
                 </div>
             </div>
-            <div className='input-block'>
-                <div className="customized-radio-sticky">
-                    <label>Timer Type</label>
-                    <div>
-                        <label onClick={viewTimerDurationBlock}>
-                            <input type="radio" name="timerType" value="1" />
-                            <span>Single timer for entire section</span>
-                        </label>
-                        <label onClick={hideTimerDurationBlock}>
-                            <input type="radio" name="timerType" value="2" />
-                            <span>Question wise timer</span>
-                        </label>
+            
+            <div id='set-section-timer'>
+                <div className='input-block'>
+                    <div className="customized-radio-sticky">
+                        <label>Timer Type</label>
+                        <div>
+                            <label onClick={viewTimerDurationBlock}>
+                                <input type="radio" name="timerType" value="1" />
+                                <span>Single timer for entire section</span>
+                            </label>
+                            <label onClick={hideTimerDurationBlock}>
+                                <input type="radio" name="timerType" value="2" />
+                                <span>Question wise timer</span>
+                            </label>
+                        </div>
+                        <div className="response"></div>
                     </div>
-                    <div className="response"></div>
                 </div>
-            </div>
-            <div className='input-block' id='time-duration-block'>
-                <div className="customized-radio-sticky">
-                    <label>Time Duration</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="timeDuration" value="0" />
-                            <span>No time limit</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="900" />
-                            <span>15 Minutes</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="1800" />
-                            <span>30 Minutes</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="2700" />
-                            <span>45 Minutes</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="3600" />
-                            <span>1 Hour</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="7200" />
-                            <span>2 Hours</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="timeDuration" value="10800" />
-                            <span>3 Hours</span>
-                        </label>
+                <div className='input-block' id='time-duration-block'>
+                    <div className="customized-radio-sticky">
+                        <label>Time Duration</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="timeDurationSlots" value="" />
+                                <span>No time limit</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDurationSlots" value="900" />
+                                <span>15 Minutes</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDurationSlots" value="1800" />
+                                <span>30 Minutes</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDurationSlots" value="2700" />
+                                <span>45 Minutes</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDurationSlots" value="3600" />
+                                <span>1 Hour</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDurationSlots" value="7200" />
+                                <span>2 Hours</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="timeDurationSlots" value="10800" />
+                                <span>3 Hours</span>
+                            </label>
+                        </div>
+                        <div className="response"></div>
                     </div>
-                    <div className="response"></div>
+                </div>
+                <div className="input-block">
+                    <div className="input-custom">
+                        <input type="number" name="timeDuration" onInput={resetTimeSlots} onChange={convertTime} />
+                        <div className='primary converted-time' id='time-duration'></div>
+                        <label>Time Duration</label>
+                        <div className="response"></div>
+                    </div>
                 </div>
             </div>
             <div className='flex-row jc-sb'>
