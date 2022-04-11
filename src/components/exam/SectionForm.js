@@ -128,12 +128,8 @@ function SectionForm(props) {
             </div>
             <div className='input-block' id='time-duration-block'>
                 <div className="customized-radio-sticky">
-                    <label>Time Duration</label>
+                    <label>Choose time duration from slots</label>
                     <div>
-                        <label>
-                            <input type="radio" name="timeDuration" value="0" />
-                            <span>No time limit</span>
-                        </label>
                         <label>
                             <input type="radio" name="timeDuration" value="900" />
                             <span>15 Minutes</span>

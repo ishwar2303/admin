@@ -535,9 +535,18 @@ input::-webkit-inner-spin-button {
   border-collapse: collapse;
   width: 100%;
 }
-.table-container-select table thead tr th:nth-child(1), .table-container-select table tbody tr td:nth-child(1) {
+.table-container-select table thead tr th:nth-child(1), 
+.table-container-select table tbody tr td:nth-child(1)
+ {
   position: sticky;
   left: -1px;
+  background: white;
+}
+
+.table-container-select table tbody tr td:nth-child(2),
+.table-container-select table thead tr th:nth-child(2) {
+  position: sticky;
+  left: 41px;
   background: white;
 }
 .table-container-select  table thead {
