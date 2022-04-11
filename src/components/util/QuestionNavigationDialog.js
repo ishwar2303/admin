@@ -19,7 +19,7 @@ class QuestionNavigationDialog extends React.Component {
             for(let i=0; i<details.length; i++) {
                 details[i]["serial"] = i+1;
                 if(details[i].question.length >= 45)
-                    details[i].question = details[i].question.substr(1, 45) + '...'
+                    details[i].question = details[i].question.substr(0, 45) + '...'
             }
             if(res.success) {
                 this.setState({

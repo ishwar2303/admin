@@ -608,7 +608,7 @@ input::-webkit-inner-spin-button {
   font-size: 14px;
   padding: 0px 10px;
 }
-#set-question-timer {
+#set-question-timer, #set-section-timer {
   display: none;
 }
 @keyframes spin {
