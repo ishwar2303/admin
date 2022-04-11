@@ -361,7 +361,7 @@ function ViewExams() {
                 { !load && <Loader /> }
                 { load && examDetails.length > 0 &&
                     <div className='flex-row flex-full'>
-                        <div className='table-container pt-10 flex-full' style={{width: "100px", overflow: "auto"}}>
+                        <div className='table-container table-container-select pt-10 pb-10 flex-full' style={{width: "100px", overflow: "auto"}}>
                             <table style={{width: "1500px"}}>
                                 <thead>
                                     <tr>
