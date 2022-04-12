@@ -302,7 +302,7 @@ function ViewExams() {
     useEffect(() => {
         document.getElementById('route-overlay').style.display = 'none';
         let height = document.getElementsByClassName('content-loaded')[0].offsetHeight;
-        document.getElementById('table-space-for-exams').style.height = height + 'px';
+        document.getElementById('table-space-for-exams').style.height = (height - 15) + 'px';
     }, []);
 
     useEffect(() => {

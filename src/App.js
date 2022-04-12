@@ -19,9 +19,9 @@ import EditExam from './components/EditExam';
 import EditSection from './components/EditSection';
 import AddQuestion from './components/AddQuestion';
 import ViewQuestion from './components/ViewQuestion';
-import ConvertTimeToString from './components/ConvertTimeToString';
 import ManagementUsers from './components/ManagementUsers';
 import ChangePasswordDialog from './components/includes/ChangePasswordDialog';
+import Profile from './components/Profile';
 
 function App() {
 
@@ -78,7 +78,7 @@ function App() {
                       <Route path='/ace-editor' element={<ProgramEditor />}/>
                       <Route path='/timer' element={<WorkingOfTimer />}/>
                       <Route path='/management-users' element={<ManagementUsers />} />
-                      <Route path='/convert-time-to-string' element={<ConvertTimeToString />} />
+                      <Route path='/profile' element={<Profile />} />
                       
                     </Routes>
                     <div id='route-overlay'></div>
