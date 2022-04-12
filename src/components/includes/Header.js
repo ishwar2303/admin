@@ -41,6 +41,7 @@ function Header(props) {
                     <MenuBar 
                       setLogin={props.setLogin}
                       userType={props.admin.userType}
+                      changePassword={props.changePassword}
                     />
                 </div>
             </div>

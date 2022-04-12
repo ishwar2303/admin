@@ -7,7 +7,10 @@ import MenuLink from '../util/MenuLink';
 import Flash from '../services/Flash';
 
 function MenuBar(props) {
-
+    const changePassword = () => {
+        document.getElementById('route-overlay').style.display = 'block';
+        props.changePassword(true);
+    }
     const logout = () => {
         let url = "http://localhost:8080/QuizWit/Logout?user=1";
         Request.get(url)
@@ -40,7 +43,7 @@ function MenuBar(props) {
                 icon='fas fa-sync-alt'
                 class=''
                 />
-                <div>
+                <div onClick={changePassword}>
                     <div>
                         <i className='fas fa-lock'></i>
                     </div>

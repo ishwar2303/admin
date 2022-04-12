@@ -21,12 +21,13 @@ import AddQuestion from './components/AddQuestion';
 import ViewQuestion from './components/ViewQuestion';
 import ConvertTimeToString from './components/ConvertTimeToString';
 import ManagementUsers from './components/ManagementUsers';
+import ChangePasswordDialog from './components/includes/ChangePasswordDialog';
 
 function App() {
 
   const[login, setLogin] = useState(false);
   const[admin, setAdmin] = useState({});
-
+  const[changePassword, setChangePassword] = useState(false);
   useEffect(() => {
     let url = 'http://localhost:8080/QuizWit/LoginAdmin';
     let adminEmail = localStorage.getItem('quizwitAdminEmail');
@@ -57,6 +58,7 @@ function App() {
               <Header 
                 setLogin={setLogin}
                 admin={admin}
+                changePassword={setChangePassword}
               />
               <div className='body-wrapper'>
                 <Navbar />
@@ -80,6 +82,13 @@ function App() {
                       
                     </Routes>
                     <div id='route-overlay'></div>
+                    {
+                      changePassword &&
+                      <ChangePasswordDialog 
+                        changePassword={setChangePassword}
+                        setLogin={setLogin}
+                      />
+                    }
                   </div>
                 </div>
               </div>
