@@ -8,10 +8,12 @@ class EditSectionForm extends React.Component {
     
     constructor(props) {
         super(props);
-        let tt = 1;
-        if(this.props.sectionDetails.setQuestionTimer == '1') {
+        let tt = 0;
+        if(this.props.sectionDetails.setQuestionTimer == '1')
             tt = 2;
-        }
+        
+        else if(this.props.sectionDetails.setSectionTimer == '1')
+            tt = 1;
         let duration = null;
         if(tt == 1)
             duration = this.props.sectionDetails.timeDuration;
@@ -78,9 +80,9 @@ class EditSectionForm extends React.Component {
             }
             responseBlock[0].innerHTML = (log.title ? icon + log.title : '');
             responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
-
             responseBlock[2].innerHTML = (log.questionNavigation ? icon + log.questionNavigation: '');
-            responseBlock[3].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[3].innerHTML = (log.shuffleQuestions ? icon + log.shuffleQuestions: '');
+            responseBlock[4].innerHTML = (log.timerType ? icon + log.timerType: '' );
             responseBlock[5].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
         }
     }
@@ -114,10 +116,28 @@ class EditSectionForm extends React.Component {
             slots[i].checked = false;
         }
     }
+    fetchSetSectionTimer = () => {
+        let url = "http://localhost:8080/QuizWit/SetSectionTimer?examId=";
+        url += this.props.examId;
+        Request.get(url)
+        .then((res) => {
+            console.log(res);
+            if(res.success) {
+                
+                if(res.setSectionTimer) 
+                    document.getElementById('set-section-timer').style.display = 'block';
+                else document.getElementById('set-section-timer').style.display = 'none';
+            }
+            else {
+                Flash.message(res.error, 'bg-danger');
+            }
+        })
+    }
     componentDidMount() {
         if(this.state.timerType == 1)
             this.viewTimerDurationBlock();
         this.pickTimeFromSlots();
+        this.fetchSetSectionTimer();
     }
 
     render() {
@@ -169,60 +189,62 @@ class EditSectionForm extends React.Component {
                         <div className="response"></div>
                     </div>
                 </div>
-                <div className='input-block'>
-                    <div className="customized-radio-sticky">
-                        <label>Timer Type</label>
-                        <div>
-                            <label onClick={this.viewTimerDurationBlock}>
-                                <input type="radio" name="timerType" value="1" checked={this.state.timerType == '1' ? true : false} onChange={this.handleChange} />
-                                <span>Single timer for entire section</span>
-                            </label>
-                            <label onClick={this.hideTimerDurationBlock}>
-                                <input type="radio" name="timerType" value="2" checked={this.state.timerType == '2' ? true : false} onChange={this.handleChange} />
-                                <span>Question wise timer</span>
-                            </label>
-                        </div>
-                        <div className="response"></div>
-                    </div>
-                </div>
-                <div id='time-duration-block' className='flex-col'>
+                <div id='set-section-timer'>
                     <div className='input-block'>
                         <div className="customized-radio-sticky">
-                            <label>Choose time duration from slots</label>
+                            <label>Timer Type</label>
                             <div>
-                                <label>
-                                    <input type="radio" name="timeDurationSlots" value="900" checked={this.state.timeDurationSlots == '900' ? true : false} onChange={this.handleChange}/>
-                                    <span>15 Minutes</span>
+                                <label onClick={this.viewTimerDurationBlock}>
+                                    <input type="radio" name="timerType" value="1" checked={this.state.timerType == '1' ? true : false} onChange={this.handleChange} />
+                                    <span>Single timer for entire section</span>
                                 </label>
-                                <label>
-                                    <input type="radio" name="timeDurationSlots" value="1800" checked={this.state.timeDurationSlots == '1800' ? true : false} onChange={this.handleChange}/>
-                                    <span>30 Minutes</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="timeDurationSlots" value="2700"  checked={this.state.timeDurationSlots == '2700' ? true : false} onChange={this.handleChange}/>
-                                    <span>45 Minutes</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="timeDurationSlots" value="3600" checked={this.state.timeDurationSlots == '3600' ? true : false} onChange={this.handleChange}/>
-                                    <span>1 Hour</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="timeDurationSlots" value="7200" checked={this.state.timeDurationSlots == '7200' ? true : false} onChange={this.handleChange}/>
-                                    <span>2 Hours</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="timeDurationSlots" value="10800" checked={this.state.timeDurationSlots == '10800' ? true : false} onChange={this.handleChange}/>
-                                    <span>3 Hours</span>
+                                <label onClick={this.hideTimerDurationBlock}>
+                                    <input type="radio" name="timerType" value="2" checked={this.state.timerType == '2' ? true : false} onChange={this.handleChange} />
+                                    <span>Question wise timer</span>
                                 </label>
                             </div>
+                            <div className="response"></div>
                         </div>
                     </div>
-                    <div className="input-block">
-                        <div className="input-custom">
-                            <input type="number" name="timeDuration" defaultValue={this.state.timeDuration} onInput={this.resetTimeSlots} onChange={this.convertTime} />
-                            <div className='primary converted-time' id='time-duration'>{(new TimeToString(this.state.timeDuration)).convert()}</div>
-                            <label>Time Duration</label>
-                            <div className="response"></div>
+                    <div id='time-duration-block' className='flex-col'>
+                        <div className='input-block'>
+                            <div className="customized-radio-sticky">
+                                <label>Choose time duration from slots</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" value="900" checked={this.state.timeDurationSlots == '900' ? true : false} onChange={this.handleChange}/>
+                                        <span>15 Minutes</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" value="1800" checked={this.state.timeDurationSlots == '1800' ? true : false} onChange={this.handleChange}/>
+                                        <span>30 Minutes</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" value="2700"  checked={this.state.timeDurationSlots == '2700' ? true : false} onChange={this.handleChange}/>
+                                        <span>45 Minutes</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" value="3600" checked={this.state.timeDurationSlots == '3600' ? true : false} onChange={this.handleChange}/>
+                                        <span>1 Hour</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" value="7200" checked={this.state.timeDurationSlots == '7200' ? true : false} onChange={this.handleChange}/>
+                                        <span>2 Hours</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="timeDurationSlots" value="10800" checked={this.state.timeDurationSlots == '10800' ? true : false} onChange={this.handleChange}/>
+                                        <span>3 Hours</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-block">
+                            <div className="input-custom">
+                                <input type="number" name="timeDuration" defaultValue={this.state.timeDuration} onInput={this.resetTimeSlots} onChange={this.convertTime} />
+                                <div className='primary converted-time' id='time-duration'>{(new TimeToString(this.state.timeDuration)).convert()}</div>
+                                <label>Time Duration</label>
+                                <div className="response"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

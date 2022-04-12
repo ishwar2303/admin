@@ -75,7 +75,7 @@ function SectionForm(props) {
                 
                 if(res.setSectionTimer)
                     document.getElementById('set-section-timer').style.display = 'block';
-
+                else document.getElementById('set-section-timer').style.display = 'none';
             }
             else {
                 Flash.message(res.error, 'bg-danger');
