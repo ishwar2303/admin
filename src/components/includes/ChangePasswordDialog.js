@@ -37,6 +37,11 @@ class ChangePasswordDialog extends React.Component {
         Request.post(url, data)
         .then((res) => {
             console.log(res);
+            if(res.sessionTimeout) {
+                this.props.setLogin(false);
+                this.props.changePassword(false);
+                Flash.message('Session Timeout', 'bg-primary');
+            }
             this.populateResponse(res);
         })
     }

@@ -42,6 +42,7 @@ function App() {
     }
     Request.post(url, data)
     .then((res) => {
+      console.log(res);
         if(res.success) {
             setAdmin(res.details);
             setLogin(true);

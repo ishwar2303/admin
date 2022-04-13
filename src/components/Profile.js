@@ -31,6 +31,7 @@ class Profile extends React.Component {
 
     componentDidMount = () => {
         this.fetchProfile();
+        document.getElementById('route-overlay').style.display = 'none';
     }
 
     render = () => {

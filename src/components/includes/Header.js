@@ -1,7 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../css/Header.css'
+import Timer from '../services/Timer';
 import MenuBar from './MenuBar';
+import Flash from '../services/Flash';
+import Request from '../services/Request';
 
 function Header(props) {
 
@@ -18,6 +21,30 @@ function Header(props) {
     toggleDivVertical('menubar', toggle, 250, 0);
   }
 
+  const logout = () => {
+    let url = "http://localhost:8080/QuizWit/Logout?user=1";
+    Request.get(url)
+    .then((res) => {
+        if(res.success) {
+            props.setLogin(false);
+            Flash.message('Session Timeout', 'bg-success');
+            localStorage.setItem('quizwitAdminEmail', '');
+            localStorage.setItem('quizwitAdminPassword', '');
+        }
+        else {
+            Flash.message(res.error, 'bg-danger');
+        }
+    })
+  } 
+
+  useEffect(() => {
+    const timer = new Timer();
+    let timePassed = props.admin.currentTime - props.admin.loginTime;
+    timer.set(timePassed, 'login-timer', logout);
+    timer.setCountUpLimit(3600);
+    timer.start('COUNT_UP');
+  }, []);  
+
   return (
       <div className='main-header'>
           <div className='flex-row jc-sb ai-c'>
@@ -27,6 +54,7 @@ function Header(props) {
                 </a>
             </div>
             <div className='flex-row ai-c'>
+                <div id='login-timer' className='mr-10' style={{fontSize: "14px"}} ></div>
                 <div id="username">{props.admin.fullName}</div>
                 <div className='ml-10 mr-10'>|</div>
                 <div className='userphoto-container' onClick={toggleMenubar}>

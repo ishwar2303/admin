@@ -10,6 +10,7 @@
     color: rgb(238, 104, 51);
     overflow: hidden;
     height: 0;
+    z-index: 50;
 }
 .menubar p {
     text-align: center;

@@ -42,6 +42,10 @@ class Timer {
         return hours + ':' + minutes + ':' + seconds;
     }
 
+    setCountUpLimit(limit) {
+        this.countUpLimit = limit; 
+    }
+
     countDown() {
         if(!this.control)
             return;
@@ -73,10 +77,18 @@ class Timer {
         timerblock.innerHTML = this.format();
         timerblock.style.display = 'block';
     
-        setTimeout(() => {
-            this.countUp();
-        }, 1000);
-        this.time++;
+        if(this.countUpLimit <= this.time) {
+            timerblock.innerHTML = 'Time end!';
+            this.callback();
+            this.stop();
+        }
+        else {
+            setTimeout(() => {
+                this.countUp();
+            }, 1000);
+            this.time++;
+        }
+
     }
 
     stop() {
