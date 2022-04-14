@@ -35,10 +35,15 @@ class EditSectionForm extends React.Component {
 
     viewTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'flex';
+        document.getElementById('question-navigation-block').style.display = 'flex';
     }
 
     hideTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'none';
+        document.getElementById('question-navigation-block').style.display = 'none';
+        this.setState({
+            questionNavigation: '0'
+        })
     }
 
     resetForm = () => {
@@ -161,20 +166,6 @@ class EditSectionForm extends React.Component {
                 </div>
                 <div className="input-block">
                     <div className="customized-radio-sticky">
-                        <label>Question Navigation</label>
-                        <div>
-                            <label>
-                                <input type="radio" name="questionNavigation" value="1" checked={this.state.questionNavigation == '1' ? true : false} onChange={this.handleChange} />
-                                <span>On</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="questionNavigation" value="0" checked={this.state.questionNavigation == '0' ? true : false} onChange={this.handleChange} />
-                                <span>Off</span>
-                            </label>
-                        </div>
-                        <div className="response"></div>
-                    </div>
-                    <div className="customized-radio-sticky">
                         <label>Shuffle Question</label>
                         <div>
                             <label>
@@ -246,6 +237,22 @@ class EditSectionForm extends React.Component {
                                 <div className="response"></div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className='input-block' id='question-navigation-block'>
+                    <div className="customized-radio-sticky">
+                        <label>Question Navigation</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="questionNavigation" value="1" checked={this.state.questionNavigation == '1' ? true : false} onChange={this.handleChange} />
+                                <span>On</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="questionNavigation" value="0" checked={this.state.questionNavigation == '0' ? true : false} onChange={this.handleChange} />
+                                <span>Off</span>
+                            </label>
+                        </div>
+                        <div className="response"></div>
                     </div>
                 </div>
                 <div className='flex-row jc-sb'>

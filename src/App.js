@@ -67,19 +67,19 @@ function App() {
                   <div className='route-loader'>
                     
                     <Routes>
-                      <Route path='/' element={<Dashboard />}/>
-                      <Route path='/create-exam' element={<CreateExam />}/>
-                      <Route path='/edit-exam' element={<EditExam />}/>
-                      <Route path='/add-section' element={<AddSection />}/>
-                      <Route path='/edit-section' element={<EditSection />}/>
-                      <Route path='/add-question' element={<AddQuestion />} />
-                      <Route path='/view-exams' element={<ViewExams />}/>
-                      <Route path='/view-question' element={<ViewQuestion />} />
-                      <Route path='/settings' element={<Settings />}/>
-                      <Route path='/ace-editor' element={<ProgramEditor />}/>
-                      <Route path='/timer' element={<WorkingOfTimer />}/>
-                      <Route path='/management-users' element={<ManagementUsers />} />
-                      <Route path='/profile' element={<Profile />} />
+                      <Route path='/' element={<Dashboard />} setLogin={setLogin}/>
+                      <Route path='/create-exam' element={<CreateExam />} setLogin={setLogin}/>
+                      <Route path='/edit-exam' element={<EditExam />} setLogin={setLogin}/>
+                      <Route path='/add-section' element={<AddSection />} setLogin={setLogin}/>
+                      <Route path='/edit-section' element={<EditSection />} setLogin={setLogin}/>
+                      <Route path='/add-question' element={<AddQuestion />}  setLogin={setLogin}/>
+                      <Route path='/view-exams' element={<ViewExams />} setLogin={setLogin}/>
+                      <Route path='/view-question' element={<ViewQuestion />}  setLogin={setLogin}/>
+                      <Route path='/settings' element={<Settings />} setLogin={setLogin}/>
+                      <Route path='/ace-editor' element={<ProgramEditor />} setLogin={setLogin}/>
+                      <Route path='/timer' element={<WorkingOfTimer />} setLogin={setLogin}/>
+                      <Route path='/management-users' element={<ManagementUsers />} setLogin={setLogin} />
+                      <Route path='/profile' element={<Profile />} setLogin={setLogin} />
                       
                     </Routes>
                     <div id='route-overlay'></div>

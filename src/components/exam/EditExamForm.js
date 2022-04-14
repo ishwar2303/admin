@@ -25,11 +25,16 @@ class EditExamForm extends React.Component {
     viewTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'flex';
         document.getElementById('time-duration-input-block').style.display = 'block';
+        document.getElementById('section-navigation-block').style.display = 'flex';
     }
 
     hideTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'none';
         document.getElementById('time-duration-input-block').style.display = 'none';
+        document.getElementById('section-navigation-block').style.display = 'none';
+        this.setState({
+            sectionNavigation: "0"
+        })
     }
 
     resetForm = () => {
@@ -119,16 +124,16 @@ class EditExamForm extends React.Component {
             let icon = '<i class="fas fa-exclamation-circle mr-5"></i>';
             responseBlock[0].innerHTML = (log.title ? icon + log.title : '');
             responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
-
             responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
             responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
-            responseBlock[4].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
-            responseBlock[5].innerHTML = (log.startTime ? icon + log.startTime: '' );
-            responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
-            responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
-            responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[4].innerHTML = (log.startTime ? icon + log.startTime: '' );
+            responseBlock[5].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
+            responseBlock[6].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
+            responseBlock[7].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[8].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[9].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
             responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
+            
         }
     }
     pickTimeFromSlots = () => {
@@ -210,20 +215,6 @@ class EditExamForm extends React.Component {
                         </div>
                         <div className="response"></div>
                     </div>
-                    <div className="customized-radio-sticky">
-                        <label>Section Navigation</label>
-                        <div>
-                            <label>
-                                <input type="radio" name="sectionNavigation" value="1" checked={this.state.sectionNavigation == '1' ? true : false} onChange={this.handleChange}/>
-                                <span>On</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="sectionNavigation" value="0" checked={this.state.sectionNavigation == '0' ? true : false} onChange={this.handleChange}/>
-                                <span>Off</span>
-                            </label>
-                        </div>
-                        <div className="response"></div>
-                    </div>
                 </div>
                 <div className="input-block">
                     <div className="input-custom">
@@ -297,6 +288,22 @@ class EditExamForm extends React.Component {
                         <input type="number" name="timeDuration" defaultValue={this.state.timeDuration} onInput={this.resetTimeSlots} onChange={this.convertTime} />
                         <div id='time-duration' className='primary converted-time'>{(new TimeToString(this.state.timeDuration)).convert()}</div>
                         <label>Time Duration</label>
+                        <div className="response"></div>
+                    </div>
+                </div>
+                <div className='input-block' id='section-navigation-block'>
+                    <div className="customized-radio-sticky">
+                        <label>Section Navigation</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="sectionNavigation" value="1" checked={this.state.sectionNavigation == '1' ? true : false} onChange={this.handleChange}/>
+                                <span>On</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="sectionNavigation" value="0" checked={this.state.sectionNavigation == '0' ? true : false} onChange={this.handleChange}/>
+                                <span>Off</span>
+                            </label>
+                        </div>
                         <div className="response"></div>
                     </div>
                 </div>

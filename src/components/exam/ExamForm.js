@@ -10,11 +10,14 @@ function ExamForm() {
     const viewTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'flex';
         document.getElementById('time-duration-input-block').style.display = 'block';
+        document.getElementById('section-navigation-block').style.display = 'flex';
     }
 
     const hideTimerDurationBlock = () => {
         document.getElementById('time-duration-block').style.display = 'none';
         document.getElementById('time-duration-input-block').style.display = 'none';
+        document.getElementById('section-navigation-block').style.display = 'none';
+        document.getElementsByName('sectionNavigation')[1].checked = true;
     }
 
     const resetForm = () => {
@@ -56,12 +59,12 @@ function ExamForm() {
 
             responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
             responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
-            responseBlock[4].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
-            responseBlock[5].innerHTML = (log.startTime ? icon + log.startTime: '' );
-            responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
-            responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
-            responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[4].innerHTML = (log.startTime ? icon + log.startTime: '' );
+            responseBlock[5].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
+            responseBlock[6].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
+            responseBlock[7].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[8].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[9].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
             responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
         }
     }
@@ -139,20 +142,6 @@ function ExamForm() {
                         <label>
                             <input type="radio" name="visibility" value="1" defaultChecked={true}/>
                             <span>Private</span>
-                        </label>
-                    </div>
-                    <div className="response"></div>
-                </div>
-                <div className="customized-radio-sticky">
-                    <label>Section Navigation</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="sectionNavigation" value="1" />
-                            <span>On</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="sectionNavigation" value="0" defaultChecked={true} />
-                            <span>Off</span>
                         </label>
                     </div>
                     <div className="response"></div>
@@ -236,6 +225,22 @@ function ExamForm() {
                     <input type="number" name="timeDuration" onInput={resetTimeSlots} onChange={convertTime} />
                     <div className='primary converted-time' id='time-duration'></div>
                     <label>Time Duration</label>
+                    <div className="response"></div>
+                </div>
+            </div>
+            <div className='input-block' id='section-navigation-block'>
+                <div className="customized-radio-sticky">
+                    <label>Section Navigation</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="sectionNavigation" value="1" />
+                            <span>On</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="sectionNavigation" value="0" defaultChecked={true} />
+                            <span>Off</span>
+                        </label>
+                    </div>
                     <div className="response"></div>
                 </div>
             </div>

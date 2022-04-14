@@ -12,11 +12,15 @@ function SectionForm(props) {
     const viewTimerDurationBlock = () => {
         document.getElementById('set-section-timer').style.display = 'block';
         document.getElementById('time-duration-block').style.display = 'flex';
+        document.getElementById('time-duration-input-block').style.display = 'flex';
+        document.getElementById('question-navigation-block').style.display = 'flex';
     }
 
     const hideTimerDurationBlock = () => {
-        document.getElementById('set-section-timer').style.display = 'none';
+        document.getElementById('question-navigation-block').style.display = 'none';
         document.getElementById('time-duration-block').style.display = 'none';
+        document.getElementById('time-duration-input-block').style.display = 'none';
+        document.getElementsByName('questionNavigation')[1].checked = true;
     }
 
     const resetForm = () => {
@@ -103,10 +107,11 @@ function SectionForm(props) {
             responseBlock[0].innerHTML = (log.title ? icon + log.title : '');
             responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
 
-            responseBlock[2].innerHTML = (log.questionNavigation ? icon + log.questionNavigation: '');
-            responseBlock[3].innerHTML = (log.shuffleQuestions ? icon + log.shuffleQuestions: '');
-            responseBlock[4].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            responseBlock[5].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[2].innerHTML = (log.shuffleQuestions ? icon + log.shuffleQuestions: '');
+            responseBlock[3].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[4].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[5].innerHTML = (log.questionNavigation ? icon + log.questionNavigation: '');
+
         }
     }
 
@@ -132,20 +137,6 @@ function SectionForm(props) {
                 </div>
             </div>
             <div className="input-block">
-                <div className="customized-radio-sticky">
-                    <label>Question Navigation</label>
-                    <div>
-                        <label>
-                            <input type="radio" name="questionNavigation" value="1" />
-                            <span>On</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="questionNavigation" value="0" defaultChecked={true} />
-                            <span>Off</span>
-                        </label>
-                    </div>
-                    <div className="response"></div>
-                </div>
                 <div className="customized-radio-sticky">
                     <label>Shuffle Question</label>
                     <div>
@@ -215,13 +206,29 @@ function SectionForm(props) {
                         <div className="response"></div>
                     </div>
                 </div>
-                <div className="input-block">
+                <div className="input-block" id='time-duration-input-block'>
                     <div className="input-custom">
                         <input type="number" name="timeDuration" onInput={resetTimeSlots} onChange={convertTime} />
                         <div className='primary converted-time' id='time-duration'></div>
                         <label>Time Duration</label>
                         <div className="response"></div>
                     </div>
+                </div>
+            </div>
+            <div className='input-block' id='question-navigation-block'>
+                <div className="customized-radio-sticky">
+                    <label>Question Navigation</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="questionNavigation" value="1" />
+                            <span>On</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="questionNavigation" value="0" defaultChecked={true} />
+                            <span>Off</span>
+                        </label>
+                    </div>
+                    <div className="response"></div>
                 </div>
             </div>
             <div className='flex-row jc-sb'>
