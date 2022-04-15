@@ -61,8 +61,9 @@ function ViewExams() {
                     details[i]["serialNo"] = i+1;
                     let tts = new TimeToString(parseInt(details[i].timeDuration));
                     details[i].timeDuration = tts.convert();
-                    details[i].startTime = (new DateTime(details[i].startTime)).convertToView();
-                    details[i].timestamp = (new DateTime(details[i].timestamp)).convertToView();
+                    details[i]["startEpochTime"] = details[i].startTime;
+                    details[i].startTime = (new DateTime(parseInt(details[i].startTime))).convertToView();
+                    details[i].timestamp = (new DateTime(parseInt(details[i].timestamp))).convertToView();
                 }
                 setExamDetails(details);
                 loadSection();

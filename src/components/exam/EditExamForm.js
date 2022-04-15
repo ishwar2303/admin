@@ -51,6 +51,9 @@ class EditExamForm extends React.Component {
         e.preventDefault();
         let url = "http://localhost:8080/QuizWit/UpdateExamDetails";
 
+        let datetime = new Date(document.getElementById('start-time').value);
+        document.getElementsByName('startTime')[0].value = datetime.getTime();
+        console.log(datetime.getTime())
         let data = $('#update-exam-form').serialize();
 
         Request.post(url, data)
@@ -71,7 +74,8 @@ class EditExamForm extends React.Component {
             if(res.success) {
                 let details = res.examDetails;
                 let timestamp = details.startTime;
-                details.startTime = (new DateTime(timestamp)).convert();
+                details.startTime = (new Date(parseInt(timestamp))).toLocaleString();
+                details.startTime = (new DateTime(details.startTime)).convert();
                 this.setState({
                     examDetails: details
                 })
@@ -216,9 +220,10 @@ class EditExamForm extends React.Component {
                         <div className="response"></div>
                     </div>
                 </div>
+            <input className='hidden' name="startTime" />
                 <div className="input-block">
                     <div className="input-custom">
-                        <input type="datetime-local" name="startTime" defaultValue={this.state.examDetails.startTime} />
+                        <input type="datetime-local" id='start-time' defaultValue={this.state.examDetails.startTime} />
                         <label>Start Time</label>
                         <div className="response"></div>
                     </div>

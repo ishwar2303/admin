@@ -29,8 +29,11 @@ function ExamForm() {
         e.preventDefault();
         let url = "http://localhost:8080/QuizWit/CreateExam";
 
-        let data = $('#create-exam-form').serialize();
+        let datetime = new Date(document.getElementById('start-time').value);
 
+        document.getElementsByName('startTime')[0].value = datetime.getTime();
+        console.log(datetime.getTime())
+        let data = $('#create-exam-form').serialize();
         Request.post(url, data)
         .then((res) => {
             console.log(res);
@@ -147,9 +150,10 @@ function ExamForm() {
                     <div className="response"></div>
                 </div>
             </div>
+            <input className='hidden' name="startTime" />
             <div className="input-block">
                 <div className="input-custom">
-                    <input type="datetime-local" name="startTime" defaultChecked={true} />
+                    <input type="datetime-local" id="start-time" defaultChecked={true} />
                     <label>Start Time</label>
                     <div className="response"></div>
                 </div>
