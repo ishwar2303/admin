@@ -37,7 +37,7 @@ class ManagementUserStatus extends React.Component {
                 <div className='flex-row ai-c'>
                     <div>
                         <label className="custom-toggle-btn">
-                            <input type="checkbox" checked={this.state.userStatus == 1 ? true : false} value={this.state.userStatus} value={this.state.userStatus} onChange={this.updateStatus} />
+                            <input type="checkbox" checked={this.state.userStatus == 1 ? true : false} value={this.state.userStatus} onChange={this.updateStatus} />
                             <span>
                                 <i className="fas fa-check"></i>
                             </span>

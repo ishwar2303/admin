@@ -10,6 +10,7 @@ import ConfirmationDialogWithInput from './util/ConfirmationDialogWithInput';
 import Sections from './util/section/Sections';
 import TimeToString from './services/TimeToString';
 import DateTime from './services/DateTime';
+import UpdateExamStatusErrorDialog from './util/exams/UpdateExamStatusErrorDialog';
 
 function ViewExams() {
     const getCurrentPageFromCookie = () => {
@@ -27,6 +28,7 @@ function ViewExams() {
     const [totalPages, setTotalPages] = useState(0);
     const [sectionDetails, setSectionDetails] = useState([]);
     const [examTitle ,setExamTitle] = useState('');
+    const [examStatusErrors, setExamStatusErrors] = useState([]);
 
     const fetchDetails = () => {
         setLoad(false);
@@ -396,6 +398,7 @@ function ViewExams() {
                                                 examTimer={d.setEntireExamTimer}
                                                 timeDuration={d.timeDuration}
                                                 fetchDetails={fetchDetails}
+                                                updateErrors={setExamStatusErrors}
                                             />
                                         })
                                     }
@@ -417,6 +420,10 @@ function ViewExams() {
         }
         {
             !load2 && <Loader />
+        }
+        {
+            examStatusErrors.length > 0 &&
+            <UpdateExamStatusErrorDialog errors={examStatusErrors} updateErrors={setExamStatusErrors}/>
         }
         <WrapperFooter
             render={
