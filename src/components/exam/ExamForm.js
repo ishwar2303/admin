@@ -30,8 +30,10 @@ function ExamForm() {
         let url = "http://localhost:8080/QuizWit/CreateExam";
 
         let datetime = new Date(document.getElementById('start-time').value);
+        let datetimeEnd = new Date(document.getElementById('end-time').value);
 
         document.getElementsByName('startTime')[0].value = datetime.getTime();
+        document.getElementsByName('endTime')[0].value = datetimeEnd.getTime();
         console.log(datetime.getTime())
         let data = $('#create-exam-form').serialize();
         Request.post(url, data)
@@ -63,12 +65,13 @@ function ExamForm() {
             responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
             responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
             responseBlock[4].innerHTML = (log.startTime ? icon + log.startTime: '' );
-            responseBlock[5].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
-            responseBlock[6].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
-            responseBlock[7].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            responseBlock[8].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
-            responseBlock[9].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
-            responseBlock[10].innerHTML = (log.instructions ? icon + log.instructions: '' );
+            responseBlock[5].innerHTML = (log.endTime ? icon + log.endTime: '' );
+            responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
+            responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
+            responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[10].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
+            responseBlock[11].innerHTML = (log.instructions ? icon + log.instructions: '' );
         }
     }
 
@@ -151,17 +154,18 @@ function ExamForm() {
                 </div>
             </div>
             <input className='hidden' name="startTime" />
+            <input className='hidden' name="endTime" />
             <div className="input-block">
                 <div className="input-custom">
                     <input type="datetime-local" id="start-time" defaultChecked={true} />
                     <label>Start Time</label>
                     <div className="response"></div>
                 </div>
-                {/* <div className="input-custom">
-                    <input type="datetime-local" name="endTime" defaultChecked={true} />
+                <div className="input-custom">
+                    <input type="datetime-local" id="end-time"  defaultChecked={true} />
                     <label>End Time</label>
                     <div className="response"></div>
-                </div> */}
+                </div>
             </div>
             <div className="input-block">
                 <div className="input-custom">
