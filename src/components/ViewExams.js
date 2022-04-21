@@ -64,7 +64,9 @@ function ViewExams() {
                     let tts = new TimeToString(parseInt(details[i].timeDuration));
                     details[i].timeDuration = tts.convert();
                     details[i]["startEpochTime"] = details[i].startTime;
+                    details[i].windowTime = (new TimeToString(details[i].windowTime)).convert();
                     details[i].startTime = (new DateTime(parseInt(details[i].startTime))).convertToView();
+                    details[i].endTime = (new DateTime(parseInt(details[i].endTime))).convertToView();
                     details[i].timestamp = (new DateTime(parseInt(details[i].timestamp))).convertToView();
                 }
                 setExamDetails(details);
@@ -367,19 +369,21 @@ function ViewExams() {
                 { load && examDetails.length > 0 &&
                     <div className='flex-row flex-full' style={{position: "relative", height: "100%"}}>
                         <div className='table-container table-container-select pt-10 pb-10 flex-full' style={{width: "100px", overflow: "auto"}}>
-                            <table style={{width: "1500px"}}>
+                            <table style={{width: "1600px"}}>
                                 <thead>
                                     <tr>
                                         <th style={{width: "40px"}}></th>
                                         <th className='text-left' style={{width: "50px"}}>S&nbsp;No.</th>
                                         <th className='text-left' style={{width: "300px"}}>Exam&nbsp;Title</th>
                                         <th className='text-left' style={{width: "100px"}}>Visibility</th>
-                                        <th className='text-left'>Start&nbsp;Time</th>
+                                        <th className='text-left' style={{width: "160px"}}>Start&nbsp;Time</th>
+                                        <th className='text-left' style={{width: "160px"}}>End&nbsp;Time</th>
+                                        <th className='text-left'style={{width: "120px"}}>Window Time</th>
                                         <th className='text-center'>Section&nbsp;Navigation</th>
-                                        <th className='text-center'>Exam Timer</th>
+                                        <th className='text-center'>Exam&nbsp;Timer</th>
                                         <th className='text-left'>Time&nbsp;Duration</th>
                                         <th className='text-left' style={{width: "150px"}}>Status</th>
-                                        <th className='text-left'>Created&nbsp;On</th>
+                                        <th className='text-left' style={{width: "160px"}}>Created&nbsp;On</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -392,6 +396,8 @@ function ViewExams() {
                                                 title={d.title}
                                                 visibility={d.private}
                                                 startTime={d.startTime}
+                                                endTime={d.endTime}
+                                                windowTime={d.windowTime}
                                                 status={d.isActive}
                                                 createdOn={d.timestamp}
                                                 sectionNavigation={d.sectionNavigation}

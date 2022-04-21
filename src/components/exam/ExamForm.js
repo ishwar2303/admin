@@ -64,13 +64,13 @@ function ExamForm() {
 
             responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
             responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
-            responseBlock[4].innerHTML = (log.startTime ? icon + log.startTime: '' );
-            responseBlock[5].innerHTML = (log.endTime ? icon + log.endTime: '' );
-            responseBlock[6].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
-            responseBlock[7].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
-            responseBlock[8].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            responseBlock[9].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
-            responseBlock[10].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
+            responseBlock[4].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
+            responseBlock[5].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
+            responseBlock[6].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[7].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[8].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
+            responseBlock[9].innerHTML = (log.startTime ? icon + log.startTime: '' );
+            responseBlock[10].innerHTML = (log.endTime ? icon + log.endTime: '' );
             responseBlock[11].innerHTML = (log.instructions ? icon + log.instructions: '' );
         }
     }
@@ -153,20 +153,6 @@ function ExamForm() {
                     <div className="response"></div>
                 </div>
             </div>
-            <input className='hidden' name="startTime" />
-            <input className='hidden' name="endTime" />
-            <div className="input-block">
-                <div className="input-custom">
-                    <input type="datetime-local" id="start-time" defaultChecked={true} />
-                    <label>Start Time</label>
-                    <div className="response"></div>
-                </div>
-                <div className="input-custom">
-                    <input type="datetime-local" id="end-time"  defaultChecked={true} />
-                    <label>End Time</label>
-                    <div className="response"></div>
-                </div>
-            </div>
             <div className="input-block">
                 <div className="input-custom">
                     <input type="number" name="windowTime" defaultChecked={true} onChange={convertTime} />
@@ -225,7 +211,6 @@ function ExamForm() {
                             <span>3 Hours</span>
                         </label>
                     </div>
-                    <div className="response"></div>
                 </div>
             </div>
             <div className="input-block" id='time-duration-input-block'>
@@ -249,6 +234,20 @@ function ExamForm() {
                             <span>Off</span>
                         </label>
                     </div>
+                    <div className="response"></div>
+                </div>
+            </div>
+            <input className='hidden' name="startTime" />
+            <input className='hidden' name="endTime" />
+            <div className="input-block">
+                <div className="input-custom">
+                    <input type="datetime-local" id="start-time" defaultChecked={true} />
+                    <label>Start Time</label>
+                    <div className="response"></div>
+                </div>
+                <div className="input-custom">
+                    <input type="datetime-local" id="end-time"  defaultChecked={true} />
+                    <label>End Time</label>
                     <div className="response"></div>
                 </div>
             </div>

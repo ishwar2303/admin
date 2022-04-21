@@ -24,6 +24,12 @@ function ExamTableRow(props) {
           <td className='text-left'>
             {props.startTime}
           </td>
+          <td className='text-left'>
+            {props.endTime}
+          </td>
+          <td className='text-left'>
+            {props.windowTime}
+          </td>
           <td className='text-center'>{props.sectionNavigation == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
           <td className='text-center'>{props.examTimer == '1' ? <span className='success'>On</span> : <span className='danger'>Off</span>}</td>
           <td>{props.timeDuration}</td>
