@@ -304,6 +304,21 @@ function ViewExams() {
         document.getElementById('create-exam-nav-link').click();
     }
 
+    const showStudentGroup = () => {
+        let obj = getSelectedExam();
+        if(obj) {
+            setExamTitle(obj.examTitle);
+            localStorage.setItem('ExamId', obj.examId);
+            localStorage.setItem('ExamTitle', obj.examTitle);
+            let a = document.createElement('a');
+            a.href = 'student-group';
+            a.click();
+        }
+        else {
+            Flash.message('Select an exam', 'bg-primary');
+        }
+    }
+
     useEffect(() => {
         document.getElementById('route-overlay').style.display = 'none';
         let height = document.getElementsByClassName('content-loaded')[0].offsetHeight;
@@ -322,6 +337,10 @@ function ViewExams() {
                     {
                         examDetails.length > 0 ? 
                         <>
+                            <button id='add-student-group-btn' className='btn btn-dark btn-small ml-10' onClick={showStudentGroup}>
+                                <i className='fas fa-box mr-5'></i>
+                                Student Group
+                            </button>
                             <button id='add-section-btn' className='btn btn-tertiary btn-small ml-10' onClick={addSection}>
                                 <i className='fas fa-plus mr-5'></i>
                                 Add Section

@@ -22,6 +22,7 @@ import ViewQuestion from './components/ViewQuestion';
 import ManagementUsers from './components/ManagementUsers';
 import ChangePasswordDialog from './components/includes/ChangePasswordDialog';
 import Profile from './components/Profile';
+import StudentGroup from './components/StudentGroup';
 
 function App() {
 
@@ -79,6 +80,7 @@ function App() {
                       <Route path='/timer' element={<WorkingOfTimer />} setLogin={setLogin}/>
                       <Route path='/management-users' element={<ManagementUsers />} setLogin={setLogin} />
                       <Route path='/profile' element={<Profile />} setLogin={setLogin} />
+                      <Route path='/student-group' element={<StudentGroup />} setLogin={setLogin} />
                     </Routes>
                     <div id='route-overlay'></div>
                     {
