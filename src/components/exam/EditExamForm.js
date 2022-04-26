@@ -138,13 +138,13 @@ class EditExamForm extends React.Component {
             responseBlock[1].innerHTML = (log.description ? icon + log.description : '');
             responseBlock[2].innerHTML = (log.difficultyLevel ? icon + log.difficultyLevel: '');
             responseBlock[3].innerHTML = (log.visibility ? icon + log.visibility: '');
-            responseBlock[4].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
-            responseBlock[5].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
-            responseBlock[6].innerHTML = (log.timerType ? icon + log.timerType: '' );
-            responseBlock[7].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
-            responseBlock[8].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
-            responseBlock[9].innerHTML = (log.startTime ? icon + log.startTime: '' );
-            responseBlock[10].innerHTML = (log.endTime ? icon + log.endTime: '' );
+            responseBlock[4].innerHTML = (log.timerType ? icon + log.timerType: '' );
+            responseBlock[5].innerHTML = (log.timerDuration ? icon + log.timerDuration: '' );
+            responseBlock[6].innerHTML = (log.sectionNavigation ? icon + log.sectionNavigation: '');
+            responseBlock[7].innerHTML = (log.startTime ? icon + log.startTime: '' );
+            responseBlock[8].innerHTML = (log.endTime ? icon + log.endTime: '' );
+            responseBlock[9].innerHTML = (log.windowTime ? icon + log.windowTime: '' );
+            responseBlock[10].innerHTML = (log.numberOfAttempts ? icon + log.numberOfAttempts: '' );
             responseBlock[11].innerHTML = (log.instructions ? icon + log.instructions: '' );
             
         }
@@ -231,19 +231,6 @@ class EditExamForm extends React.Component {
                 </div>
                 <input className='hidden' name="startTime" />
                 <input className='hidden' name="endTime" />
-                <div className="input-block">
-                    <div className="input-custom">
-                        <input type="number" name="windowTime" defaultValue={this.state.examDetails.windowTime} onChange={this.convertTime} />
-                        <div className='primary converted-time'>{(new TimeToString(this.state.examDetails.windowTime)).convert()}</div>
-                        <label>Window Time</label>
-                        <div className="response"></div>
-                    </div>
-                    <div className="input-custom">
-                        <input type="number" name="numberOfAttempts" defaultValue={this.state.examDetails.numberOfAttempts}/>
-                        <label>Number of Attempts</label>
-                        <div className="response"></div>
-                    </div>
-                </div>
                 <div className='input-block'>
                     <div className="customized-radio-sticky">
                         <label>Timer Type</label>
@@ -330,6 +317,19 @@ class EditExamForm extends React.Component {
                     <div className="input-custom">
                         <input type="datetime-local" id='end-time' defaultValue={this.state.examDetails.endTime} />
                         <label>End Time</label>
+                        <div className="response"></div>
+                    </div>
+                </div>
+                <div className="input-block">
+                    <div className="input-custom">
+                        <input type="number" name="windowTime" defaultValue={this.state.examDetails.windowTime} onChange={this.convertTime} />
+                        <div className='primary converted-time'>{(new TimeToString(this.state.examDetails.windowTime)).convert()}</div>
+                        <label>Window Time</label>
+                        <div className="response"></div>
+                    </div>
+                    <div className="input-custom">
+                        <input type="number" name="numberOfAttempts" defaultValue={this.state.examDetails.numberOfAttempts}/>
+                        <label>Number of Attempts</label>
                         <div className="response"></div>
                     </div>
                 </div>

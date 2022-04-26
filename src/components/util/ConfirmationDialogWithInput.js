@@ -24,7 +24,7 @@ function ConfirmationDialogWithInput(props) {
                         <p>Type "DELETE ME" in input box</p>
                         <input type="text" id="delete-me" />
                     </div>
-                    <p className='mb-10 danger'>All sections, questions and photos that the exam contains will be deleted.</p>
+                    <p className='mb-10 danger'>All sections, questions and student group that the exam contains will be deleted.</p>
                 </div>
                 <div className='flex-row jc-sb'>
                     <button className='btn btn-fade btn-small' onClick={hideDialog}>Cancel</button>
