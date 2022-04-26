@@ -65,7 +65,6 @@ function App() {
                 <Navbar />
                 <div className='main-wrapper'>
                   <div className='route-loader'>
-                    
                     <Routes>
                       <Route path='/' element={<Dashboard />} setLogin={setLogin}/>
                       <Route path='/create-exam' element={<CreateExam />} setLogin={setLogin}/>
@@ -80,7 +79,6 @@ function App() {
                       <Route path='/timer' element={<WorkingOfTimer />} setLogin={setLogin}/>
                       <Route path='/management-users' element={<ManagementUsers />} setLogin={setLogin} />
                       <Route path='/profile' element={<Profile />} setLogin={setLogin} />
-                      
                     </Routes>
                     <div id='route-overlay'></div>
                     {
