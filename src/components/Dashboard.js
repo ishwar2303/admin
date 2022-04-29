@@ -34,9 +34,9 @@ class Dashboard extends React.Component {
                         totalAttempts: res.totalAttempts,
                         scheduledExam: res.scheduledExam,
                         noOfActiveExams: res.noOfActiveExams,
-                        totalExam: res.totalExam,
-                        endedExam: res.endedExam,
-                        activeUsers: res.activeUsers,
+                        totalExams: res.totalExams,
+                        endedExam: res.endedExams,
+                        activeUsers: res.noOfActiveUsers,
                         
 
                     }
@@ -62,14 +62,14 @@ class Dashboard extends React.Component {
                 <div className='content-loaded'>
                     <div>
                         <div className='dashboard-card-container pt-10'>
-                            <DashboardCard title="Total Exams" value={this.state.data.totalExam} icon="fas fa-check" color="linear-gradient(45deg,rgb(91, 138, 170), rgb(63 155 218))" />
+                            <DashboardCard title="Total Exams" value={this.state.data.totalExams} icon="fas fa-check" color="linear-gradient(45deg,rgb(91, 138, 170), rgb(63 155 218))" />
                             <DashboardCard title="Active Exams" value={this.state.data.noOfActiveExams} icon="fas fa-check" color="linear-gradient(45deg, rgb(102, 144, 105), rgb(88 180 95))" />
                             <DashboardCard title="Scheduled Exams" value={this.state.data.scheduledExam} icon="fas fa-calendar" color="linear-gradient(45deg, rgb(195, 83, 126),rgb(226 54 120))"/>
                             <DashboardCard title="Ended Exams" value={this.state.data.endedExam} icon="fas fa-calendar" color="linear-gradient(45deg, rgb(184, 102, 102), rgb(230 76 76))"/>
                         </div>
                         <div className='dashboard-card-container pt-10'>
                             <DashboardCard title="Management Users" value={this.state.data.noOfUsers} icon="fas fa-users-cog" color="linear-gradient(45deg,rgb(91, 138, 170), rgb(63 155 218))" />
-                            <DashboardCard title="Active Users" value={this.state.data.noOfActiveExams} icon="fas fa-check" color="linear-gradient(45deg, rgb(102, 144, 105), rgb(88 180 95))" />
+                            <DashboardCard title="Active Users" value={this.state.data.activeUsers} icon="fas fa-check" color="linear-gradient(45deg, rgb(102, 144, 105), rgb(88 180 95))" />
                             <DashboardCard title="Attempts" value={this.state.data.totalAttempts} icon="fas fa-users" color="linear-gradient(45deg, rgb(195, 83, 126),rgb(226 54 120)" /> 
                         </div>
                     </div>
