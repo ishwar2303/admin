@@ -31,7 +31,7 @@ class ChooseQuestionTemplate extends React.Component {
                                         <p>True or False</p>
                                     </span>
                                 </label>
-                                <label>
+                                {/* <label>
                                     <input type="radio" name="questionTemplateType" value="DATABASE" />
                                     <span>
                                         <i className='fas fa-database'></i>
@@ -44,7 +44,7 @@ class ChooseQuestionTemplate extends React.Component {
                                         <i className='fas fa-code'></i>
                                         <p>Programming</p>
                                     </span>
-                                </label>
+                                </label> */}
                             </div>
                             <div>
                                 <label>

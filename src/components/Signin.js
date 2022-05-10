@@ -63,7 +63,7 @@ function Signin(props) {
                         Account owner that performs tasks requiring unrestricted access.
                         <br />
                         <br />
-                        <Link to='' className='cover-btn'>Learn more on assigning roles</Link>
+                        <a href='http://localhost:3000/management-user' className='cover-btn' target='_blank'>Learn more on assigning roles</a>
                     </p>
                     <br />
                     <br />
@@ -120,7 +120,7 @@ function Signin(props) {
                         <div className='response'></div>
                     </div>
                 </div>
-                <div className='input-block flex-row ai-e'>
+                <div className='input-block flex-row ai-e' style={{display: 'none'}}> 
                     <label className="custom-toggle-btn">
                         <input type="checkbox" id='remember-me' />
                         <span>

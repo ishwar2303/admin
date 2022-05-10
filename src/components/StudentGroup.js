@@ -212,7 +212,7 @@ class StudentGroup extends React.Component {
                         }
                         <ConfirmationDialog 
                             title='Are you sure?'
-                            message='Selected students will be permanently deleted.' 
+                            message='Selected students will be removed from group.' 
                             type='danger' 
                             operation={this.deleteStudents}
                             btn='Delete'
